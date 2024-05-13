@@ -7,6 +7,7 @@ import FormRow from "../../ui/FormRow";
 
 import { useCreateCliente } from "./useCreateClient";
 import { useEditCliente } from "./useEditClient";
+import CheckBoxTwo from "../../ui/CheckBoxTwo";
 
 function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
   const { isCreating, createCliente } = useCreateCliente();
@@ -89,7 +90,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
       >
         <Input
           type="number"
-          id="d_inscritos"
+          id="numero_diplomados"
           disabled={isWorking}
           {...register("d_inscritos", {
             required: "Este campo es requerido",
@@ -107,7 +108,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
       >
         <Input
           type="number"
-          id="d_terminados"
+          id="diplomados_terminados"
           disabled={isWorking}
           {...register("d_terminados", {
             required: "Este campo es requerido",
@@ -122,7 +123,9 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
       <FormRow
         label={"cursa actualmente"}
         error={errors?.cursa_actualmente?.message}
-      ></FormRow>
+      >
+        <CheckBoxTwo type="checkbox" id="cursa_actualmente" />
+      </FormRow>
 
       <FormRow>
         <Button
