@@ -43,7 +43,7 @@ function App() {
               <Route index element={<Navigate replace to="Homepage" />} />
               <Route path="users" element={<Users />} />
               <Route path="account" element={<Account />} />
-              <Route path="clientes" element={<Clientes />} />
+              <Route path="Cliente" element={<Clientes />} />
             </Route>
 
             <Route path="Homepage" element={<Homepage />} />

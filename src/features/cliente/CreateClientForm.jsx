@@ -5,15 +5,15 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 
-import { useCreateClient } from "./useCreateClient";
-import { useEditClient } from "./useEditClient";
+import { useCreateCliente } from "./useCreateClient";
+import { useEditCliente } from "./useEditClient";
 
-function CreateClientForm({ productoToEdit = {}, onCloseModal }) {
-  const { isCreating, createProducto } = useCreateClient();
-  const { isEditing, editProducto } = useEditClient();
+function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
+  const { isCreating, createCliente } = useCreateCliente();
+  const { isEditing, editCliente } = useEditCliente();
   const isWorking = isCreating || isEditing;
 
-  const { id: editId, ...editValues } = productoToEdit;
+  const { id: editId, ...editValues } = clienteToEdit;
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, reset, formState } = useForm({
@@ -23,8 +23,8 @@ function CreateClientForm({ productoToEdit = {}, onCloseModal }) {
 
   function onSubmit(data) {
     if (isEditSession)
-      editProducto(
-        { newProductoData: { ...data }, id: editId },
+      editCliente(
+        { newClienteData: { ...data }, id: editId },
         {
           onSuccess: (data) => {
             reset();
@@ -33,7 +33,7 @@ function CreateClientForm({ productoToEdit = {}, onCloseModal }) {
         }
       );
     else
-      createProducto(
+      createCliente(
         { ...data },
         {
           onSuccess: (data) => {

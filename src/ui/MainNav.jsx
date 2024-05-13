@@ -59,7 +59,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/Client">
+          <StyledNavLink to="/Cliente">
             <MdAddBox />
             <span>Agrega Cliente</span>
           </StyledNavLink>

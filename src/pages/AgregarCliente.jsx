@@ -1,16 +1,14 @@
-import AddClient from "../features/cliente/AddClient";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
-function Cliente() {
+function AgregarCliente() {
   return (
     <>
       <Row type="horizontal">
         <Heading as="h1">Agrega Cliente</Heading>
       </Row>
-      <AddClient />
     </>
   );
 }
 
-export default Cliente;
+export default AgregarCliente;

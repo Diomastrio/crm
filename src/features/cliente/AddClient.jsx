@@ -1,5 +1,5 @@
 import Button from "../../ui/Button";
-import CreateProductoForm from "./CreateProductoForm";
+import CreateClientForm from "./CreateClientForm";
 import Modal from "../../ui/Modal";
 
 function AddClient() {
@@ -10,7 +10,7 @@ function AddClient() {
           <Button>Agrega cliente </Button>
         </Modal.Open>
         <Modal.Window name="client-form">
-          <CreateProductoForm />
+          <CreateClientForm />
         </Modal.Window>
       </Modal>
     </div>

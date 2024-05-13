@@ -1,6 +1,6 @@
 import supabase from "./supabase";
 
-export async function createEditClient(newClient, id) {
+export async function createEditCliente(newClient, id) {
   try {
     const { data, error } = await supabase
       .from("cliente")
@@ -9,9 +9,9 @@ export async function createEditClient(newClient, id) {
           nombre: newClient.nombre,
           email: newClient.email,
           curp: newClient.curp,
-          num_diplomados: newClient.num_diplomados,
-          diplomados_ter: newClient.diplomados_ter,
-          status: newClient.status,
+          numero_diplomados: newClient.numero_diplomados,
+          diplomados_terminados: newClient.diplomados_terminados,
+          cursa_actualmente: newClient.cursa_actualmente,
         },
       ])
       .eq("id", id);
@@ -27,7 +27,7 @@ export async function createEditClient(newClient, id) {
   }
 }
 
-export async function getClients() {
+export async function getClientes() {
   try {
     const { data, error } = await supabase.from("cliente").select();
 
@@ -42,7 +42,7 @@ export async function getClients() {
   }
 }
 
-export async function deleteClient(id) {
+export async function deleteCliente(id) {
   try {
     const { data, error } = await supabase
       .from("cliente")
