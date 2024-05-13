@@ -85,7 +85,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
       </FormRow>
       <FormRow
         label="Diplomados inscritos"
-        error={errors?.d_inscritos?.message}
+        error={errors?.numero_diplomados?.message}
       >
         <Input
           type="number"
@@ -103,7 +103,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
 
       <FormRow
         label="Diplomados terminados"
-        error={errors?.d_terminados?.message}
+        error={errors?.diplomados_terminados?.message}
       >
         <Input
           type="number"
@@ -118,6 +118,11 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
           })}
         />
       </FormRow>
+
+      <FormRow
+        label={"cursa actualmente"}
+        error={errors?.cursa_actualmente?.message}
+      ></FormRow>
 
       <FormRow>
         <Button
