@@ -1,19 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { getUserRol } from "../services/apiAuth";
 import styled from "styled-components";
-import supabase from "../services/supabase";
 
-import {
-  HiChatBubbleLeftRight,
-  HiCurrencyDollar,
-  HiShoppingCart,
-  HiOutlineQueueList,
-  HiHeart,
-} from "react-icons/hi2";
-
-import { MdAdminPanelSettings } from "react-icons/md";
-
-import { MdAddComment } from "react-icons/md";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { MdAddBox } from "react-icons/md";
 
 const NavList = styled.ul`
   display: flex;
@@ -59,85 +48,22 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-async function getCurrentUser() {
-  const { data: session } = await supabase.auth.getSession();
-  if (!session.session) return null;
-
-  const { error } = await supabase.auth.getUser();
-
-  if (error) throw new Error(error.message);
-  const userRol = await getUserRol();
-
-  return userRol;
-}
-
-const now = await getCurrentUser();
-let adminshow;
-if (now === "admin") {
-  adminshow = (
-    <>
-      <li>
-        <StyledNavLink to="/Admin">
-          <MdAdminPanelSettings />
-          <span>Admin</span>
-        </StyledNavLink>
-      </li>
-      <li>
-        <StyledNavLink to="/sugerencias">
-          <MdAddComment />
-          <span>Sugerencias</span>
-        </StyledNavLink>
-      </li>
-    </>
-  );
-}
-
-let heading;
-
-if (now !== "admin") {
-  heading = (
-    <>
-      <li>
-        <StyledNavLink to="/Productos">
-          <HiOutlineQueueList />
-          <span>Agregar Articulos</span>
-        </StyledNavLink>
-      </li>
-
-      <li>
-        <StyledNavLink to="/Subscripcion">
-          <HiCurrencyDollar />
-          <span>Suscripción</span>
-        </StyledNavLink>
-      </li>
-      <li>
-        <StyledNavLink to="/Marcador">
-          <HiHeart />
-          <span>Guardado</span>
-        </StyledNavLink>
-      </li>
-    </>
-  );
-}
-
 function MainNav() {
   return (
     <nav>
       <NavList>
         <li>
           <StyledNavLink to="/Articulos">
-            <HiShoppingCart />
-            <span>Articulos</span>
+            <BsFillPersonLinesFill />
+            <span>Clientes</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/Mensajes">
-            <HiChatBubbleLeftRight />
-            <span>Mensajes</span>
+          <StyledNavLink to="/Client">
+            <MdAddBox />
+            <span>Agrega Cliente</span>
           </StyledNavLink>
         </li>
-        <>{heading}</>
-        <>{adminshow}</>
       </NavList>
     </nav>
   );

@@ -2,14 +2,14 @@ import Button from "../../ui/Button";
 import CreateProductoForm from "./CreateProductoForm";
 import Modal from "../../ui/Modal";
 
-function AddProducto() {
+function AddClient() {
   return (
     <div>
       <Modal>
-        <Modal.Open opens="producto-form">
-          <Button>Agrega un Producto </Button>
+        <Modal.Open opens="client-form">
+          <Button>Agrega cliente </Button>
         </Modal.Open>
-        <Modal.Window name="producto-form">
+        <Modal.Window name="client-form">
           <CreateProductoForm />
         </Modal.Window>
       </Modal>
@@ -17,4 +17,4 @@ function AddProducto() {
   );
 }
 
-export default AddProducto;
+export default AddClient;

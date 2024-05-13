@@ -3,16 +3,14 @@ import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import FileInput from "../../ui/FileInput";
-import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-import { useCreateProducto } from "./useCreateProducto";
-import { useEditProducto } from "./useEditProducto";
+import { useCreateClient } from "./useCreateClient";
+import { useEditClient } from "./useEditClient";
 
-function CreateProductoForm({ productoToEdit = {}, onCloseModal }) {
-  const { isCreating, createProducto } = useCreateProducto();
-  const { isEditing, editProducto } = useEditProducto();
+function CreateClientForm({ productoToEdit = {}, onCloseModal }) {
+  const { isCreating, createProducto } = useCreateClient();
+  const { isEditing, editProducto } = useEditClient();
   const isWorking = isCreating || isEditing;
 
   const { id: editId, ...editValues } = productoToEdit;
@@ -24,11 +22,9 @@ function CreateProductoForm({ productoToEdit = {}, onCloseModal }) {
   const { errors } = formState;
 
   function onSubmit(data) {
-    const image = typeof data.image === "string" ? data.image : data.image[0];
-
     if (isEditSession)
       editProducto(
-        { newProductoData: { ...data, image }, id: editId },
+        { newProductoData: { ...data }, id: editId },
         {
           onSuccess: (data) => {
             reset();
@@ -38,7 +34,7 @@ function CreateProductoForm({ productoToEdit = {}, onCloseModal }) {
       );
     else
       createProducto(
-        { ...data, image: image },
+        { ...data },
         {
           onSuccess: (data) => {
             reset();
@@ -57,71 +53,73 @@ function CreateProductoForm({ productoToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmit, onError)}
       type={onCloseModal ? "modal" : "regular"}
     >
-      <FormRow label="Nombre del producto" error={errors?.name?.message}>
+      <FormRow label="Nombre completo" error={errors?.nombre?.message}>
         <Input
           type="text"
-          id="name"
+          id="nombre"
           disabled={isWorking}
-          {...register("name", {
+          {...register("nombre", {
             required: "Este campo es requerido",
           })}
         />
       </FormRow>
-
-      <FormRow label="Precio" error={errors?.precio?.message}>
+      <FormRow label="Correo" error={errors?.email?.message}>
+        <Input
+          type="text"
+          id="email"
+          disabled={isWorking}
+          {...register("email", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Curp" error={errors?.curp?.message}>
+        <Input
+          type="text"
+          id="curp"
+          disabled={isWorking}
+          {...register("curp", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow
+        label="Diplomados inscritos"
+        error={errors?.d_inscritos?.message}
+      >
         <Input
           type="number"
-          id="precio"
+          id="d_inscritos"
           disabled={isWorking}
-          {...register("precio", {
+          {...register("d_inscritos", {
             required: "Este campo es requerido",
             min: {
               value: 1,
-              message: "El precio debe ser mínimo 1",
+              message: "Debe ser mínimo 1",
             },
           })}
         />
       </FormRow>
 
-      <FormRow label="Cantidad" error={errors?.cantidad?.message}>
+      <FormRow
+        label="Diplomados terminados"
+        error={errors?.d_terminados?.message}
+      >
         <Input
           type="number"
-          id="cantidad"
+          id="d_terminados"
           disabled={isWorking}
-          {...register("cantidad", {
+          {...register("d_terminados", {
             required: "Este campo es requerido",
             min: {
               value: 1,
-              message: "cantidad debería ser mínimo 1",
+              message: "debería ser mínimo 1",
             },
-          })}
-        />
-      </FormRow>
-
-      <FormRow label="Descripción" error={errors?.descripcion?.message}>
-        <Textarea
-          type="text"
-          id="descripcion"
-          defaultValue=""
-          disabled={isWorking}
-          {...register("descripcion", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
-
-      <FormRow label="Imagen del producto">
-        <FileInput
-          id="image"
-          accept="image/*"
-          {...register("image", {
-            required: isEditSession ? false : "Este campo es requerido",
           })}
         />
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button
           variation="secondary"
           type="reset"
@@ -130,11 +128,11 @@ function CreateProductoForm({ productoToEdit = {}, onCloseModal }) {
           Cancelar
         </Button>
         <Button disabled={isWorking}>
-          {isEditSession ? "Editar producto" : "Crear un producto"}
+          {isEditSession ? "Editar cliente" : "Crear cliente"}
         </Button>
       </FormRow>
     </Form>
   );
 }
 
-export default CreateProductoForm;
+export default CreateClientForm;

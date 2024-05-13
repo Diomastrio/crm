@@ -8,19 +8,13 @@ import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 
-import Productos from "./pages/Productos";
 import Users from "./pages/Users";
 import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Entrar from "./pages/Entrar";
-import Articulos from "./pages/Articulos";
-import Admin from "./pages/Admin";
 import Homepage from "./pages/Homepage";
-import Sugerencias from "./features/sugerencias/Sugerencias";
-import Mensajes from "./mensajes/Mensa";
-import Marcador from "./pages/Marcador";
-import Suscripcion from "./pages/Suscripcion";
+import Clientes from "./pages/Clientes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,23 +41,9 @@ function App() {
               }
             >
               <Route index element={<Navigate replace to="Homepage" />} />
-              <Route path="productos" element={<Productos />} />
-              <Route path="articulos" element={<Articulos />} />
               <Route path="users" element={<Users />} />
               <Route path="account" element={<Account />} />
-              <Route path="suscripcion" element={<Suscripcion />} />
-              <Route path="sugerencias" element={<Sugerencias />} />
-              <Route path="mensajes" element={<Mensajes />} />
-              <Route path="Marcador" element={<Marcador />} />
-
-              <Route
-                path="admin"
-                element={
-                  <ProtectedRoute UserType="admin">
-                    <Admin />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="clientes" element={<Clientes />} />
             </Route>
 
             <Route path="Homepage" element={<Homepage />} />

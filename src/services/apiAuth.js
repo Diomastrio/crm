@@ -1,7 +1,6 @@
 import supabase, { supabaseUrl } from "./supabase";
 
-
-export async function signup({ fullName, email, password, phone, rol }) {
+export async function signup({ fullName, email, password }) {
   // Check if user already exists
   const { data: users, error: fetchError } = await supabase
     .from("usuario")
@@ -24,8 +23,6 @@ export async function signup({ fullName, email, password, phone, rol }) {
       data: {
         fullName,
         avatar: "",
-        phone,
-        rol,
       },
     },
   });
@@ -54,7 +51,7 @@ export async function getCurrentUser() {
 
   const { data, error } = await supabase.auth.getUser();
 
-  if (error) throw new Error(error.message); 
+  if (error) throw new Error(error.message);
   return data?.user;
 }
 
@@ -64,31 +61,42 @@ export async function logout() {
 }
 
 export async function getUserRol() {
-  const { data: { user },} = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   return user.user_metadata.rol;
-}  
+}
 
 export async function updateCurrentUser({ password, fullName, avatar }) {
   // A1. Get old name
   async function GetOldName() {
-    const { data: { user },} = await supabase.auth.getUser();
-    return user.user_metadata.fullName; }
-    const OldUserName = await GetOldName();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return user.user_metadata.fullName;
+  }
+  const OldUserName = await GetOldName();
 
   // 1. Update password OR fullName
   let updateData;
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
-  
+
   const { data, error } = await supabase.auth.updateUser(updateData);
-  
-//A2. Update all tables with their now user
+
+  //A2. Update all tables with their now user
   async function GetNewName() {
-    const { data: { user },} = await supabase.auth.getUser();
-    return user.user_metadata.fullName; }
-    const NewUserName = await GetNewName();     
-   //update ^^^^
-   await supabase.from('productos').update({ nombre: NewUserName }).eq('nombre', OldUserName);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return user.user_metadata.fullName;
+  }
+  const NewUserName = await GetNewName();
+  //update ^^^^
+  await supabase
+    .from("productos")
+    .update({ nombre: NewUserName })
+    .eq("nombre", OldUserName);
 
   if (error) throw new Error(error.message);
   if (!avatar) return data;
