@@ -2,7 +2,7 @@ import AddClient from "../features/cliente/AddClient";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
-function Cliente() {
+function AgregarCliente() {
   return (
     <>
       <Row type="horizontal">
@@ -13,4 +13,4 @@ function Cliente() {
   );
 }
 
-export default Cliente;
+export default AgregarCliente;

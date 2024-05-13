@@ -14,7 +14,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Entrar from "./pages/Entrar";
 import Homepage from "./pages/Homepage";
-import Clientes from "./pages/Clientes";
+import AgregarClientes from "./pages/AgregarClientes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +43,7 @@ function App() {
               <Route index element={<Navigate replace to="Homepage" />} />
               <Route path="users" element={<Users />} />
               <Route path="account" element={<Account />} />
-              <Route path="Cliente" element={<Clientes />} />
+              <Route path="Cliente" element={<AgregarClientes />} />
             </Route>
 
             <Route path="Homepage" element={<Homepage />} />
