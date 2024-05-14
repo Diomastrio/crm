@@ -1,5 +1,11 @@
 import supabase from "./supabase";
 
+// export async function insertCurrent(){
+//   const {
+
+//   }
+// }
+
 export async function createEditCliente(newClient, id) {
   try {
     const { data, error } = await supabase
