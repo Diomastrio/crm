@@ -4,6 +4,7 @@ import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
+import StyledSelect from "../../ui/SelectTwo";
 
 import { useCreateCliente } from "./useCreateClient";
 import { useEditCliente } from "./useEditClient";
@@ -119,7 +120,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow
+      {/* <FormRow
         label={"cursa actualmente"}
         error={errors?.cursa_actualmente?.message}
       >
@@ -136,6 +137,21 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
               'El valor debe ser "Si" o "No"',
           })}
         />
+      </FormRow> */}
+      <FormRow
+        label={"cursa actualmente"}
+        error={errors?.cursa_actualmente?.message}
+      >
+        <StyledSelect
+          id="cursa_actualmente"
+          isDisabled={isWorking}
+          {...register("cursa_actualmente", {
+            required: "Este campo es requerido",
+          })}
+        >
+          <option value="true">Si</option>
+          <option value="false">No</option>
+        </StyledSelect>
       </FormRow>
 
       <FormRow>
