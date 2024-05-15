@@ -139,7 +139,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
         />
       </FormRow> */}
       <FormRow
-        label={"cursa actualmente"}
+        label={"Cursa actualmente"}
         error={errors?.cursa_actualmente?.message}
       >
         <StyledSelect

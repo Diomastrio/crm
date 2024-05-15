@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import home from "../../img/home.jpg";
-import Button from "../../ui/Button";
 
 const HomeSection = styled.section`
 position: relative;
@@ -27,19 +26,10 @@ z-index: 1; /* add z-index to parent */
   
 `;
 
-const HomeHeader = styled.h1`
-  font-size: 4rem;
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-
-
 function Home() {
   return (
     <HomeSection>
       <div>
-        <HomeHeader>Bienvenidos a Swapii</HomeHeader>
-        <Button variation="swapii">Aprende mas</Button>
       </div>
     </HomeSection>
   );

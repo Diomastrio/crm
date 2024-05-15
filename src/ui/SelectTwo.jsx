@@ -6,9 +6,9 @@ const StyledSelect = styled.select`
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 1rem;
-  background-color: #fff;
-  color: #333;
+  font-size: 2rem;
+  background-color: var(--color-grey-0);
+  color: var(--color-grey-700);
   outline: none;
 
   /* Focus styles */

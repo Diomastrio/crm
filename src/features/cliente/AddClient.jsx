@@ -7,7 +7,7 @@ function AddClient() {
     <div>
       <Modal>
         <Modal.Open opens="client-form">
-          <Button>Agrega cliente </Button>
+          <Button>Agregar cliente </Button>
         </Modal.Open>
         <Modal.Window name="client-form">
           <CreateClientForm />

@@ -6,9 +6,11 @@ const StyledFilter = styled.div `
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
-  padding: 0.4rem;
+  padding: 0.8rem;
   display: flex;
   gap: 0.4rem;
+
+  flex-wrap: wrap; /* Allow the buttons to wrap to the next row */
 `;
 
 const FilterButton = styled.button`

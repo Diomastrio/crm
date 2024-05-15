@@ -42,7 +42,7 @@ const StyledBody = styled.section `
 `;
 
 const StyledBodyi = styled.section `
-  margin: 0.4rem 0;
+  margin: 0.4 rem 0;
 
   display: flex;
   flex-wrap:wrap;
@@ -113,7 +113,7 @@ function Bodyi({ data, render }) {
   if (!data.length)
     return (
       <Empty>
-        No se encuentran articulos con las caracteristicas solicitadas
+        No se encuentran clientes con las caracteristicas solicitadas
       </Empty>
     );
 

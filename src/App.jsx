@@ -10,11 +10,12 @@ import { DarkModeProvider } from "./context/DarkModeContext";
 
 import Users from "./pages/Users";
 import Account from "./pages/Account";
-import Login from "./pages/Login";
+import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
 import Entrar from "./pages/Entrar";
-import Homepage from "./pages/Homepage";
-import AgregarClientes from "./pages/AgregarClientes";
+import Login from "./pages/Login";
+import Cliente from "./pages/Articulos";
+import AgregarCliente from "./pages/Clientes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,14 +41,15 @@ function App() {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Navigate replace to="Homepage" />} />
+              <Route index element={<Navigate replace to="Home" />} />
               <Route path="users" element={<Users />} />
               <Route path="account" element={<Account />} />
-              <Route path="Cliente" element={<AgregarClientes />} />
+              <Route path="Cliente" element={<Cliente />} />
+              <Route path="AgregarCliente" element={<AgregarCliente />} />
             </Route>
 
-            <Route path="Homepage" element={<Homepage />} />
             <Route path="Login" element={<Login />} />
+            <Route path="Home" element={<Home />} />
             <Route path="entrar" element={<Entrar />} />
             <Route path="*" element={<PageNotFound />} />
             {/* <Route path="*" element={<Home/>} /> */}

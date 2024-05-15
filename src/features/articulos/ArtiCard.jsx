@@ -1,16 +1,7 @@
 import styled from "styled-components";
-import { formatCurrency } from "../../utils/helpers";
-import Modal from "../../ui/Modal";
-import Menus from "../../ui/Menus";
-import { HiHeart } from "react-icons/hi2";
-import { useCreateMarcador } from "../cabins/useCreateMarcador";
-
-import { useState } from "react";
-import Mensa from "../../mensajes/Mensa";
-import Button from "../../ui/Button";
 
 const Card = styled.div`
-  width: 270px;
+  width: 240px;
   height: 100%;
   border: 0px solid #ccc;
   border-radius: 10px;
@@ -19,18 +10,6 @@ const Card = styled.div`
   margin-left: 35px;
   margin-top: 30px;
   background: rgba(127, 127, 127, 0.1);
-`;
-
-// Define a styled component for the image
-const Image = styled.img`
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  overflow: hidden;
-  transition: scale 400ms;
-  &:hover {
-    scale: 140%;
-  }
 `;
 
 // Define a styled component for the card content
@@ -51,143 +30,53 @@ const Title = styled.h3`
   text-transform: uppercase;
 `;
 
-// Define a styled component for the card description
-const Descripcion = styled.p`
-  margin: 10px 0;
-  font-size: 16px;
-  font-family: "Sono";
-  font-weight: 500;
-  color: var(--color-green-700);
-  &::first-letter {
-    text-transform: uppercase;
-  }
+const Label = styled.span`
+  color:#008080;
+  text=transform: "uppercase"
 `;
 
-const Precio = styled.div`
-  font-family: "Sono";
-  font-weight: 800;
-  font-size: 20px;
-  color: white;
-  margin-bottom: 10px;
-  margin-left: -1px;
-  padding: 8px;
-  display: inline-block;
-  border-radius: 10px;
-  background-color: #14dbc1;
-`;
-
-function ArtiCard({ producto }) {
-  const { createMarcador } = useCreateMarcador();
+function ArtiCard({ clientes,index }) {
 
   const {
-    id: productoId,
-    name,
-    precio,
-    cantidad,
-    descripcion,
-    image,
     nombre,
-  } = producto;
+    email, 
+    curp, 
+    numero_diplomados,
+    diplomados_terminados,
+    cursa_actualmente
+  } = clientes;
 
-  // const handleClick = (id) => {
-  //   console.log(id);
-  //   // console.log(name);
-  //   // console.log(precio);
-  //   // console.log(cantidad);
-  //   // console.log(email);
-  //   // console.log(descripcion);
-  // };
-
-  const handleMarcador = (id) => {
-    createMarcador({
-      id_productos: id,
-    });
-  };
-
-  const [showModal, setShowModal] = useState(false);
-
-  const handleOpenModal = (e) => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  const cursaStatus = cursa_actualmente ? "SI cursa" : "NO";
   return (
     <Card>
       <Content>
         <div style={{ overflow: "hidden" }}>
-          <Image src={image} />
         </div>
-        <Title>{name}</Title>
+         <Title>{index}</Title>
+        
         <div>
-          Vendedor:{" "}
-          <span style={{ color: "#008080", textTransform: "uppercase" }}>
-            {nombre}{" "}
-          </span>
+          Cliente:{" "}<Label>{nombre}</Label>
         </div>
-        <Descripcion>{descripcion}</Descripcion>
-        <Precio>{formatCurrency(precio)}</Precio>
-        <div style={{ color: "#77C66E" }}>Numero de artículos: {cantidad} </div>
 
-        {/* los tres puntitos=modal */}
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={productoId} />
+        <div>
+        Email:{" "}<Label>{email}</Label>
+        </div>
 
-            <Menus.List id={productoId}>
-              {/* <Menus.Button onClick={() => handleClick(productoId)}> Mensaje </Menus.Button> */}
+        <div>
+        Numero diplomados:{" "}<Label>{numero_diplomados}</Label>
+        </div>
 
-              {/* Mensaje */}
-              <Button
-                onClick={handleOpenModal}
-                style={{ width: "100%", backgroundColor: "#000" }}
-              >
-                Mensajes
-              </Button>
-              {showModal && (
-                <div
-                  style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    zIndex: 999,
-                  }}
-                  onClick={handleCloseModal}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      backgroundColor: "var(--color-grey-100)",
-                      padding: "20px",
-                      borderRadius: "5px",
-                      width: "90%",
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Mensa />
-                  </div>
-                </div>
-              )}
-              {/*Mensaje */}
-              <Menus.Button
-                icon={
-                  <HiHeart
-                    style={{ width: "30px", height: "30px", color: "#cc0c39" }}
-                  />
-                }
-                onClick={() => handleMarcador(productoId)}
-              >
-                Guardar
-              </Menus.Button>
-            </Menus.List>
-          </Menus.Menu>
-        </Modal>
+        <div>
+        Diplomados terminados:{" "}<Label>{diplomados_terminados}</Label>
+        </div>
+
+        <div>
+        Cursando actualmente:{" "}<Label>{cursaStatus}</Label>
+        </div>
+
+        <div>
+        Curp:{" "}<Label>{curp}</Label>
+        </div>
       </Content>
     </Card>
   );

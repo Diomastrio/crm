@@ -104,23 +104,30 @@ export async function getProductos() {
   return data;
 }
 
-//mostrar solo a 
+//mostrar solo a
 export async function getProductosTable() {
-    // Get the user rol just admin
-    const userRol= await getUserRol(); 
-  if(userRol==='admin'){ const { data, error } = await supabase.from("productos").select("*");
-  if (error) {
-    console.error(error);
-    throw new Error("Productos no pudieron ser cargados");
-  }return data;
-   }else{//everyone else
+  // Get the user rol just admin
+  const userRol = await getUserRol();
+  if (userRol === "admin") {
+    const { data, error } = await supabase.from("productos").select("*");
+    if (error) {
+      console.error(error);
+      throw new Error("Productos no pudieron ser cargados");
+    }
+    return data;
+  } else {
+    //everyone else
     const userId = await insertUserId();
-  const { data, error } = await supabase.from("productos").select("*").eq("id_usuarios", userId);
-  if (error) {
-    console.error(error);
-    throw new Error("Productos no pudieron ser cargados");
+    const { data, error } = await supabase
+      .from("productos")
+      .select("*")
+      .eq("id_usuarios", userId);
+    if (error) {
+      console.error(error);
+      throw new Error("Productos no pudieron ser cargados");
+    }
+    return data;
   }
-  return data;}
 }
 
 export async function deleteProducto(id) {

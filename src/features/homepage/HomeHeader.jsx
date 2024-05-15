@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Button from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "../../ui/DarkModeToggle";
@@ -8,17 +8,32 @@ const StyledLogo = styled.div`
   text-align: center;
 `;
 
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const Img = styled.img`
   height: 6rem;
   width: auto;
   position: absolute;
   left: 2rem;
+
+  animation: ${spin} infinite 2s linear; /* Animation properties */
+  animation-play-state: paused; /* Initially paused */
+  &:hover {
+    animation-play-state: running; /* Start animation on hover */
+  }
 `;
 
 function Logo() {
   const { isDarkMode } = useDarkMode();
 
-  const src = isDarkMode ? "/dark_swapii.png" : "/light_swapii.png";
+  const src = isDarkMode ? "/bluelogo.png" : "/tealogo.png";
 
   return (
     <StyledLogo>

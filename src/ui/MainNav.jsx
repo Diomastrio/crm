@@ -53,13 +53,13 @@ function MainNav() {
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to="/Articulos">
+          <StyledNavLink to="/Cliente">
             <BsFillPersonLinesFill />
             <span>Clientes</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/Cliente">
+          <StyledNavLink to="/AgregarCliente">
             <MdAddBox />
             <span>Agrega Cliente</span>
           </StyledNavLink>

@@ -7,7 +7,7 @@ export function useCreateCliente() {
   const { mutate: createCliente, isLoading: isCreating } = useMutation({
     mutationFn: createEditCliente,
     onSuccess: () => {
-      toast.success("Nuevo cliente exitosamente agregado");
+      toast.success("Nuevo producto exitosamente creado");
 
       queryClient.invalidateQueries({ queryKey: ["cliente"] });
     },

@@ -6,10 +6,10 @@ import Row from "../ui/Row";
 function Account() {
   return (
     <>
-      <Heading as="h1">Actualiza tu cuenta</Heading>
+      <Heading as="h1">Actualizar cuenta</Heading>
 
       <Row>
-        <Heading as="h3">Actualiza tu información</Heading>
+        <Heading as="h3">Actualizar información</Heading>
         <UpdateUserDataForm />
       </Row>
 

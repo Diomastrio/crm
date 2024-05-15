@@ -10,7 +10,7 @@ export function useSignup() {
     mutationFn: signupApi,
     onSuccess: (user) => {
       // Show success message
-      toast.success("¡Cuenta creada con éxito!");
+      toast.success("¡ Confirma tu correo para acceder !");
     },
     onError: (error) => {
       // Show error message
