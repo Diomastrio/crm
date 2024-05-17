@@ -74,12 +74,99 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
           })}
         />
       </FormRow>
+      <FormRow label="telefono" error={errors?.telefono?.message}>
+        <Input
+          type="text"
+          id="telefono"
+          disabled={isWorking}
+          {...register("telefono", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
       <FormRow label="Curp" error={errors?.curp?.message}>
         <Input
           type="text"
           id="curp"
           disabled={isWorking}
           {...register("curp", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="RFC" error={errors?.rfc?.message}>
+        <Input
+          type="text"
+          id="rfc"
+          disabled={isWorking}
+          {...register("rfc", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Ocupacion" error={errors?.ocupacion?.message}>
+        <Input
+          type="text"
+          id="ocupacion"
+          disabled={isWorking}
+          {...register("ocupacion", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Fecha de inicio" error={errors?.fecha_inicio?.message}>
+        <Input
+          type="date"
+          id="fecha_inicio"
+          disabled={isWorking}
+          {...register("fecha_inicio", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Fecha de fin" error={errors?.fecha_fin?.message}>
+        <Input
+          type="date"
+          id="fecha_fin"
+          disabled={isWorking}
+          {...register("fecha_fin", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Fecha limite" error={errors?.fecha_limite?.message}>
+        <Input
+          type="date"
+          id="fecha_limite"
+          disabled={isWorking}
+          {...register("fecha_limite", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Edad" error={errors?.edad?.message}>
+        <Input
+          type="number"
+          id="edad"
+          disabled={isWorking}
+          {...register("edad", {
+            required: "Este campo es requerido",
+            min: {
+              value: 1,
+              message: "Debe ser mínimo 1",
+            },
+          })}
+        />
+      </FormRow>
+      <FormRow
+        label="Lugar de residencia"
+        error={errors?.lugar_residencia?.message}
+      >
+        <Input
+          type="text"
+          id="lugar_residencia"
+          disabled={isWorking}
+          {...register("lugar_residencia", {
             required: "Este campo es requerido",
           })}
         />
@@ -120,24 +207,6 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      {/* <FormRow
-        label={"cursa actualmente"}
-        error={errors?.cursa_actualmente?.message}
-      >
-        <Input
-          type="text"
-          id="cursa_actualmente"
-          placeholder="Si/No"
-          disabled={isWorking}
-          {...register("cursa_actualmente", {
-            required: "Este campo es requerido",
-            validate: (value) =>
-              value === "Si" ||
-              value === "No" ||
-              'El valor debe ser "Si" o "No"',
-          })}
-        />
-      </FormRow> */}
       <FormRow
         label={"Cursa actualmente"}
         error={errors?.cursa_actualmente?.message}

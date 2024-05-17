@@ -1,6 +1,12 @@
 import { useArticulos } from "../../useArticulo";
 import ArtiCard from "./ArtiCard";
-// import { Table } from "flowbite-react";
+import {
+  StyledTable,
+  StyledTableHead,
+  StyledTableRow,
+  StyledTableHeadCell,
+  StyledTableBody,
+} from "../../../../ui/ClientTableUi";
 import Spinner from "../../../../ui/Spinner";
 import Table from "../../../../ui/Table";
 import Menus from "../../../../ui/Menus";
@@ -102,8 +108,8 @@ function ArticuloTable() {
 
   return (
     <Menus>
-      <Table hoverable>
-        <Table>
+      <StyledTable>
+        <StyledTableHead>
           <span style={{ margin: "0 10px 0 10px" }}>Busqueda</span>
           <input
             type="text"
@@ -122,10 +128,21 @@ function ArticuloTable() {
           <span>
             <FaSearch style={{ margin: "2px 0 0 10px", fontSize: "20px" }} />
           </span>
-        </Table>
+          <StyledTableRow>
+            <StyledTableHeadCell>Cliente</StyledTableHeadCell>
+            <StyledTableHeadCell>Email</StyledTableHeadCell>
+            <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
+            <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
+            <StyledTableHeadCell>CURP</StyledTableHeadCell>
+            <StyledTableHeadCell>
+              <span>Editar/Eliminar</span>
+            </StyledTableHeadCell>
+          </StyledTableRow>
+        </StyledTableHead>
 
         {searchResults2 > 0 ? (
-          <Table.Body
+          <StyledTableBody
             data={sortedProductos}
             render={(clientes, index) => (
               <ArtiCard clientes={clientes} index={index} key={clientes.id} />
@@ -136,7 +153,7 @@ function ArticuloTable() {
             <CenteredText>No se encontraron clientes</CenteredText>
           </div>
         )}
-      </Table>
+      </StyledTable>
     </Menus>
   );
 }

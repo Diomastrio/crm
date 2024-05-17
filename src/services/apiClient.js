@@ -15,9 +15,17 @@ export async function createEditCliente(newClient, id) {
           nombre: newClient.nombre,
           email: newClient.email,
           curp: newClient.curp,
+          ocupacion: newClient.ocupacion,
           numero_diplomados: newClient.numero_diplomados,
           diplomados_terminados: newClient.diplomados_terminados,
           cursa_actualmente: newClient.cursa_actualmente,
+          rfc: newClient.rfc,
+          fecha_inicio: newClient.fecha_inicio,
+          fecha_fin: newClient.fecha_fin,
+          fecha_limite: newClient.fecha_limite,
+          edad: newClient.edad,
+          lugar_residencia: newClient.lugar_residencia,
+          telefono: newClient.telefono,
         },
       ])
       .eq("id", id);
