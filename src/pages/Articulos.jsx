@@ -1,6 +1,6 @@
 import ArticuloTableFilter from "../features/cliente/ArticuloTableFilter";
 import { useArticulos } from "../features/cliente/useArticulo";
-import ArticuloTable from "../features/articulos/ArticuloTable";
+import ArticuloTable from "../features/cliente/components/client_table/ArticuloTable";
 
 import Heading from "../ui/Heading";
 import Spinner from "../ui/Spinner";

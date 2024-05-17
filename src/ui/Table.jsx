@@ -1,17 +1,17 @@
 import { createContext, useContext } from "react";
 import styled from "styled-components";
 
-const StyledTable = styled.div `
+const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
-width:100%;
-height:100%;
+  width: 100%;
+  height: 100%;
 `;
 
-const CommonRow = styled.div `
+const CommonRow = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
   column-gap: 0rem;
@@ -19,7 +19,7 @@ const CommonRow = styled.div `
   transition: none;
 `;
 
-const StyledHeader = styled(CommonRow) `
+const StyledHeader = styled(CommonRow)`
   padding: 1.6rem 2rem;
   background-color: var(--color-grey-50);
   border-bottom: 1px solid var(--color-grey-100);
@@ -29,7 +29,7 @@ const StyledHeader = styled(CommonRow) `
   color: var(--color-grey-600);
 `;
 
-const StyledRow = styled(CommonRow) `
+const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
 
   &:not(:last-child) {
@@ -37,20 +37,11 @@ const StyledRow = styled(CommonRow) `
   }
 `;
 
-const StyledBody = styled.section `
+const StyledBody = styled.section`
   margin: 0.4rem 0;
 `;
 
-const StyledBodyi = styled.section `
-  margin: 0.4 rem 0;
-
-  display: flex;
-  flex-wrap:wrap;
-  height:100%;
-  margin-bottom:20px;
-`;
-
-const Footer = styled.footer `
+const Footer = styled.footer`
   background-color: var(--color-grey-50);
   display: flex;
   justify-content: center;
@@ -64,7 +55,7 @@ const Footer = styled.footer `
   }
 `;
 
-const Empty = styled.p `
+const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
@@ -99,30 +90,13 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  if (!data.length)
-    return (
-      <Empty>
-        No se encuentran articulos
-      </Empty>
-    );
+  if (!data.length) return <Empty>No se encuentran clientes aun</Empty>;
 
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
-function Bodyi({ data, render }) {
-  if (!data.length)
-    return (
-      <Empty>
-        No se encuentran clientes con las caracteristicas solicitadas
-      </Empty>
-    );
-
-  return <StyledBodyi>{data.map(render)}</StyledBodyi>;
-}
-
 Table.Header = Header;
 Table.Body = Body;
-Table.Bodyi = Bodyi;
 
 Table.Row = Row;
 Table.Footer = Footer;

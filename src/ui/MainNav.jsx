@@ -64,6 +64,12 @@ function MainNav() {
             <span>Agrega Cliente</span>
           </StyledNavLink>
         </li>
+        <li>
+          <StyledNavLink to="/users">
+            <MdAddBox />
+            <span>Table test</span>
+          </StyledNavLink>
+        </li>
       </NavList>
     </nav>
   );

@@ -1,15 +1,15 @@
-import { useArticulos } from "../cliente/useArticulo";
+import { useArticulos } from "../../useArticulo";
 import ArtiCard from "./ArtiCard";
-
-import Spinner from "../../ui/Spinner";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
-import Empty from "../../ui/Empty";
+// import { Table } from "flowbite-react";
+import Spinner from "../../../../ui/Spinner";
+import Table from "../../../../ui/Table";
+import Menus from "../../../../ui/Menus";
+import Empty from "../../../../ui/Empty";
 import { FaSearch } from "react-icons/fa";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import supabase from "../../services/supabase";
+import supabase from "../../../../services/supabase";
 
 import styled from "styled-components";
 
@@ -102,8 +102,8 @@ function ArticuloTable() {
 
   return (
     <Menus>
-      <Table columns="0.6fr 1.8fr 2fr 1fr 2fr 2fr">
-        <Table.Header>
+      <Table hoverable>
+        <Table>
           <span style={{ margin: "0 10px 0 10px" }}>Busqueda</span>
           <input
             type="text"
@@ -122,10 +122,10 @@ function ArticuloTable() {
           <span>
             <FaSearch style={{ margin: "2px 0 0 10px", fontSize: "20px" }} />
           </span>
-        </Table.Header>
+        </Table>
 
         {searchResults2 > 0 ? (
-          <Table.Bodyi
+          <Table.Body
             data={sortedProductos}
             render={(clientes, index) => (
               <ArtiCard clientes={clientes} index={index} key={clientes.id} />
