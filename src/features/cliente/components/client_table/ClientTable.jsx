@@ -71,6 +71,24 @@ export default function ClientTable() {
     fetchClients();
   }, [user.isAuthenticated, page]);
 
+  const handleDelete = async (id) => {
+    if (!id) {
+      console.error("Error: Client ID is undefined");
+      return;
+    }
+
+    try {
+      const { data } = await supabase.from("cliente").delete().eq("id", id);
+
+      if (data) {
+        console.log("Client deleted:", data);
+      }
+      setClients(clients.filter((client) => client.id !== id)); // changed from clientIdToDelete to id
+    } catch (error) {
+      console.error("Error deleting client:", error);
+    }
+  };
+
   return (
     <Container>
       {clients.length > 0 ? (
@@ -122,7 +140,7 @@ export default function ClientTable() {
                     <span
                       onClick={() => {
                         setShowModal(true);
-                        setClientIdToDelete(client._id);
+                        setClientIdToDelete(client.id);
                       }}
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
@@ -142,6 +160,9 @@ export default function ClientTable() {
           <div className="modal-content">
             {/* Modal content */}
             <p>Are you sure you want to delete this client?</p>
+            <button onClick={() => handleDelete(clientIdToDelete)}>
+              Delete
+            </button>
             <button onClick={() => setShowModal(false)}>Close</button>
           </div>
         </StyledModal>
@@ -149,16 +170,3 @@ export default function ClientTable() {
     </Container>
   );
 }
-
-// const handleDelete = async (id) => {
-//   try {
-//     const { data } = await supabase.from("cliente").delete().eq("id", id);
-
-//     if (data) {
-//       console.log("Client deleted:", data);
-//     }
-//     setClients(clients.filter((client) => client.id !== clientIdToDelete));
-//   } catch (error) {
-//     console.error("Error deleting client:", error);
-//   }
-// };
