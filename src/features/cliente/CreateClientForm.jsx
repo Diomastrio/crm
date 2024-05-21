@@ -25,7 +25,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
   function onSubmit(data) {
     if (isEditSession)
       editCliente(
-        { newClienteData: { ...data }, id: editId },
+        { newClientData: { ...data }, id: editId },
         {
           onSuccess: (data) => {
             reset();

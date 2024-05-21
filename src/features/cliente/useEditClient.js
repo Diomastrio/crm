@@ -6,8 +6,7 @@ export function useEditCliente() {
   const queryClient = useQueryClient();
 
   const { mutate: editCliente, isLoading: isEditing } = useMutation({
-    mutationFn: ({ newProductoData, id }) =>
-      createEditCliente(newProductoData, id),
+    mutationFn: ({ newClientData, id }) => createEditCliente(newClientData, id),
     onSuccess: () => {
       toast.success("Cliente exitosamente editado");
       queryClient.invalidateQueries({ queryKey: ["cliente"] });
