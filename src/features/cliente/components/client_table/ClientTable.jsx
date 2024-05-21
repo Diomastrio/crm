@@ -22,7 +22,6 @@ import { HiPencil, HiTrash } from "react-icons/hi";
 import CreateClientForm from "../../CreateClientForm";
 
 export default function ClientTable() {
-  const { isDeleting, deleteClient } = useDeleteClient();
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [clients, setClients] = useState([""]);
@@ -48,7 +47,6 @@ export default function ClientTable() {
       if (error) {
         throw new Error(error.message);
       }
-      // setClients((prevClients) => [...prevClients, ...data]);
       setClients((prevClients) => {
         const newClients = data.filter(
           (d) => !prevClients.some((p) => p.id === d.id)
@@ -200,37 +198,4 @@ export default function ClientTable() {
       )}
     </Container>
   );
-}
-// eslint-disable-next-line no-lone-blocks
-{
-  /* <StyledTableCell>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={client.id} />
-
-            <Menus.List id={client.id}>
-
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>Editar</Menus.Button>
-              </Modal.Open>
-
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Eliminar</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
-
-            <Modal.Window name="edit">
-              <CreateClientForm clienteToEdit={client} />
-            </Modal.Window>
-
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="clientes"
-                disabled={isDeleting}
-                onConfirm={() => handleDelete(clientIdToDelete)}
-              />
-            </Modal.Window>
-          </Menus.Menu>
-        </Modal>
-      </StyledTableCell> */
 }
