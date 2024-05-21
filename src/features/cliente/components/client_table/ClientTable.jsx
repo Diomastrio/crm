@@ -21,6 +21,8 @@ export default function ClientTable() {
   const [clients, setClients] = useState([""]);
   const [showModal, setShowModal] = useState(false);
   const [clientIdToDelete, setClientIdToDelete] = useState("");
+  const [editingClient, setEditingClient] = useState(null);
+
   const { user } = useUser();
 
   const fetchClients = async () => {
@@ -144,7 +146,10 @@ export default function ClientTable() {
                       }}
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
-                      CRUD
+                      Eliminar{" "}
+                    </span>
+                    <span onClick={() => setEditingClient(client)}>
+                      / Editar
                     </span>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -159,11 +164,11 @@ export default function ClientTable() {
         <StyledModal>
           <div className="modal-content">
             {/* Modal content */}
-            <p>Are you sure you want to delete this client?</p>
+            <p>Esta seguro de eliminar este cliente?</p>
             <button onClick={() => handleDelete(clientIdToDelete)}>
-              Delete
+              Eliminar
             </button>
-            <button onClick={() => setShowModal(false)}>Close</button>
+            <button onClick={() => setShowModal(false)}>Cerrar</button>
           </div>
         </StyledModal>
       )}
