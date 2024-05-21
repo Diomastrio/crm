@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 const Container = styled.div`
   overflow-x: 
   padding: 3px;
@@ -70,26 +69,56 @@ const StyledButton = styled.button`
 
 const StyledModal = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-grey-0);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 3.2rem 4rem;
+  transition: all 0.5s;
+`;
+
+const StyledParagraph = styled.p`
+  font-size: 1.6rem;
+  color: var(--color-grey-600);
+  margin-bottom: 2rem;
+`;
+
+const StyledModalButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  border-radius: var(--border-radius-sm);
+  transform: translateX(0.8rem);
+  transition: all 0.2s;
+  top: 1.2rem;
+  right: 1.9rem;
+
+  &:hover {
+    background-color: var(--color-grey-100);
+  }
+
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    /* Sometimes we need both */
+    /* fill: var(--color-grey-500);
+    stroke: var(--color-grey-500); */
+    color: var(--color-grey-500);
+  }
+`;
+const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 500px;
-    max-width: 100%;
-  }
+  gap: 10px;
 `;
 
 export {
+  ButtonContainer,
   Container,
+  StyledParagraph,
+  StyledModalButton,
   StyledTable,
   StyledTableHead,
   StyledTableHeadCell,

@@ -13,13 +13,22 @@ import {
   StyledTableRow,
   StyledTableCell,
   StyledModal,
+  StyledModalButton,
+  StyledParagraph,
+  ButtonContainer,
 } from "../../../../ui/ClientTableUi";
+import { useDeleteClient } from "../../useDeleteClient";
+import { HiPencil, HiTrash } from "react-icons/hi";
+import CreateClientForm from "../../CreateClientForm";
 
 export default function ClientTable() {
+  const { isDeleting, deleteClient } = useDeleteClient();
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [clients, setClients] = useState([""]);
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
   const [clientIdToDelete, setClientIdToDelete] = useState("");
   const [editingClient, setEditingClient] = useState(null);
 
@@ -141,14 +150,19 @@ export default function ClientTable() {
                   <StyledTableCell>
                     <span
                       onClick={() => {
-                        setShowModal(true);
+                        setShowDeleteModal(true);
                         setClientIdToDelete(client.id);
                       }}
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
                       Eliminar{" "}
                     </span>
-                    <span onClick={() => setEditingClient(client)}>
+                    <span
+                      onClick={() => {
+                        setShowEditModal(true);
+                        setEditingClient(client);
+                      }}
+                    >
                       / Editar
                     </span>
                   </StyledTableCell>
@@ -160,18 +174,63 @@ export default function ClientTable() {
       ) : (
         <p>No se encontraron clientes</p>
       )}
-      {showModal && (
+      {showDeleteModal && (
+        <StyledModal>
+          <StyledParagraph>
+            Esta seguro de eliminar este cliente?
+          </StyledParagraph>
+          <ButtonContainer>
+            <StyledModalButton onClick={() => handleDelete(clientIdToDelete)}>
+              Eliminar
+            </StyledModalButton>
+            <StyledModalButton onClick={() => setShowDeleteModal(false)}>
+              Cerrar
+            </StyledModalButton>
+          </ButtonContainer>
+        </StyledModal>
+      )}
+
+      {showEditModal && (
         <StyledModal>
           <div className="modal-content">
-            {/* Modal content */}
-            <p>Esta seguro de eliminar este cliente?</p>
-            <button onClick={() => handleDelete(clientIdToDelete)}>
-              Eliminar
-            </button>
-            <button onClick={() => setShowModal(false)}>Cerrar</button>
+            <CreateClientForm clienteToEdit={editingClient} />
+            <button onClick={() => setShowEditModal(false)}>Cerrar</button>
           </div>
         </StyledModal>
       )}
     </Container>
   );
+}
+// eslint-disable-next-line no-lone-blocks
+{
+  /* <StyledTableCell>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={client.id} />
+
+            <Menus.List id={client.id}>
+
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Editar</Menus.Button>
+              </Modal.Open>
+
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Eliminar</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+
+            <Modal.Window name="edit">
+              <CreateClientForm clienteToEdit={client} />
+            </Modal.Window>
+
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="clientes"
+                disabled={isDeleting}
+                onConfirm={() => handleDelete(clientIdToDelete)}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </StyledTableCell> */
 }
