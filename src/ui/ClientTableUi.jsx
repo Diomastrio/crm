@@ -114,7 +114,40 @@ const ButtonContainer = styled.div`
   gap: 10px;
 `;
 
+const StyledSelect = styled.select`
+  background: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  &:hover {
+    background-color: var(--color-grey-100);
+  }
+`;
+
+const StyledInput = styled.input`
+    border: "1px solid var(--color-grey-100)",
+    backgroundColor: "var(--color-grey-0)",
+    boxShadow: "var(--shadow-sm)",
+    borderRadius: "var(--border-radius-sm)",
+    padding: "0.4rem",
+    paddingLeft: "40px", // Add this to make space for the icon
+    display: "flex",
+    gap: "0.4rem",
+    width: "100%",
+    `;
+
+const InputDiv = styled.div`
+  display: "flex",
+  alignItems: "center",
+  paddingBottom: "10px",
+  position: "relative", 
+`;
+
 export {
+  InputDiv,
+  StyledInput,
+  StyledSelect,
   ButtonContainer,
   Container,
   StyledParagraph,

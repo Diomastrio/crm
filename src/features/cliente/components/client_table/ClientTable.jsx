@@ -16,10 +16,13 @@ import {
   StyledModalButton,
   StyledParagraph,
   ButtonContainer,
+  StyledSelect,
 } from "../../../../ui/ClientTableUi";
 import { useDeleteClient } from "../../useDeleteClient";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import CreateClientForm from "../../CreateClientForm";
+import { FaSearch } from "react-icons/fa";
+import { all } from "axios";
 
 export default function ClientTable() {
   const [page, setPage] = useState(0);
@@ -27,15 +30,40 @@ export default function ClientTable() {
   const [clients, setClients] = useState([""]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-
   const [clientIdToDelete, setClientIdToDelete] = useState("");
   const [editingClient, setEditingClient] = useState(null);
-
   const { user } = useUser();
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchResultsCount, setSearchResultsCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filter, setFilter] = useState("");
+
+  const handleSearch = async (event) => {
+    setSearchTerm(event.target.value);
+    if (event.target.value === " ") {
+      setSearchResults([]);
+    } else {
+      const { data, error } = await supabase
+        .from("cliente")
+        .select("*")
+        .ilike("nombre", `%${event.target.value}%`);
+      if (error) {
+        console.log(error);
+      } else {
+        if (data.length) {
+          setSearchResults(data);
+          setSearchResultsCount(data.length);
+        }
+        if (!data.length) {
+          setSearchResultsCount(0);
+        }
+      }
+    }
+  };
 
   const fetchClients = async () => {
     try {
-      const pageSize = 10;
+      const pageSize = 300000;
       const { count } = await supabase
         .from("cliente")
         .select("*", { count: "exact" });
@@ -54,6 +82,9 @@ export default function ClientTable() {
         return [...prevClients, ...newClients];
       });
       setTotalPages(Math.ceil(count / pageSize));
+      if (page < totalPages) {
+        setPage(page + 1);
+      }
     } catch (error) {
       console.error("Error getting clients:", error);
       throw error;
@@ -63,9 +94,7 @@ export default function ClientTable() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        if (page < totalPages) {
-          setPage(page + 1);
-        }
+        fetchClients();
       }
     };
 
@@ -92,7 +121,7 @@ export default function ClientTable() {
       if (data) {
         console.log("Client deleted:", data);
       }
-      setClients(clients.filter((client) => client.id !== id)); // changed from clientIdToDelete to id
+      setClients(clients.filter((client) => client.id !== id));
     } catch (error) {
       console.error("Error deleting client:", error);
     }
@@ -100,9 +129,37 @@ export default function ClientTable() {
 
   return (
     <Container>
-      {clients.length > 0 ? (
-        <>
+      <div
+        style={{ display: "flex", alignItems: "center", paddingBottom: "10px" }}
+      >
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Buscar cliente"
+          style={{
+            border: "1px solid var(--color-grey-100)",
+            backgroundColor: "var(--color-grey-0)",
+            boxShadow: "var(--shadow-sm)",
+            borderRadius: "var(--border-radius-sm)",
+            padding: "0.4rem",
+            display: "flex",
+            gap: "0.4rem",
+          }}
+        />
+        <FaSearch style={{ paddingLeft: 10, fontSize: "32px" }} />
+      </div>
+      <StyledSelect value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option value="">All</option>
+        <option value="yes">Cursando Actualmente</option>
+        <option value="no">Actualmente Inactivo</option>
+      </StyledSelect>
+
+      <p>Numero de resultados de busqueda: {searchResultsCount}</p>
+      {searchTerm ? (
+        searchResults.length > 0 ? (
           <StyledTable>
+            {/* Map over the searchResults array... */}
             <StyledTableHead>
               <StyledTableRow>
                 <StyledTableHeadCell>Cliente</StyledTableHeadCell>
@@ -124,7 +181,7 @@ export default function ClientTable() {
                 </StyledTableHeadCell>
               </StyledTableRow>
             </StyledTableHead>
-            {clients.map((client, index) => (
+            {searchResults.map((client, index) => (
               <StyledTableBody key={index}>
                 <StyledTableRow>
                   <StyledTableCell>{client.nombre}</StyledTableCell>
@@ -168,9 +225,135 @@ export default function ClientTable() {
               </StyledTableBody>
             ))}
           </StyledTable>
-        </>
+        ) : (
+          <p>No search results</p>
+        )
+      ) : clients.length > 0 ? (
+        <StyledTable>
+          {/* Map over the clients array... */}
+          <StyledTableHead>
+            <StyledTableRow>
+              <StyledTableHeadCell>Cliente</StyledTableHeadCell>
+              <StyledTableHeadCell>Email</StyledTableHeadCell>
+              <StyledTableHeadCell>telefono</StyledTableHeadCell>
+              <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
+              <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
+              <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
+              <StyledTableHeadCell>CURP</StyledTableHeadCell>
+              <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
+              <StyledTableHeadCell>rfc</StyledTableHeadCell>
+              <StyledTableHeadCell>fecha_inicio</StyledTableHeadCell>
+              <StyledTableHeadCell>fecha_fin</StyledTableHeadCell>
+              <StyledTableHeadCell>fecha_limite</StyledTableHeadCell>
+              <StyledTableHeadCell>edad</StyledTableHeadCell>
+              <StyledTableHeadCell>lugar_residencia</StyledTableHeadCell>
+              <StyledTableHeadCell>
+                <span>Editar/Eliminar</span>
+              </StyledTableHeadCell>
+            </StyledTableRow>
+          </StyledTableHead>
+          {filter === ""
+            ? clients.map((client, index) => (
+                <StyledTableBody key={index}>
+                  <StyledTableRow>
+                    <StyledTableCell>{client.nombre}</StyledTableCell>
+                    <StyledTableCell>{client.email}</StyledTableCell>
+                    <StyledTableCell>{client.telefono}</StyledTableCell>
+                    <StyledTableCell>
+                      {client.numero_diplomados}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {client.diplomados_terminados}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {client.cursa_actualmente ? "SI" : "NO"}
+                    </StyledTableCell>
+                    <StyledTableCell>{client.curp}</StyledTableCell>
+                    <StyledTableCell>{client.ocupacion}</StyledTableCell>
+                    <StyledTableCell>{client.rfc}</StyledTableCell>
+                    <StyledTableCell>{client.fecha_inicio}</StyledTableCell>
+                    <StyledTableCell>{client.fecha_fin}</StyledTableCell>
+                    <StyledTableCell>{client.fecha_limite}</StyledTableCell>
+                    <StyledTableCell>{client.edad}</StyledTableCell>
+                    <StyledTableCell>{client.lugar_residencia}</StyledTableCell>
+                    <StyledTableCell>
+                      <span
+                        onClick={() => {
+                          setShowDeleteModal(true);
+                          setClientIdToDelete(client.id);
+                        }}
+                        className="font-medium text-red-500 hover:underline cursor-pointer"
+                      >
+                        Eliminar{" "}
+                      </span>
+                      <span
+                        onClick={() => {
+                          setShowEditModal(true);
+                          setEditingClient(client);
+                        }}
+                      >
+                        / Editar
+                      </span>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                </StyledTableBody>
+              ))
+            : clients
+                .filter((client) =>
+                  filter === "yes"
+                    ? client.cursa_actualmente
+                    : !client.cursa_actualmente
+                )
+                .map((client, index) => (
+                  <StyledTableBody key={index}>
+                    <StyledTableRow>
+                      <StyledTableCell>{client.nombre}</StyledTableCell>
+                      <StyledTableCell>{client.email}</StyledTableCell>
+                      <StyledTableCell>{client.telefono}</StyledTableCell>
+                      <StyledTableCell>
+                        {client.numero_diplomados}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {client.diplomados_terminados}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        {client.cursa_actualmente ? "SI" : "NO"}
+                      </StyledTableCell>
+                      <StyledTableCell>{client.curp}</StyledTableCell>
+                      <StyledTableCell>{client.ocupacion}</StyledTableCell>
+                      <StyledTableCell>{client.rfc}</StyledTableCell>
+                      <StyledTableCell>{client.fecha_inicio}</StyledTableCell>
+                      <StyledTableCell>{client.fecha_fin}</StyledTableCell>
+                      <StyledTableCell>{client.fecha_limite}</StyledTableCell>
+                      <StyledTableCell>{client.edad}</StyledTableCell>
+                      <StyledTableCell>
+                        {client.lugar_residencia}
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <span
+                          onClick={() => {
+                            setShowDeleteModal(true);
+                            setClientIdToDelete(client.id);
+                          }}
+                          className="font-medium text-red-500 hover:underline cursor-pointer"
+                        >
+                          Eliminar{" "}
+                        </span>
+                        <span
+                          onClick={() => {
+                            setShowEditModal(true);
+                            setEditingClient(client);
+                          }}
+                        >
+                          / Editar
+                        </span>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  </StyledTableBody>
+                ))}
+        </StyledTable>
       ) : (
-        <p>No se encontraron clientes</p>
+        <p>No hay clientes aun</p>
       )}
       {showDeleteModal && (
         <StyledModal>

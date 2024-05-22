@@ -4,7 +4,7 @@ import ClientTable from "../features/cliente/components/client_table/ClientTable
 function NewUsers() {
   return (
     <>
-      <Heading as="h1">Table test</Heading>
+      {/* <Heading as="h1">Table test</Heading> */}
       <ClientTable />
     </>
   );
