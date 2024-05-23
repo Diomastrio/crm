@@ -1,4 +1,4 @@
-import AddClient from "../features/agregarCliente/AddClient";
+import CreateClient from "../features/agregarCliente/CreateClient";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
@@ -8,7 +8,7 @@ function Cliente() {
       <Row type="horizontal">
         <Heading as="h1">Agregar Cliente</Heading>
       </Row>
-      <AddClient />
+      <CreateClient />
     </>
   );
 }

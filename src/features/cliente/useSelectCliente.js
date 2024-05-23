@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { getArticulos } from "../../services/apiArticulos";
+import { getClientes } from "../../services/apiClientes.js";
 
-export function useArticulos() {
+export function useCliente() {
   const {
     isLoading,
     data: cliente,
     error,
   } = useQuery({
     queryKey: ["clientes"],
-    queryFn: getArticulos,
+    queryFn: getClientes,
   });
 
   return { isLoading, error, cliente };

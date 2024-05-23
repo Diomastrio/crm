@@ -23,7 +23,7 @@ function ArticuloTableFilter() {
         ]}
       />
 
-      <SortBy
+      <SortBy id='s'
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)",},
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)",},

@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { deleteProducto as deleteProductoApi } from "../../services/apiProductos";
+import { deleteProducto as deleteProductoApi } from "../../services/apiClientes.js";
 
-export function useDeleteProducto() {
+export function useDeleteCliente() {
   const queryClient = useQueryClient();
 
   const { isLoading: isDeleting, mutate: deleteProducto } = useMutation({
     mutationFn: deleteProductoApi,
     onSuccess: () => {
-      toast.success("Producto existosamente eliminado");
+      toast.success("Cliente existosamente eliminado");
 
       queryClient.invalidateQueries({
-        queryKey: ["productos"],
+        queryKey: ["cliente"],
       });
     },
     onError: (err) => toast.error(err.message),

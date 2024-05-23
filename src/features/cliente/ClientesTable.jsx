@@ -1,10 +1,10 @@
-import { useArticulos } from "../cliente/useArticulo";
+import { useCliente } from "./useSelectCliente";
 
 import Spinner from "../../ui/Spinner";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import { FaSearch } from 'react-icons/fa';
-import ClienteRow from "../cliente/ClienteRow";
+import ClienteRow from "./ClienteTableRow";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from 'react';
@@ -28,7 +28,7 @@ const CenteredText = styled.p`
 `;
 
 function ArticuloTable() {
-  const { isLoading, cliente } = useArticulos();
+  const { isLoading, cliente } = useCliente();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]); 
@@ -130,6 +130,7 @@ const handleSearch = async (event) => {
                 <StyledTableHeadCell>Fecha Limite</StyledTableHeadCell>
                 <StyledTableHeadCell>Edad</StyledTableHeadCell>
                 <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
+                <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
               </StyledTableRow>
             </StyledTableHead>

@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { createEditProducto } from "../../services/apiProductos";
+import { createEditCliente } from "../../services/apiClientesjs";
 
 export function useCreateProducto() {
   const queryClient = useQueryClient();
 
   const { mutate: createProducto, isLoading: isCreating } = useMutation({
-    mutationFn: createEditProducto,
+    mutationFn: createEditCliente,
     onSuccess: () => {
-      toast.success("Nuevo producto exitosamente creado");
+      toast.success("Nuevo cliente exitosamente creado");
 
-      queryClient.invalidateQueries({ queryKey: ["productos"] });
+      queryClient.invalidateQueries({ queryKey: ["cliente"] });
     },
     onError: (err) => toast.error(err.message),
   });

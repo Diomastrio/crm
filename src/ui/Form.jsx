@@ -22,7 +22,7 @@ const Form = styled.form`
   ${(props) =>
     props.type === "modal" &&
     css`
-      width: 50rem;
+      width: 70rem;
 
       /* Center the form within the modal */
       margin: 0 auto;

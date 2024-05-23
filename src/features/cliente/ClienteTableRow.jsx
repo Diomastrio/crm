@@ -1,6 +1,6 @@
 
-import CreateProductoForm from "./CreateClienteForm";
-import { useDeleteProducto } from "./useDeleteProducto";
+import CreateProductoForm from "./ModificarClienteForm";
+import { useDeleteCliente } from "./useDeleteCliente";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -13,7 +13,7 @@ import {
 } from "../../ui/ClientTableUi";
 
 function ProductoRow({ cliente }) {
-  const { isDeleting, deleteProducto } = useDeleteProducto();
+  const { isDeleting, deleteProducto } = useDeleteCliente();
 
   const {
     id: productoId,
@@ -23,7 +23,7 @@ function ProductoRow({ cliente }) {
     numero_diplomados,
     diplomados_terminados,
     cursa_actualmente,
-    rfc, fecha_inicio, fecha_fin, fecha_limite, edad,lugar_residencia, ocupacion, telefono
+    rfc, fecha_inicio, fecha_fin, fecha_limite, edad,lugar_residencia, ocupacion, telefono,nombre_diplomado
   } = cliente;
 
   return (
@@ -47,6 +47,8 @@ function ProductoRow({ cliente }) {
                   <StyledTableCell>{fecha_limite}</StyledTableCell>
                   <StyledTableCell>{edad}</StyledTableCell>
                   <StyledTableCell>{lugar_residencia}</StyledTableCell>
+                  <StyledTableCell>{nombre_diplomado}</StyledTableCell>
+
 
         <Modal>
           <Menus.Menu>

@@ -27,13 +27,9 @@ function CreateClientForm({ onCloseModal }) {
       );
   }
 
-  function onError(errors) {
-    // console.log(errors);
-  }
-
   return (
     <Form
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
       <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
@@ -223,7 +219,7 @@ function CreateClientForm({ onCloseModal }) {
           <option value="Negocios">Negocios</option>
           <option value="OnLive">OnLive</option>
           <option value="Psicología">Psicología</option>
-          <option value="false">Salud</option>
+          <option value="Salud">Salud</option>
         </StyledSelectDiplomado>
       </FormRow>
 

@@ -1,15 +1,14 @@
-import ArticuloTableFilter from "../features/cliente/ClienteTableFilter";
-import { useArticulos } from "../features/cliente/useArticulo";
-import ArticuloTable from "../features/agregarCliente/ClientesTable";
-
+import ClientTableFilter from "../features/cliente/ClienteTableFilter";
+import { useCliente } from "../features/cliente/useSelectCliente";
+import ClientTable from "../features/cliente/ClientesTable";
 
 import Heading from "../ui/Heading";
 import Spinner from "../ui/Spinner";
 import Row from "../ui/Row";
 import Empty from "../ui/Empty";
 
-function Articulos() {
-  const { isLoading, cliente } = useArticulos();
+function Clientes() {
+  const { isLoading, cliente } = useCliente();
   if (isLoading) return <Spinner />;
   if (!cliente.length) return <Empty resourceName="clientes" />;
 
@@ -17,11 +16,11 @@ function Articulos() {
     <>
       <Row type="horizontal">
         <Heading as="h1">Clientes Encontrados</Heading>
-        <ArticuloTableFilter />
+        <ClientTableFilter />
       </Row>
-      <ArticuloTable />
+      <ClientTable />
     </>
   );
 }
 
-export default Articulos;
+export default Clientes;
