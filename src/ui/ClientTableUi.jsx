@@ -55,6 +55,7 @@ const StyledTableHeaderCell = styled.th`
 const StyledTableBody = styled.tbody`
   background-color: var(--color-grey-0);
   padding: 1.2rem 2.4rem;
+  
 `;
 
 const StyledTableRow = styled.tr`
@@ -69,7 +70,12 @@ const StyledTableRow = styled.tr`
 
 const StyledTableCell = styled.td`
   padding: 12px 15px;
-  border: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+
+   &:last-child {
+    display: flex;
+  align-items: center;  
+  }
 `;
 
 const StyledButton = styled.button`

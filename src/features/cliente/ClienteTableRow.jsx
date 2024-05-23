@@ -33,12 +33,8 @@ function ProductoRow({ cliente }) {
                   <StyledTableCell>{email}</StyledTableCell>
                   <StyledTableCell>{telefono}</StyledTableCell>
                   <StyledTableCell>{numero_diplomados}</StyledTableCell>
-                  <StyledTableCell>
-                    {diplomados_terminados}
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    {cursa_actualmente ? "SI" : "NO"}
-                  </StyledTableCell>
+                  <StyledTableCell>{diplomados_terminados}</StyledTableCell>
+                  <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
                   <StyledTableCell>{curp}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
                   <StyledTableCell>{rfc}</StyledTableCell>
@@ -48,39 +44,29 @@ function ProductoRow({ cliente }) {
                   <StyledTableCell>{edad}</StyledTableCell>
                   <StyledTableCell>{lugar_residencia}</StyledTableCell>
                   <StyledTableCell>{nombre_diplomado}</StyledTableCell>
-
-
+                  
+      <StyledTableCell>
         <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={productoId} />
-
-            <Menus.List id={productoId}>
-
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>Editar</Menus.Button>
+                
               </Modal.Open>
 
               <Modal.Open opens="delete">
                 <Menus.Button icon={<HiTrash />}>Eliminar</Menus.Button>
               </Modal.Open>
-            </Menus.List>
 
             <Modal.Window name="edit">
               <CreateProductoForm clienteToEdit={cliente} />
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="cliente"
-                disabled={isDeleting}
-                onConfirm={() => deleteProducto(productoId)}
-              />
+              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(productoId)}/>
             </Modal.Window>
-          </Menus.Menu>
         </Modal>
-        </StyledTableRow>
-
-      </StyledTableBody>
+      </StyledTableCell>
+    </StyledTableRow>
+  </StyledTableBody>
   );
 }
 

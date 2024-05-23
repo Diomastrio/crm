@@ -45,7 +45,7 @@ const StyledButton = styled.button`
   text-align: left;
   background: none;
   border: none;
-  padding: 1.2rem 2.4rem;
+  padding: 1.3rem 0.4rem;
   font-size: 1.4rem;
   transition: all 0.2s;
 
@@ -128,16 +128,16 @@ function Button({ children, icon, onClick }) {
   }
 
   return (
-    <li>
       <StyledButton onClick={handleClick}>
         {icon}
         <span>{children}</span>
       </StyledButton>
-    </li>
   );
 }
 
 Menus.Menu = Menu;
+Menus.Menu = Menu;
+
 Menus.Toggle = Toggle;
 Menus.List = List;
 Menus.Button = Button;
