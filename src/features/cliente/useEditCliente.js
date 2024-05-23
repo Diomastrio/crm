@@ -9,7 +9,7 @@ export function useEditCliente() {
     mutationFn: ({ newCliente, id }) =>
       createEditCliente(newCliente, id),
     onSuccess: () => {
-      toast.success("Producto exitosamente editado");
+      toast.success("Cliente exitosamente editado");
       queryClient.invalidateQueries({ queryKey: ["cliente"] });
     },
     onError: (err) => toast.error(err.message),
