@@ -73,6 +73,7 @@ const StyledTableCell = styled.td`
   border-bottom: 1px solid #dddddd;
 
    &:last-child {
+    padding: 23px 15px;
     display: flex;
   align-items: center;  
   }

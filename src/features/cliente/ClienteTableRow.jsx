@@ -26,6 +26,21 @@ function ProductoRow({ cliente }) {
     rfc, fecha_inicio, fecha_fin, fecha_limite, edad,lugar_residencia, ocupacion, telefono,nombre_diplomado
   } = cliente;
 
+  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
+                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+const formatDate = (inputDate) => {
+  const dateParts = inputDate.split('-');
+  const year = dateParts[0];
+  const month = months[parseInt(dateParts[1]) - 1];
+  const day = dateParts[2];
+  return `${year}-${month}-${day}`;
+};
+
+const nuevoInicio = formatDate(fecha_inicio);
+const nuevoFin = formatDate(fecha_fin);
+const nuevoLimite = formatDate(fecha_limite);
+
   return (
           <StyledTableBody >
                 <StyledTableRow>
@@ -38,9 +53,9 @@ function ProductoRow({ cliente }) {
                   <StyledTableCell>{curp}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
                   <StyledTableCell>{rfc}</StyledTableCell>
-                  <StyledTableCell>{fecha_inicio}</StyledTableCell>
-                  <StyledTableCell>{fecha_fin}</StyledTableCell>
-                  <StyledTableCell>{fecha_limite}</StyledTableCell>
+                  <StyledTableCell>{nuevoInicio}</StyledTableCell>
+                  <StyledTableCell>{nuevoFin}</StyledTableCell>
+                  <StyledTableCell>{nuevoLimite}</StyledTableCell>
                   <StyledTableCell>{edad}</StyledTableCell>
                   <StyledTableCell>{lugar_residencia}</StyledTableCell>
                   <StyledTableCell>{nombre_diplomado}</StyledTableCell>
