@@ -34,7 +34,7 @@ const formatDate = (inputDate) => {
   const year = dateParts[0];
   const month = months[parseInt(dateParts[1]) - 1];
   const day = dateParts[2];
-  return `${year}-${month}-${day}`;
+  return `${day} de ${month} de ${year}`;
 };
 
 const nuevoInicio = formatDate(fecha_inicio);
