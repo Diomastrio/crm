@@ -10,7 +10,6 @@ export async function createEditProspecto(newProspecto, id) {
     query = query.update({ ...newProspecto }).eq("id", id);
 
   const { data, error } = await query.select().single();
-  console.log(data);
 
   if (error) {
     console.error(error);

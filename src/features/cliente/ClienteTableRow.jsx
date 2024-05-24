@@ -16,7 +16,7 @@ function ProductoRow({ cliente }) {
   const { isDeleting, deleteProducto } = useDeleteCliente();
 
   const {
-    id: productoId,
+    id: clienteId,
     nombre,
     email, 
     curp, 
@@ -80,7 +80,7 @@ const nuevoLimite = formatDate(fecha_limite);
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(productoId)}/>
+              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(clienteId)}/>
             </Modal.Window>
         </Modal>
       </StyledTableCell>

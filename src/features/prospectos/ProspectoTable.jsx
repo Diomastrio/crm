@@ -27,7 +27,7 @@ const CenteredText = styled.p`
   color:#F8A964;
 `;
 
-function ArticuloTable() {
+function ProspectoTable() {
   const { isLoading, prospecto } = useProspecto();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
@@ -120,17 +120,9 @@ const handleSearch = async (event) => {
                 <StyledTableHeadCell>Prospecto</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
                 <StyledTableHeadCell>telefono</StyledTableHeadCell>
-                <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
-                <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
-                <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
-                <StyledTableHeadCell>CURP</StyledTableHeadCell>
+          
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
-                <StyledTableHeadCell>RFC</StyledTableHeadCell>
-                <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
-                <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
-                <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
-                <StyledTableHeadCell>Edad</StyledTableHeadCell>
-                <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
+             
                 <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
@@ -138,8 +130,8 @@ const handleSearch = async (event) => {
             </StyledTableHead>
 
       {searchResults2 > 0 ? (
-          sortedProductos.map((clientes, index) => (
-            <ProspectoRow cliente={prospecto} key={prospecto.id} />
+          sortedProductos.map((prospecto, index) => (
+            <ProspectoRow prospecto={prospecto} key={prospecto.id} />
       ))
       ) : (
         <div style={{padding: '4rem'}}>
@@ -152,4 +144,4 @@ const handleSearch = async (event) => {
   );
 }
 
-export default ArticuloTable;
+export default ProspectoTable;

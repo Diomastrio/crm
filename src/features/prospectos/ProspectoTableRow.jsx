@@ -12,34 +12,16 @@ import {
   StyledTableCell,
 } from "../../ui/ClientTableUi";
 
-function ProductoRow({ cliente }) {
+function ProductoRow({ prospecto }) {
   const { isDeleting, deleteProducto } = useDeleteCliente();
 
   const {
-    id: productoId,
+    id: prospectoId,
     nombre,
     email, 
-    curp, 
-    numero_diplomados,
-    diplomados_terminados,
-    cursa_actualmente,
-    rfc, fecha_inicio, fecha_fin, fecha_limite, edad,lugar_residencia, ocupacion, telefono,nombre_diplomado,nombre_diplomado2
-  } = cliente;
+    ocupacion, telefono,diplomado,diplomado2
+  } = prospecto;
 
-  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 
-                  'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
-const formatDate = (inputDate) => {
-  const dateParts = inputDate?.split('-');
-  const year = dateParts[0];
-  const month = months[parseInt(dateParts[1]) - 1];
-  const day = dateParts[2];
-  return `${day} de ${month} de ${year}`;
-};
-
-const nuevoInicio = formatDate(fecha_inicio);
-const nuevoFin = formatDate(fecha_fin);
-const nuevoLimite = formatDate(fecha_limite);
 
   return (
           <StyledTableBody >
@@ -47,19 +29,9 @@ const nuevoLimite = formatDate(fecha_limite);
                   <StyledTableCell>{nombre}</StyledTableCell>
                   <StyledTableCell>{email}</StyledTableCell>
                   <StyledTableCell>{telefono}</StyledTableCell>
-                  <StyledTableCell>{numero_diplomados}</StyledTableCell>
-                  <StyledTableCell>{diplomados_terminados}</StyledTableCell>
-                  <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
-                  <StyledTableCell>{curp}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
-                  <StyledTableCell>{rfc}</StyledTableCell>
-                  <StyledTableCell>{nuevoInicio}</StyledTableCell>
-                  <StyledTableCell>{nuevoFin}</StyledTableCell>
-                  <StyledTableCell>{nuevoLimite}</StyledTableCell>
-                  <StyledTableCell>{edad}</StyledTableCell>
-                  <StyledTableCell>{lugar_residencia}</StyledTableCell>
-                  <StyledTableCell>{nombre_diplomado}</StyledTableCell>
-                  <StyledTableCell>{nombre_diplomado2}</StyledTableCell>
+                  <StyledTableCell>{diplomado}</StyledTableCell>
+                  <StyledTableCell>{diplomado2}</StyledTableCell>
       <StyledTableCell>
         <Modal>
               <Modal.Open opens="edit">
@@ -72,11 +44,11 @@ const nuevoLimite = formatDate(fecha_limite);
               </Modal.Open>
 
             <Modal.Window name="edit">
-              <ModificarProspectoForm clienteToEdit={cliente} />
+              <ModificarProspectoForm clienteToEdit={prospecto} />
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(productoId)}/>
+              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(prospectoId)}/>
             </Modal.Window>
         </Modal>
       </StyledTableCell>

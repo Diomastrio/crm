@@ -28,7 +28,7 @@ const CenteredText = styled.p`
   color:#F8A964;
 `;
 
-function ArticuloTable() {
+function ClienteTable() {
   const { isLoading, cliente } = useCliente();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
@@ -162,4 +162,4 @@ const handleSearch = async (event) => {
   );
 }
 
-export default ArticuloTable;
+export default ClienteTable;

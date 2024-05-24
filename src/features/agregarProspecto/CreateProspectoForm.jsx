@@ -100,10 +100,10 @@ function CreateProspectoForm({ onCloseModal }) {
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
-          id="nombre_diplomado"
+          id="diplomado"
           defaultValue="" 
           isDisabled={isWorking}
-          {...register("nombre_diplomado", {
+          {...register("diplomado", {
             required: "Este campo es requerido",
           })}
         >
@@ -122,9 +122,9 @@ function CreateProspectoForm({ onCloseModal }) {
           <FormRow label="Diplomado 2" error={errors?.diplomados_terminados?.message}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
-            id="nombre_diplomado2"
+            id="diplomado2"
             isDisabled={isWorking}
-            {...register("nombre_diplomado2", {
+            {...register("diplomado2", {
               required: "Este campo es requerido",
             })}
           >
