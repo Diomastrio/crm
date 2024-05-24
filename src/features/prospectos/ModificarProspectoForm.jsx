@@ -64,7 +64,7 @@ function ModificarProspectoForm({ clienteToEdit = {}, onCloseModal }) {
     </FormRow>
     <FormRow label="Correo" error={errors?.email?.message}>
       <Input
-        type="mail"
+        type="email"
         id="email"
         disabled={isWorking}
         {...register("email", {

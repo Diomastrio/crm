@@ -22,7 +22,6 @@ function ProductoRow({ prospecto }) {
     ocupacion, telefono,diplomado,diplomado2
   } = prospecto;
 
-
   return (
           <StyledTableBody >
                 <StyledTableRow>

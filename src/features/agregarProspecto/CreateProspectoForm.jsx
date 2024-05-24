@@ -89,6 +89,7 @@ function CreateProspectoForm({ onCloseModal }) {
           <CheckboxInput
             type="checkbox"
             id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {})}
           />
           <CheckboxBox/>
         </CheckboxWrapper>
