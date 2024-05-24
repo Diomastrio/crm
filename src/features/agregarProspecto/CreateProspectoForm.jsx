@@ -2,41 +2,27 @@
 
 import { useForm } from "react-hook-form";
 
+import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
+import {  CheckboxWrapper,CheckboxInput,CheckboxBox} from "../../ui/Checkboxes";
 import {FormRow} from "../../ui/FormRow";
-import {StyledSelect,StyledSelectDiplomado} from "../../ui/SelectTwo";
+import {StyledSelectDiplomado} from "../../ui/SelectTwo";
 
-import { useCreateCliente } from "./useCreateClient";
+import {useCreateProspecto} from "./useCreateProspecto";
 
-function CreateClientForm({ onCloseModal }) {
-  const { isCreating, createCliente } = useCreateCliente();
+function CreateProspectoForm({ onCloseModal }) {
+  const { isCreating, createProspecto } = useCreateProspecto();
   const isWorking = isCreating ;
 
   const { register, watch, handleSubmit, reset, formState } = useForm({});
   const { errors } = formState;
 
-  const fechaInicio = watch("fecha_inicio"); 
-  const watchDiplomadis = watch("NumeroDiplomados", false);
-
-  const validateFechaFin = (value) => {
-    if (value <= fechaInicio) {
-      return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
-    }
-    return true;
-  };
-  
-  const validateFechaLimite = (value) => {
-    if (value <= fechaInicio) {
-      return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
-    }
-    return true;
-  };
+  const watchDiplomados = watch("MasDe1Diploma", false);
 
   function onSubmit(data) {
-      createCliente(
+    createProspecto(
         { ...data },
         {
           onSuccess: (data) => {
@@ -52,6 +38,8 @@ function CreateClientForm({ onCloseModal }) {
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
+
+    <Heading as="h1">Llena todos los campos! </Heading>
       <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
         <Input
           type="text"
@@ -100,12 +88,9 @@ function CreateClientForm({ onCloseModal }) {
         <CheckboxWrapper>
           <CheckboxInput
             type="checkbox"
-            id="NumeroDiplomados"
-            {...register("MasDe1Diploma", {
-            })}
+            id="MasDe1Diploma"
           />
           <CheckboxBox/>
-          <CheckboxLabel htmlFor="NumeroDiplomados">2</CheckboxLabel>
         </CheckboxWrapper>
       </FormRow>
 
@@ -116,6 +101,7 @@ function CreateClientForm({ onCloseModal }) {
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
           id="nombre_diplomado"
+          defaultValue="" 
           isDisabled={isWorking}
           {...register("nombre_diplomado", {
             required: "Este campo es requerido",
@@ -132,7 +118,7 @@ function CreateClientForm({ onCloseModal }) {
         </StyledSelectDiplomado>
       </FormRow>
 
-      {watchDiplomadis && (
+      {watchDiplomados && (
           <FormRow label="Diplomado 2" error={errors?.diplomados_terminados?.message}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
@@ -162,10 +148,10 @@ function CreateClientForm({ onCloseModal }) {
         >
           Cancelar
         </Button>
-        <Button disabled={isWorking}>Crear cliente</Button>
+        <Button disabled={isWorking}>Registrar</Button>
       </FormRow>
     </Form>
   );
 }
 
-export default CreateClientForm;
+export default CreateProspectoForm;

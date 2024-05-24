@@ -14,7 +14,7 @@ export async function createEditCliente(newCliente, id) {
 
   if (error) {
     console.error(error);
-    throw new Error("Cliente no pudo sjjer modificado");
+    throw new Error("Cliente no pudo ser modificado");
   }
 
   return data;

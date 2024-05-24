@@ -1,10 +1,10 @@
-import { useCliente } from "./useSelectCliente";
+import { useProspecto  } from "./useSelectProspecto";
 
 import Spinner from "../../ui/Spinner";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import { FaSearch } from 'react-icons/fa';
-import ClienteRow from "./ClienteTableRow";
+import ProspectoRow from "./ProspectoTableRow";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from 'react';
@@ -16,7 +16,6 @@ import {
   StyledTableHeadCell,
   StyledTableRow,
   Input,
-  StyledInput,
   StyledTableHeader,
   StyledTableHeaderCell,
 } from "../../ui/ClientTableUi";
@@ -29,42 +28,42 @@ const CenteredText = styled.p`
 `;
 
 function ArticuloTable() {
-  const { isLoading, cliente } = useCliente();
+  const { isLoading, prospecto } = useProspecto();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]); 
   const [searchResults2, setSearchResults2] = useState(1); 
 
   if (isLoading) return <Spinner />;
-  if (!cliente.length) return <Empty resourceName="clientes" />;
+  if (!prospecto.length) return <Empty resourceName="prospecto" />;
 
   // 1) FILTER
   const filterValue = searchParams.get("precio") || "all";
   
   let filteredProductos;
   if (filterValue === "all") {
-    filteredProductos = cliente;
+    filteredProductos = prospecto;
   } else if (filterValue.startsWith("letter-")) {
     const letter = filterValue.split("-")[1].toUpperCase();
-    filteredProductos = cliente.filter((cliente) => cliente.nombre.charAt(0).toUpperCase() === letter);
+    filteredProductos = prospecto.filter((prospecto) => prospecto.nombre.charAt(0).toUpperCase() === letter);
   }
   else if (filterValue === "activos") {
-    filteredProductos = cliente.filter((cliente) => cliente.cursa_actualmente === true);
+    filteredProductos = prospecto.filter((prospecto) => prospecto.cursa_actualmente === true);
   }
   else if (filterValue === "inactivos") {
-    filteredProductos = cliente.filter((cliente) => cliente.cursa_actualmente === false);
+    filteredProductos = prospecto.filter((prospecto) => prospecto.cursa_actualmente === false);
   }
 
 // 2) BUSQUEDA
 const handleSearch = async (event) => {
   setSearchTerm(event.target.value);
   if (event.target.value === ' ') {
-    filteredProductos = cliente;
+    filteredProductos = prospecto;
   } else if (event.target.value.length === 0 && event.target.value.match(/[a-zA-Z]/)) {
     const letter = event.target.value.toUpperCase();
-    filteredProductos = cliente.filter((cliente) => cliente.nombre.charAt(0).toUpperCase() === letter);
+    filteredProductos = prospecto.filter((prospecto) => prospecto.nombre.charAt(0).toUpperCase() === letter);
   } else {
-    const { data, error } = await supabase.from('cliente').select('*').ilike('nombre', `%${event.target.value}%`);
+    const { data, error } = await supabase.from('prospecto').select('*').ilike('nombre', `%${event.target.value}%`);
     if (error) {
       console.log(error);
     } else {
@@ -113,21 +112,12 @@ const handleSearch = async (event) => {
       <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
       <StyledTableHeaderCell><Input type="text" value={searchTerm} onChange={ handleSearch } id="telefono"/></StyledTableHeaderCell>
         <StyledTableHeaderCell><FaSearch style={{ margin: '0 10px 0 10px',  fontSize: '26px' }} /></StyledTableHeaderCell>
-        <StyledTableHeaderCell></StyledTableHeaderCell>   
-        <StyledTableHeaderCell></StyledTableHeaderCell>      
-        <StyledTableHeaderCell></StyledTableHeaderCell>      
-        <StyledTableHeaderCell></StyledTableHeaderCell>      
-        <StyledTableHeaderCell></StyledTableHeaderCell>      
-        <StyledTableHeaderCell></StyledTableHeaderCell>      
-        <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
-        <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>        
-        <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
         </StyledTableHeader> 
 
             <StyledTableHead>
               
               <StyledTableRow>
-                <StyledTableHeadCell>Cliente</StyledTableHeadCell>
+                <StyledTableHeadCell>Prospecto</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
                 <StyledTableHeadCell>telefono</StyledTableHeadCell>
                 <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
@@ -149,11 +139,11 @@ const handleSearch = async (event) => {
 
       {searchResults2 > 0 ? (
           sortedProductos.map((clientes, index) => (
-            <ClienteRow cliente={clientes} key={clientes.id} />
+            <ProspectoRow cliente={prospecto} key={prospecto.id} />
       ))
       ) : (
         <div style={{padding: '4rem'}}>
-      <CenteredText>No se encontraron clientes</CenteredText>
+      <CenteredText>No se encontraron prospectos</CenteredText>
     </div>
       )}
 

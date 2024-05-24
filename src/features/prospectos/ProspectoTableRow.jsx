@@ -1,6 +1,6 @@
 
-import ModificarClientForm from "./ModificarClienteForm";
-import { useDeleteCliente } from "./useDeleteCliente";
+import ModificarProspectoForm from "./ModificarProspectoForm";
+import { useDeleteCliente } from "./useDeleteProspecto";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -30,10 +30,6 @@ function ProductoRow({ cliente }) {
                   'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 const formatDate = (inputDate) => {
-  if (!inputDate || inputDate === '0') {
-    return 'N/A';
-  }
-  
   const dateParts = inputDate?.split('-');
   const year = dateParts[0];
   const month = months[parseInt(dateParts[1]) - 1];
@@ -76,7 +72,7 @@ const nuevoLimite = formatDate(fecha_limite);
               </Modal.Open>
 
             <Modal.Window name="edit">
-              <ModificarClientForm clienteToEdit={cliente} />
+              <ModificarProspectoForm clienteToEdit={cliente} />
             </Modal.Window>
 
             <Modal.Window name="delete">

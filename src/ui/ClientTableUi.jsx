@@ -18,6 +18,10 @@ const Input = styled.input`
   box-shadow: var(--shadow-sm);
 `;
 
+const StyledInput = styled.div`
+  padding: 0.8rem 8rem;
+`;
+
 const StyledTableHead = styled.thead`
   padding: 1.6rem 2rem;
   border-bottom: 1px solid var(--color-grey-100);
@@ -35,10 +39,10 @@ const StyledTableHeadCell = styled.th`
   justify-content: center;
 
   &:first-child {
-    border-top-left-radius: 8px;
+    border-top-left-radius: 20px;
   }
   &:last-child {
-    border-top-right-radius: 8px;
+    border-top-right-radius: 20px;
   }
 `;
 
@@ -56,6 +60,9 @@ const StyledTableBody = styled.tbody`
   background-color: var(--color-grey-0);
   padding: 1.2rem 2.4rem;
   
+  &:nth-child(even) {
+    background-color: var(--color-grey-100);
+  }
 `;
 
 const StyledTableRow = styled.tr`
@@ -64,7 +71,7 @@ const StyledTableRow = styled.tr`
     background-color: var(--color-grey-100);
   }
   &:hover {
-    background-color: var(--color-grey-100);
+    background-color: var(--color-grey-300);
   }
 
   &:last-child {
@@ -73,13 +80,13 @@ const StyledTableRow = styled.tr`
 `;
 
 const StyledTableCell = styled.td`
-  padding: 12px 15px;
+  padding: 5px 15px;
   border-bottom: 1px solid #dddddd;
 
    &:last-child {
-    padding: 25px 15px;
     display: flex;
-  align-items: center;  
+    align-items: center;  
+    
   }
 `;
 
@@ -92,5 +99,6 @@ export {
   StyledTableBody,
   StyledTableRow,
   StyledTableCell,
-  Input
+  StyledInput,
+  Input,
 };

@@ -11,8 +11,8 @@ const Form = styled.form`
       border: 1px solid var(--color-grey-100);
       border-radius: var(--border-radius-md);
 
-      /* Make form scro llable */
-      max-height: 80vh;
+      /* Make form scrollable */
+      max-height: 90vh;
       overflow-y: auto;
 
       /* Ensure the form fits the screen properly */
@@ -22,7 +22,7 @@ const Form = styled.form`
   ${(props) =>
     props.type === "modal" &&
     css`
-      width: 60rem;
+      width: 50rem;
 
       /* Center the form within the modal */
       margin: 0 auto;
@@ -35,6 +35,7 @@ const Form = styled.form`
       box-sizing: border-box;
     `}
 
+  /* General form styling */
   overflow: auto;
   font-size: 1.4rem;
 
@@ -54,5 +55,9 @@ const Form = styled.form`
       `}
   }
 `;
+
+Form.defaultProps = {
+  type: "regular",
+};
 
 export default Form;

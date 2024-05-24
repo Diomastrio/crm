@@ -16,8 +16,8 @@ const spin = keyframes`
 const Img = styled.img`
   height: 9.6rem;
   width: auto;
-  animation: ${spin} infinite 2s linear; /* Animation properties */
-  animation-play-state: paused; /* Initially paused */
+  animation: ${spin} infinite 20s linear; /* Animation properties */
+  animation-play-state: running; /* Initially paused */
 
   &:hover {
     animation-play-state: running; /* Start animation on hover */

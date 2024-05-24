@@ -14,12 +14,13 @@ import PageNotFound from "./pages/PageNotFound";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
 import Cliente from "./pages/Clientes";
+import Prospectos from "./pages/Prospectos";
 import AgregarCliente from "./pages/AgregarCliente";
+import AgregarProspecto from "./pages/AgregarProspecto";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 60 * 1000,
       staleTime: 0,
     },
   },
@@ -43,7 +44,9 @@ function App() {
               <Route index element={<Navigate replace to="Home" />} />
               <Route path="account" element={<Account />} />
               <Route path="Cliente" element={<Cliente />} />
+              <Route path="Prospectos" element={<Prospectos />} />
               <Route path="AgregarCliente" element={<AgregarCliente />} />
+              <Route path="AgregarProspecto" element={<AgregarProspecto />} />
 
             </Route>
             

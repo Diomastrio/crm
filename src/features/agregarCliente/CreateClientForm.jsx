@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import {FormRow} from "../../ui/FormRow";
-import {StyledSelect,StyledSelectDiplomado} from "../../ui/SelectTwo";
+import { FormRow } from "../../ui/FormRow";
+import { StyledSelect, StyledSelectDiplomado } from "../../ui/SelectTwo";
+import { CheckboxWrapper, CheckboxInput, CheckboxBox } from "../../ui/Checkboxes";
 
 import { useCreateCliente } from "./useCreateClient";
 
@@ -16,6 +17,7 @@ function CreateClientForm({ onCloseModal }) {
   const { errors } = formState;
 
   const fechaInicio = watch("fecha_inicio"); 
+  const watchDiplomados = watch("MasDe1Diploma", false);
 
   const validateFechaFin = (value) => {
     if (value <= fechaInicio) {
@@ -241,6 +243,40 @@ function CreateClientForm({ onCloseModal }) {
           <option value="Salud">Salud</option>
         </StyledSelectDiplomado>
       </FormRow>
+
+      <FormRow label="Mas de un diplomado?">
+        <CheckboxWrapper>
+          <CheckboxInput
+            type="checkbox"
+            id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {
+            })}
+          />
+          <CheckboxBox/>
+        </CheckboxWrapper>
+      </FormRow>
+
+      {watchDiplomados && (
+          <FormRow label="Diplomado 2" error={errors?.diplomados_terminados?.message}>
+            <StyledSelectDiplomado
+            Style={{ width: '20rem'}}
+            id="nombre_diplomado2"
+            isDisabled={isWorking}
+            {...register("nombre_diplomado2", {
+              required: "Este campo es requerido",
+            })}
+          >
+            <option value=""></option>
+            <option value="Desarrollo Humano">Desarrollo Humano</option>
+            <option value="Descuentos">Descuentos</option>
+            <option value="Ingeniería">Ingeniería</option>
+            <option value="Negocios">Negocios</option>
+            <option value="OnLive">OnLive</option>
+            <option value="Psicología">Psicología</option>
+            <option value="Salud">Salud</option>
+          </StyledSelectDiplomado>
+        </FormRow>
+      )}
 
       <FormRow>
         <Button

@@ -64,6 +64,18 @@ function MainNav() {
             <span>Agrega Cliente</span>
           </StyledNavLink>
         </li>
+        <li>
+          <StyledNavLink to="/Prospectos">
+            <BsFillPersonLinesFill />
+            <span>Prospectos</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/AgregarProspecto">
+            <MdAddBox />
+            <span>Agrega prospecto</span>
+          </StyledNavLink>
+        </li>
       </NavList>
     </nav>
   );

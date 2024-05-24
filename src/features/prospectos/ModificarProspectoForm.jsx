@@ -6,10 +6,10 @@ import Button from "../../ui/Button";
 import {FormRow} from "../../ui/FormRow";
 import {StyledSelect,StyledSelectDiplomado} from "../../ui/SelectTwo";
 
-import { useEditCliente } from "./useEditCliente";
+import { useEditProspecto } from "./useEditProspecto";
 
-function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
-  const { isEditing, editCliente } = useEditCliente();
+function ModificarProspectoForm({ clienteToEdit = {}, onCloseModal }) {
+  const { isEditing, editProspecto } = useEditProspecto();
   const isWorking = isEditing;
 
   const { id: editId, ...editValues } = clienteToEdit;
@@ -36,8 +36,8 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   };
   
   function onSubmit(data) {
-    editCliente(
-        { newCliente: { ...data }, id: editId },
+    editProspecto(
+        { newProspecto: { ...data }, id: editId },
         {
           onSuccess: () => {
             reset();
@@ -258,4 +258,4 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   );
 }
 
-export default ModificarClientForm;
+export default ModificarProspectoForm;
