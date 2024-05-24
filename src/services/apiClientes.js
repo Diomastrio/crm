@@ -31,7 +31,7 @@ export async function getClientes() {
   return data;
 }
 
-export async function deleteProducto(id) {
+export async function deleteCliente(id) {
   const { data, error } = await supabase
     .from("cliente")
     .delete()

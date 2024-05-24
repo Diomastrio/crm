@@ -1,6 +1,6 @@
 
 import ModificarProspectoForm from "./ModificarProspectoForm";
-import { useDeleteCliente } from "./useDeleteProspecto";
+import { useDeleteProspecto } from "./useDeleteProspecto";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -13,7 +13,7 @@ import {
 } from "../../ui/ClientTableUi";
 
 function ProductoRow({ prospecto }) {
-  const { isDeleting, deleteProducto } = useDeleteCliente();
+  const { isDeleting, deleteProspecto } = useDeleteProspecto();
 
   const {
     id: prospectoId,
@@ -47,7 +47,7 @@ function ProductoRow({ prospecto }) {
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(prospectoId)}/>
+              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProspecto(prospectoId)}/>
             </Modal.Window>
         </Modal>
       </StyledTableCell>

@@ -13,7 +13,7 @@ import {
 } from "../../ui/ClientTableUi";
 
 function ProductoRow({ cliente }) {
-  const { isDeleting, deleteProducto } = useDeleteCliente();
+  const { isDeleting, deleteCliente } = useDeleteCliente();
 
   const {
     id: clienteId,
@@ -80,7 +80,7 @@ const nuevoLimite = formatDate(fecha_limite);
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProducto(clienteId)}/>
+              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteCliente(clienteId)}/>
             </Modal.Window>
         </Modal>
       </StyledTableCell>

@@ -6,7 +6,7 @@ function Cliente() {
   return (
     <>
       <Row type="horizontal">
-        <Heading as="h1">Agregar Cliente</Heading>
+        <Heading as="h1">Formulario Agregar Cliente</Heading>
       </Row>
       <CreateClient />
     </>
