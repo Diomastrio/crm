@@ -66,6 +66,10 @@ const StyledTableRow = styled.tr`
   &:hover {
     background-color: var(--color-grey-100);
   }
+
+  &:last-child {
+    border-top-right-radius: 8px;
+  }
 `;
 
 const StyledTableCell = styled.td`
@@ -73,78 +77,13 @@ const StyledTableCell = styled.td`
   border-bottom: 1px solid #dddddd;
 
    &:last-child {
-    padding: 23px 15px;
+    padding: 25px 15px;
     display: flex;
   align-items: center;  
   }
 `;
 
-const StyledButton = styled.button`
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #ffffff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: var(--color-primary-600);
-  }
-`;
-
-const StyledModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--color-grey-0);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 3.2rem 4rem;
-  transition: all 0.5s;
-`;
-
-const StyledParagraph = styled.p`
-  font-size: 1.6rem;
-  color: var(--color-grey-600);
-  margin-bottom: 2rem;
-`;
-
-const StyledModalButton = styled.button`
-  background: none;
-  border: none;
-  padding: 0.4rem;
-  border-radius: var(--border-radius-sm);
-  transform: translateX(0.8rem);
-  transition: all 0.2s;
-  top: 1.2rem;
-  right: 1.9rem;
-
-  &:hover {
-    background-color: var(--color-grey-100);
-  }
-
-  & svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
-    color: var(--color-grey-500);
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-`;
-
 export {
-  ButtonContainer,
-  StyledParagraph,
-  StyledModalButton,
   StyledTable,
   StyledTableHead,
   StyledTableHeader,
@@ -153,7 +92,5 @@ export {
   StyledTableBody,
   StyledTableRow,
   StyledTableCell,
-  StyledButton,
-  StyledModal,
   Input
 };

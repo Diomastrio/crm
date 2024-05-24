@@ -22,7 +22,7 @@ const Form = styled.form`
   ${(props) =>
     props.type === "modal" &&
     css`
-      width: 70rem;
+      width: 60rem;
 
       /* Center the form within the modal */
       margin: 0 auto;
@@ -35,7 +35,6 @@ const Form = styled.form`
       box-sizing: border-box;
     `}
 
-  /* General form styling */
   overflow: auto;
   font-size: 1.4rem;
 
@@ -55,9 +54,5 @@ const Form = styled.form`
       `}
   }
 `;
-
-Form.defaultProps = {
-  type: "regular",
-};
 
 export default Form;

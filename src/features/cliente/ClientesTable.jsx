@@ -115,6 +115,7 @@ const handleSearch = async (event) => {
         </StyledTableHeader> 
 
             <StyledTableHead>
+              
               <StyledTableRow>
                 <StyledTableHeadCell>Cliente</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
@@ -125,9 +126,9 @@ const handleSearch = async (event) => {
                 <StyledTableHeadCell>CURP</StyledTableHeadCell>
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
                 <StyledTableHeadCell>RFC</StyledTableHeadCell>
-                <StyledTableHeadCell>Fecha Inicio</StyledTableHeadCell>
-                <StyledTableHeadCell>Fecha Fin</StyledTableHeadCell>
-                <StyledTableHeadCell>Fecha Limite</StyledTableHeadCell>
+                <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
+                <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
+                <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
                 <StyledTableHeadCell>Edad</StyledTableHeadCell>
                 <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>

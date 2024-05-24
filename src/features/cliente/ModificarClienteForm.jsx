@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import FormRow from "../../ui/FormRow";
+import {FormRow} from "../../ui/FormRow";
 import {StyledSelect,StyledSelectDiplomado} from "../../ui/SelectTwo";
 
 import { useEditCliente } from "./useEditCliente";
@@ -14,11 +14,27 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
 
   const { id: editId, ...editValues } = clienteToEdit;
   const isEditSession = Boolean(editId);
-  const { register, handleSubmit, reset, formState } = useForm({
+  const { register, watch, handleSubmit, reset, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
+  const fechaInicio = watch("fecha_inicio"); 
+
+  const validateFechaFin = (value) => {
+    if (value <= fechaInicio) {
+      return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
+    }
+    return true;
+  };
+  
+  const validateFechaLimite = (value) => {
+    if (value <= fechaInicio) {
+      return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
+    }
+    return true;
+  };
+  
   function onSubmit(data) {
     editCliente(
         { newCliente: { ...data }, id: editId },
@@ -113,6 +129,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
         disabled={isWorking}
         {...register("fecha_fin", {
           required: "Este campo es requerido",
+          validate: validateFechaFin,
         })}
       />
     </FormRow>
@@ -123,6 +140,7 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
         disabled={isWorking}
         {...register("fecha_limite", {
           required: "Este campo es requerido",
+          validate: validateFechaLimite,
         })}
       />
     </FormRow>
@@ -207,7 +225,6 @@ function CreateClientForm({ clienteToEdit = {}, onCloseModal }) {
 
     <FormRow
       label={"Diplomado"}
-      error={errors?.cursa_actualmente?.message}
     >
       <StyledSelectDiplomado
         Style={{ width: '20rem'}}
