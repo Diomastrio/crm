@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { MdAddBox } from "react-icons/md";
+import { FaChartPie } from "react-icons/fa";
 
 const NavList = styled.ul`
   display: flex;
@@ -68,6 +69,12 @@ function MainNav() {
           <StyledNavLink to="/users">
             <MdAddBox />
             <span>Table test</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/Graphs">
+            <FaChartPie />
+            <span>Graficas</span>
           </StyledNavLink>
         </li>
       </NavList>

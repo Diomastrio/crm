@@ -12,10 +12,11 @@ import Users from "./pages/Users";
 import Account from "./pages/Account";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
-import Entrar from "./pages/Entrar";
+import Registro from "./pages/Registro";
 import Login from "./pages/Login";
 import Cliente from "./pages/Articulos";
-import AgregarCliente from "./pages/Clientes";
+import AgregarClientes from "./pages/AgregarCliente";
+import Graphs from "./pages/Graphs";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,12 +46,13 @@ function App() {
               <Route path="users" element={<Users />} />
               <Route path="account" element={<Account />} />
               <Route path="Cliente" element={<Cliente />} />
-              <Route path="AgregarCliente" element={<AgregarCliente />} />
+              <Route path="AgregarCliente" element={<AgregarClientes />} />
+              <Route path="Graphs" element={<Graphs />} />
             </Route>
 
             <Route path="Login" element={<Login />} />
             <Route path="Home" element={<Home />} />
-            <Route path="entrar" element={<Entrar />} />
+            <Route path="registro" element={<Registro />} />
             <Route path="*" element={<PageNotFound />} />
             {/* <Route path="*" element={<Home/>} /> */}
           </Routes>

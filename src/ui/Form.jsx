@@ -11,7 +11,7 @@ const Form = styled.form`
       border: 1px solid var(--color-grey-100);
       border-radius: var(--border-radius-md);
 
-      /* Make form scrollable */
+      /* Make form scro llable */
       max-height: 80vh;
       overflow-y: auto;
 
