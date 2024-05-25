@@ -1,13 +1,14 @@
 
 
 import { useForm } from "react-hook-form";
+import { useState,useEffect } from 'react';
 
 import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import {  CheckboxWrapper,CheckboxInput,CheckboxBox} from "../../ui/Checkboxes";
-import {FormRow} from "../../ui/FormRow";
+import {FormRow,FormRowDiplomado} from "../../ui/FormRow";
 import {StyledSelectDiplomado} from "../../ui/SelectTwo";
 
 import {useCreateProspecto} from "./useCreateProspecto";
@@ -20,6 +21,47 @@ function CreateProspectoForm({ onCloseModal }) {
   const { errors } = formState;
 
   const watchDiplomados = watch("MasDe1Diploma", false);
+  const watchDisciplinasMas = watch("disciplina");
+  const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
+
+  //console.log(watchDisciplinasMas)
+
+  useEffect(() => {
+    if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
+      const specificDiplomados = [''];
+      setdiplomadosEspecificos(specificDiplomados);
+    }
+    else if (watchDisciplinasMas === 'Desarrollo Humano') {
+      const specificDiplomados = ['Desarrollo Humanossss'];
+      setdiplomadosEspecificos(specificDiplomados);
+    } 
+    else if (watchDisciplinasMas==='Descuentos'){
+      const diplomadosEspecificos = ['Descuentosss',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Ingeniería'){
+      const diplomadosEspecificos = ['Ingenieríaaa',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Negocios'){
+      const diplomadosEspecificos = ['Negocioss',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='OnLive'){
+      const diplomadosEspecificos = ['OnLivee',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Psicología'){
+      const diplomadosEspecificos = ['Psicologíaa',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Salud'){
+      const diplomadosEspecificos = ['Saludd',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+  }, [watchDisciplinasMas]);
+
+  //console.log(diplomadosEspecificos)
 
   function onSubmit(data) {
     createProspecto(
@@ -96,15 +138,15 @@ function CreateProspectoForm({ onCloseModal }) {
       </FormRow>
 
       <FormRow
-        label={"Diplomado"}
+        label={"Disciplinas"}
         error={errors?.cursa_actualmente?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
-          id="diplomado"
+          id="disciplina"
           defaultValue="" 
           isDisabled={isWorking}
-          {...register("diplomado", {
+          {...register("disciplina", {
             required: "Este campo es requerido",
           })}
         >
@@ -119,13 +161,34 @@ function CreateProspectoForm({ onCloseModal }) {
         </StyledSelectDiplomado>
       </FormRow>
 
+      <FormRow
+        label={"Diplomados"}
+        error={errors?.cursa_actualmente?.message}
+      >
+        <StyledSelectDiplomado
+          Style={{ width: '20rem'}}
+          id="diplomado"
+          defaultValue="" 
+          isDisabled={isWorking}
+          {...register("diplomado", {
+            required: "Este campo es requerido",
+          })}
+        >
+          <option value=""></option>
+          {diplomadosEspecificos.map((diplomado, index) => (
+            <option key={index} value={diplomado}>{diplomado}</option>
+          ))}
+        </StyledSelectDiplomado>
+      </FormRow>
+
       {watchDiplomados && (
-          <FormRow label="Diplomado 2" error={errors?.diplomados_terminados?.message}>
+        <>
+          <FormRowDiplomado label="Disciplina 2" error={errors?.diplomados_terminados?.message}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
-            id="diplomado2"
+            id="disciplina2"
             isDisabled={isWorking}
-            {...register("diplomado2", {
+            {...register("disciplina2", {
               required: "Este campo es requerido",
             })}
           >
@@ -138,7 +201,28 @@ function CreateProspectoForm({ onCloseModal }) {
             <option value="Psicología">Psicología</option>
             <option value="Salud">Salud</option>
           </StyledSelectDiplomado>
-        </FormRow>
+        </FormRowDiplomado>
+
+        <FormRowDiplomado
+        label={"Diplomados"}
+        error={errors?.cursa_actualmente?.message}
+        >
+        <StyledSelectDiplomado
+          Style={{ width: '20rem'}}
+          id="diplomado2"
+          defaultValue="" 
+          isDisabled={isWorking}
+          {...register("diplomado2", {
+            required: "Este campo es requerido",
+          })}
+        >
+          <option value=""></option>
+          {diplomadosEspecificos.map((diplomado, index) => (
+            <option key={index} value={diplomado}>{diplomado}</option>
+          ))}
+        </StyledSelectDiplomado>
+        </FormRowDiplomado>
+        </>
       )}
 
       <FormRow>

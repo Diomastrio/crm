@@ -12,7 +12,7 @@ const Form = styled.form`
       border-radius: var(--border-radius-md);
 
       /* Make form scrollable */
-      max-height: 100vh;
+      max-height: 120vh;
       overflow-y: auto;
 
       /* Ensure the form fits the screen properly */
