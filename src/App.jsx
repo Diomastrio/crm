@@ -17,6 +17,7 @@ import Cliente from "./pages/Clientes";
 import Prospectos from "./pages/Prospectos";
 import AgregarCliente from "./pages/AgregarCliente";
 import AgregarProspecto from "./pages/AgregarProspecto";
+import Graficas from "./pages/Graphs";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,7 +48,7 @@ function App() {
               <Route path="Prospectos" element={<Prospectos />} />
               <Route path="AgregarCliente" element={<AgregarCliente />} />
               <Route path="AgregarProspecto" element={<AgregarProspecto />} />
-
+              <Route path="Graficas" element={<Graficas/>} />
             </Route>
             
             <Route path="Login" element={<Login />} />

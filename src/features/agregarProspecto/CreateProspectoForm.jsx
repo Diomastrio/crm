@@ -21,10 +21,9 @@ function CreateProspectoForm({ onCloseModal }) {
   const { errors } = formState;
 
   const watchDiplomados = watch("MasDe1Diploma", false);
+
   const watchDisciplinasMas = watch("disciplina");
   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
-
-  //console.log(watchDisciplinasMas)
 
   useEffect(() => {
     if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
@@ -32,35 +31,72 @@ function CreateProspectoForm({ onCloseModal }) {
       setdiplomadosEspecificos(specificDiplomados);
     }
     else if (watchDisciplinasMas === 'Desarrollo Humano') {
-      const specificDiplomados = ['Desarrollo Humanossss'];
+      const specificDiplomados = ['Desarrollo',' Humanossss'];
       setdiplomadosEspecificos(specificDiplomados);
     } 
     else if (watchDisciplinasMas==='Descuentos'){
-      const diplomadosEspecificos = ['Descuentosss',];
+      const diplomadosEspecificos = ['Descuentosss','D',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Ingeniería'){
-      const diplomadosEspecificos = ['Ingenieríaaa',];
+      const diplomadosEspecificos = ['Ingenieríaaa','I',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Negocios'){
-      const diplomadosEspecificos = ['Negocioss',];
+      const diplomadosEspecificos = ['Negocioss','N',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='OnLive'){
-      const diplomadosEspecificos = ['OnLivee',];
+      const diplomadosEspecificos = ['OnLivee','O',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Psicología'){
-      const diplomadosEspecificos = ['Psicologíaa',];
+      const diplomadosEspecificos = ['Psicologíaa','P',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Salud'){
-      const diplomadosEspecificos = ['Saludd',];
+      const diplomadosEspecificos = ['Saludd','S',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
   }, [watchDisciplinasMas]);
 
+  const watchDisciplinasMas2 = watch("disciplina2");
+  const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
+
+  useEffect(() => {
+    if (watchDisciplinasMas2===undefined||watchDisciplinasMas2===''){
+      const specificDiplomados = [''];
+      setdiplomadosEspecificos2(specificDiplomados);
+    }
+    else if (watchDisciplinasMas2 === 'Desarrollo Humano') {
+      const specificDiplomados = ['Desarrollo Humanossss'];
+      setdiplomadosEspecificos2(specificDiplomados);
+    } 
+    else if (watchDisciplinasMas2==='Descuentos'){
+      const diplomadosEspecificos = ['Descuentosss',];
+      setdiplomadosEspecificos2(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas2==='Ingeniería'){
+      const diplomadosEspecificos = ['Ingenieríaaa',];
+      setdiplomadosEspecificos2(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas2==='Negocios'){
+      const diplomadosEspecificos = ['Negocioss',];
+      setdiplomadosEspecificos2(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas2==='OnLive'){
+      const diplomadosEspecificos = ['OnLivee',];
+      setdiplomadosEspecificos2(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas2==='Psicología'){
+      const diplomadosEspecificos = ['Psicologíaa',];
+      setdiplomadosEspecificos2(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas2==='Salud'){
+      const diplomadosEspecificos = ['Saludd',];
+      setdiplomadosEspecificos2(diplomadosEspecificos);
+    }
+  }, [watchDisciplinasMas2]);
   //console.log(diplomadosEspecificos)
 
   function onSubmit(data) {
@@ -174,7 +210,6 @@ function CreateProspectoForm({ onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value=""></option>
           {diplomadosEspecificos.map((diplomado, index) => (
             <option key={index} value={diplomado}>{diplomado}</option>
           ))}
@@ -192,7 +227,6 @@ function CreateProspectoForm({ onCloseModal }) {
               required: "Este campo es requerido",
             })}
           >
-            <option value=""></option>
             <option value="Desarrollo Humano">Desarrollo Humano</option>
             <option value="Descuentos">Descuentos</option>
             <option value="Ingeniería">Ingeniería</option>
@@ -217,7 +251,7 @@ function CreateProspectoForm({ onCloseModal }) {
           })}
         >
           <option value=""></option>
-          {diplomadosEspecificos.map((diplomado, index) => (
+          {diplomadosEspecificos2.map((diplomado, index) => (
             <option key={index} value={diplomado}>{diplomado}</option>
           ))}
         </StyledSelectDiplomado>

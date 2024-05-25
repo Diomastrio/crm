@@ -5,7 +5,6 @@ display: grid;
 align-items: center;
 grid-template-columns: 18rem 1.7fr 0.2fr;
 gap: 2.4rem;
-background-color: var(--color-brand-600);
 
 padding: 1.2rem 0;
 
@@ -28,15 +27,14 @@ padding: 1.2rem 0;
 }
 `;
 
-const FormRowDiplomado = styled.div`
+const StyleFormRowDiplomado = styled.div`
 display: grid;
 align-items: center;
 grid-template-columns: 18rem 1.7fr 0.2fr;
 gap: 2.4rem;
-background-color: var(--color-brand-600);
+background-color: var(--color-grey-50);
 
 padding: 1.2rem 0;
-
 
 &:first-child {
   padding-top: 0;
@@ -50,15 +48,12 @@ padding: 1.2rem 0;
   border-bottom: 1px solid var(--color-grey-100);
 }
 
-&:has(button) {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1.2rem;
-}
 `;
 
 const Label = styled.label`
   font-weight: 500;
+  margin-left: 0.5rem;
+
 `;
 
 const Error = styled.span`
@@ -78,6 +73,18 @@ function FormRow({ label, error, children }) {
   );
 }
 
+
+function FormRowDiplomado({ label, error, children }) {
+  return (
+    <StyleFormRowDiplomado>
+      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {children}
+      {error && <Error>{error}</Error>}
+    </StyleFormRowDiplomado>
+  );
+}
+
 export {
-FormRow,FormRowDiplomado
+FormRow,
+FormRowDiplomado
 };
