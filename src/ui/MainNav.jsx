@@ -72,15 +72,15 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/Graficas">
-            <FaChartPie />
-            <span>Graficas</span>
-          </StyledNavLink>
-        </li>
-        <li>
           <StyledNavLink to="/AgregarProspecto">
             <MdAddBox />
             <span>Agrega prospecto</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/Graficas">
+            <FaChartPie />
+            <span>Graficas</span>
           </StyledNavLink>
         </li>
       </NavList>

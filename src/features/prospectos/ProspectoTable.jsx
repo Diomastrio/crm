@@ -120,11 +120,11 @@ const handleSearch = async (event) => {
                 <StyledTableHeadCell>Prospecto</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
                 <StyledTableHeadCell>telefono</StyledTableHeadCell>
-          
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
-             
+                <StyledTableHeadCell>Disciplina Escrita</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
-                <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
+                <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
+                <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
               </StyledTableRow>
             </StyledTableHead>

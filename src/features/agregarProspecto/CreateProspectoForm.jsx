@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useState,useEffect } from 'react';
+import supabase from "../../services/supabase";
 
 import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
@@ -22,17 +23,53 @@ function CreateProspectoForm({ onCloseModal }) {
 
   const watchDiplomados = watch("MasDe1Diploma", false);
 
+  const fetchDiplomados = async () => {
+    const { dh, DHerror } = await supabase.from("diplomados").select("DesarrolloHumano");
+
+    /*const { descuentos, Derror } = await supabase.from("diplomados").select("Descuentos");
+    const { Educacion, Eerror } = await supabase.from("diplomados").select("Educación");
+    const { Ingenieria, Ierror } = await supabase.from("diplomados").select("Ingeniería");
+    const { Negocios, Nerror } = await supabase.from("diplomados").select("Negocios");
+    const { OnLive, Oerror } = await supabase.from("diplomados").select("OnLive");
+    const { Psicologia, Perror } = await supabase.from("diplomados").select("Psicología");
+    const { Salud, Serror } = await supabase.from("diplomados").select("Salud");*/
+
+    if (DHerror) { console.error("Error fetching Desarrollo Humano: ", DHerror); return;}
+    /*if (Derror) { console.error("Error fetching Descuentos: ", Derror); return;}
+    if (Eerror) { console.error("Error fetching Educación: ", Eerror); return;}
+    if (Ierror) { console.error("Error fetching Ingeniería: ", Ierror); return;}
+    if (Nerror) { console.error("Error fetching Negocios: ", Nerror); return;}
+    if (Oerror) { console.error("Error fetching OnLive: ", Oerror); return;}
+    if (Perror) { console.error("Error fetching Psicología: ", Perror); return;}
+    if (Serror) { console.error("Error fetching Salud: ", Serror); return;}*/
+    dh.forEach((Desarrollo) => {
+      console.log(Desarrollo)
+    });
+
+    console.log(dh)
+    //setdesarrolloHumano(dh)
+  };
+
+  useEffect(() => {
+    fetchDiplomados();
+  }, []);
+
+  //STATES DIPLOMADOS
+  //const [desarrolloHumano, setdesarrolloHumano] = useState([]); 
+
+
+  //WATCHES
   const watchDisciplinasMas = watch("disciplina");
   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
 
   useEffect(() => {
     if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
-      const specificDiplomados = [''];
-      setdiplomadosEspecificos(specificDiplomados);
+      const diplomadosEspecificos = [''];
+      setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas === 'Desarrollo Humano') {
-      const specificDiplomados = ['Desarrollo',' Humanossss'];
-      setdiplomadosEspecificos(specificDiplomados);
+      const diplomadosEspecificos = ['Desarrollo','Humano',];
+      setdiplomadosEspecificos(diplomadosEspecificos);
     } 
     else if (watchDisciplinasMas==='Descuentos'){
       const diplomadosEspecificos = ['Descuentosss','D',];
