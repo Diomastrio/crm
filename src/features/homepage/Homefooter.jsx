@@ -1,10 +1,5 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {
-  AiOutlineInstagram,
-  AiFillTwitterCircle,
-  AiOutlineCopyright,
-} from "react-icons/ai";
+
 const StyledFooter = styled.footer`
   background-color: var(--color-grey-0);
   padding: 1.2rem 4.8rem;
@@ -25,17 +20,7 @@ const StyledFooter = styled.footer`
 function Homefooter() {
   return (
     <>
-      <StyledFooter>
-        <Link to="https://www.instagram.com/swapiioficial/">
-          <AiOutlineInstagram style={{fontSize:'40px', marginTop:'10px'}}/>
-        </Link>
-        <Link to="https://twitter.com/Swapiioficial">
-          <AiFillTwitterCircle style={{fontSize:'40px', marginTop:'10px'}}/>
-        </Link>
-        <span>Universidad Tecnologica de Durango</span>{" "}
-        <span>swapii@gmail.com</span>
-        <AiOutlineCopyright style={{fontSize:'25px', marginTop:'10px'}}/>
-      </StyledFooter>
+      <StyledFooter/>
     </>
   );
 }

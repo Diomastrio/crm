@@ -8,20 +8,20 @@ import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 
-import Users from "./pages/Users";
 import Account from "./pages/Account";
 import Home from "./pages/Home";
 import PageNotFound from "./pages/PageNotFound";
-import Registro from "./pages/Registro";
 import Login from "./pages/Login";
-import Cliente from "./pages/Articulos";
-import AgregarClientes from "./pages/AgregarCliente";
+import Registro from "./pages/Registro";
+import Cliente from "./pages/Clientes";
+import Prospectos from "./pages/Prospectos";
+import AgregarCliente from "./pages/AgregarCliente";
+import AgregarProspecto from "./pages/AgregarProspecto";
 import Graphs from "./pages/Graphs";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 60 * 1000,
       staleTime: 0,
     },
   },
@@ -43,18 +43,18 @@ function App() {
               }
             >
               <Route index element={<Navigate replace to="Home" />} />
-              <Route path="users" element={<Users />} />
               <Route path="account" element={<Account />} />
               <Route path="Cliente" element={<Cliente />} />
-              <Route path="AgregarCliente" element={<AgregarClientes />} />
+              <Route path="Prospectos" element={<Prospectos />} />
+              <Route path="AgregarCliente" element={<AgregarCliente />} />
+              <Route path="AgregarProspecto" element={<AgregarProspecto />} />
               <Route path="Graphs" element={<Graphs />} />
             </Route>
 
             <Route path="Login" element={<Login />} />
             <Route path="Home" element={<Home />} />
-            <Route path="registro" element={<Registro />} />
+            <Route path="Registro" element={<Registro />} />
             <Route path="*" element={<PageNotFound />} />
-            {/* <Route path="*" element={<Home/>} /> */}
           </Routes>
         </BrowserRouter>
 

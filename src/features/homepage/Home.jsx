@@ -11,7 +11,7 @@ align-items: center;
 background-image: url(${home});
 background-size: cover;
 background-position: center;
-z-index: 1; /* add z-index to parent */
+z-index: 0; 
 
 &::before {
   content: "";
@@ -28,10 +28,7 @@ z-index: 1; /* add z-index to parent */
 
 function Home() {
   return (
-    <HomeSection>
-      <div>
-      </div>
-    </HomeSection>
+    <HomeSection/>
   );
 }
 

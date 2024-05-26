@@ -1,25 +1,30 @@
 import styled from "styled-components";
-import LoginForm from "../features/authentication/LoginForm";
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
+import SignupForm from "../features/authentication/SignupForm";
+import UsuarioCreado from "../features/authentication/UsuarioCreado";
 
 const LoginLayout = styled.main`
-  min-height: 100vh;
+  height: 130vh;
   display: grid;
-  grid-template-columns: 48rem;
+  grid-template-columns: 60rem;
   align-content: center;
   justify-content: center;
   gap: 3.2rem;
   background-color: var(--color-grey-50);
 `;
-function Registro() {
+// import HomeHeader from "../features/homepage/HomeHeader";
+// import HomeMain from "../features/homepage/HomeMain";
+// import Homefooter from "../features/homepage/Homefooter";
+function Homepage() {
   return (
     <LoginLayout>
-      <Heading as="h4">Inicia sesión</Heading>
       <Logo />
-      <LoginForm />
+      <Heading as="h4">Crea una cuenta</Heading>
+      <SignupForm />
+      <UsuarioCreado />
     </LoginLayout>
   );
 }
 
-export default Registro;
+export default Homepage;

@@ -1,28 +1,36 @@
 import styled from "styled-components";
 
 const StyledSelect = styled.select`
-  /* Base styles for the select element */
   width: 100%;
   padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-grey-300);
   border-radius: 4px;
   font-size: 2rem;
   background-color: var(--color-grey-0);
   color: var(--color-grey-700);
   outline: none;
 
-  /* Focus styles */
+  display: inline-flex
   &:focus {
     border-color: #90caf9;
   }
-
-  /* Disabled styles (optional) */
-  ${(props) =>
-    props.isDisabled &&
-    `
-    opacity: 0.5;
-    cursor: not-allowed;
-  `}
 `;
 
-export default StyledSelect;
+const StyledSelectDiplomado = styled.select`
+  width: 20rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-grey-300);
+  border-radius: 4px;
+  font-size: 1.6rem;
+  background-color: var(--color-grey-0);
+  color: var(--color-grey-700);
+  outline: none;
+
+  display: inline-flex
+  &:focus {
+    border-color: #90caf9;
+  }
+`;
+
+
+export {StyledSelect, StyledSelectDiplomado}

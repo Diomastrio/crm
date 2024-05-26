@@ -10,7 +10,7 @@ const StyledFilter = styled.div `
   display: flex;
   gap: 0.4rem;
 
-  flex-wrap: wrap; /* Allow the buttons to wrap to the next row */
+  flex-wrap: wrap; 
 `;
 
 const FilterButton = styled.button`

@@ -1,26 +1,26 @@
-// import ArticuloTableFilter from "../features/cliente/ArticuloTableFilter";
-// import { useArticulos } from "../features/cliente/useArticulo";
-// import ArticuloTable from "../features/agregarCliente/ClientesTable";
+import ClientTableFilter from "../features/cliente/ClienteTableFilter";
+import { useCliente } from "../features/cliente/useSelectCliente";
+import ClientTable from "../features/cliente/ClientesTable";
 
-// import Heading from "../ui/Heading";
-// import Spinner from "../ui/Spinner";
-// import Row from "../ui/Row";
-// import Empty from "../ui/Empty";
+import Heading from "../ui/Heading";
+import Spinner from "../ui/Spinner";
+import Row from "../ui/Row";
+import Empty from "../ui/Empty";
 
-// function Articulos() {
-//   const { isLoading, cliente } = useArticulos();
-//   if (isLoading) return <Spinner />;
-//   if (!cliente.length) return <Empty resourceName="clientes" />;
+function Clientes() {
+  const { isLoading, cliente } = useCliente();
+  if (isLoading) return <Spinner />;
+  if (!cliente.length) return <Empty resourceName="clientes" />;
 
-//   return (
-//     <>
-//       <Row type="horizontal">
-//         <Heading as="h1">Clientes Encontrados</Heading>
-//         <ArticuloTableFilter />
-//       </Row>
-//       <ArticuloTable />
-//     </>
-//   );
-// }
+  return (
+    <>
+      <Row type="horizontal">
+        <Heading as="h1">Clientes Encontrados</Heading>
+        <ClientTableFilter />
+      </Row>
+      <ClientTable />
+    </>
+  );
+}
 
-// export default Articulos;
+export default Clientes;

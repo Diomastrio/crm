@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { MdAddBox } from "react-icons/md";
 import { FaChartPie } from "react-icons/fa";
-
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -66,9 +65,15 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/users">
+          <StyledNavLink to="/Prospectos">
+            <BsFillPersonLinesFill />
+            <span>Prospectos</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/AgregarProspecto">
             <MdAddBox />
-            <span>Table test</span>
+            <span>Agrega prospecto</span>
           </StyledNavLink>
         </li>
         <li>

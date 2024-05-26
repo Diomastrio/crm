@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
+import {FormRow} from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUser } from "./useUser";
@@ -45,7 +45,11 @@ function UpdateUserDataForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Dirección de correo">
-        <Input value={email} disabled />
+        <Input 
+         type="text" 
+         value={email} 
+         disabled 
+         id="email" />
       </FormRow>
 
       <FormRow label="Nombre completo">
