@@ -3,12 +3,6 @@ import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
 function ArticuloTableFilter() {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const letterOptions = Array.from(alphabet).map((letter) => ({
-    value: `letter-${letter}`,
-    label: letter,
-  }));
-
   return (
     <TableOperations>
       <Filter
@@ -18,8 +12,6 @@ function ArticuloTableFilter() {
           { value: "all", label: "Todos" },
           { value: "activos", label: "Activos" },
           { value: "inactivos", label: "Inactivos" },
-
-          ...letterOptions,
         ]}
       />
 

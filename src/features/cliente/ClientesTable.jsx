@@ -8,7 +8,6 @@ import ClienteRow from "./ClienteTableRow";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import supabase from "../../services/supabase";
 
 import {
   StyledTable,
@@ -32,7 +31,6 @@ function ClienteTable() {
   const { isLoading, cliente } = useCliente();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
   const [searchResults2, setSearchResults2] = useState(1);
 
   if (isLoading) return <Spinner />;
@@ -64,7 +62,6 @@ function ClienteTable() {
 
     return filteredProductos;
   };
-  const sortedProductos = handleFilter(cliente);
   const filteredClientes = handleFilter(cliente);
 
   return (
