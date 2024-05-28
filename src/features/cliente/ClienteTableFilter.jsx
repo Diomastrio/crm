@@ -18,6 +18,7 @@ function ArticuloTableFilter() {
           { value: "all", label: "Todos" },
           { value: "activos", label: "Activos" },
           { value: "inactivos", label: "Inactivos" },
+          { value: "semana", label: "SE VENCE" },
 
           ...letterOptions,
         ]}
@@ -27,7 +28,8 @@ function ArticuloTableFilter() {
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)",},
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)",},
-          { value: "activos", label: "Clientes activos",},
+          { value: "diplomados_terminados-asc", label: "Diplomados Terminados Mas",},
+          { value: "diplomados_terminados-desc", label: "Diplomados Terminados Menos",},
 
         ]}
       />

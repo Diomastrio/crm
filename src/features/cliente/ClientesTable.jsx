@@ -54,7 +54,14 @@ function ClienteTable() {
   else if (filterValue === "inactivos") {
     filteredProductos = cliente.filter((cliente) => cliente.cursa_actualmente === false);
   }
-
+  else if (filterValue === "semana") {
+    const currentDate = new Date();
+    const oneWeekFromNow = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const Now = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+    
+    filteredProductos = cliente.filter((cliente) => new Date(cliente.fecha_limite) < oneWeekFromNow);  
+  }
+  
 // 2) BUSQUEDA
 const handleSearch = async (event) => {
   setSearchTerm(event.target.value);
@@ -100,7 +107,11 @@ const handleSearch = async (event) => {
       return 0; // if A and B are the same return 0
     });
   }
-
+  else if (field === "diplomados_terminados") {
+    const sortedProductos = filteredProductos.sort((a, b) => {
+        return (a[field] - b[field]) * modifier; 
+    });
+  } 
   
   const sortedProductos = filteredProductos.sort(
     (a, b) => (a[field] - b[field]) * modifier
