@@ -71,33 +71,35 @@ function ClienteTable() {
     <Menus>
       <StyledTable>
         <StyledTableHeader>
-          <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
-          <StyledTableHeaderCell>
-            <Input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm state on input change
-              id="telefono"
-            />
-          </StyledTableHeaderCell>
-          <StyledTableHeaderCell>
-            <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
-          </StyledTableHeaderCell>
-          <StyledTableHeaderCell></StyledTableHeaderCell>
-          <StyledTableHeaderCell></StyledTableHeaderCell>
-          <StyledTableHeaderCell></StyledTableHeaderCell>
-          <StyledTableHeaderCell></StyledTableHeaderCell>
-          <StyledTableHeaderCell></StyledTableHeaderCell>
-          <StyledTableHeaderCell></StyledTableHeaderCell>
-          <StyledTableHeaderCell>
-            <StyledInput />
-          </StyledTableHeaderCell>
-          <StyledTableHeaderCell>
-            <StyledInput />
-          </StyledTableHeaderCell>
-          <StyledTableHeaderCell>
-            <StyledInput />
-          </StyledTableHeaderCell>
+          <tr>
+            <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <Input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm state on input change
+                id="telefono"
+              />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <StyledInput />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <StyledInput />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <StyledInput />
+            </StyledTableHeaderCell>
+          </tr>
         </StyledTableHeader>
 
         <StyledTableHead>

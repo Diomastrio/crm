@@ -252,7 +252,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         >
           Cancelar
         </Button>
-        <Button disabled={isWorking}>Editar cliente</Button>
+        <Button disabled={isWorking}>Actualizar</Button>
       </FormRow>
     </Form>
   );

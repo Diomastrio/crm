@@ -170,7 +170,7 @@ const renderActiveShape = (props) => {
         outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
-        fill={fill}
+        fill="#28d4b7"
       />
       <Sector
         cx={cx}
@@ -179,14 +179,14 @@ const renderActiveShape = (props) => {
         endAngle={endAngle}
         innerRadius={outerRadius + 6}
         outerRadius={outerRadius + 10}
-        fill={fill}
+        fill="#4b42d4"
       />
       <path
         d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke={fill}
+        stroke="#28d4b7"
         fill="none"
       />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <circle cx={ex} cy={ey} r={2} fill="#16a34a" stroke="#16a34a" />
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -198,7 +198,7 @@ const renderActiveShape = (props) => {
         y={ey}
         dy={18}
         textAnchor={textAnchor}
-        fill="#999"
+        fill="#4b42d4"
       >
         {`(${(percent * 100).toFixed(2)}% Clientes )`}
       </text>
@@ -250,38 +250,40 @@ function DefaultGraphs() {
   return (
     <StyledSalesChart>
       <Heading as="h2">Graficas</Heading>
-      <ResponsiveContainer width="100%" height={400}>
-        <PieChart width={400} height={400}>
-          <Pie
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
-            data={datagen}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            onMouseEnter={onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-      <ResponsiveContainer width="100%" height={400}>
-        <PieChart width={400} height={400}>
-          <Pie
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            onMouseEnter={onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <ResponsiveContainer width="100%" height={400}>
+          <PieChart width={400} height={400}>
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={datagen}
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              fill="#4b42d4"
+              dataKey="value"
+              onMouseEnter={onPieEnter}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={400}>
+          <PieChart width={400} height={400}>
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              fill="#4b42d4"
+              dataKey="value"
+              onMouseEnter={onPieEnter}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={dataArea}>
           <XAxis
