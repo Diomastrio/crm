@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import DashboardBox from "../../ui/GraficasUi";
+import { DashboardBox, StyledSubHeading } from "../../ui/GraficasUi";
 import Heading from "../../ui/Heading";
 import React, { useState, useEffect } from "react";
 import supabase from "../../services/supabase";
@@ -339,6 +339,7 @@ function DefaultGraphs() {
   return (
     <StyledSalesChart>
       <Heading as="h2">Graficas</Heading>
+      <StyledSubHeading as="h3">Genero & Clientes activos</StyledSubHeading>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <ResponsiveContainer width="100%" height={400}>
           <PieChart width={400} height={400}>
@@ -373,6 +374,9 @@ function DefaultGraphs() {
           </PieChart>
         </ResponsiveContainer>
       </div>
+      <StyledSubHeading as="h3">
+        Diplomados inscritos y terminados por mes
+      </StyledSubHeading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={dataArea}>
           <XAxis
@@ -403,6 +407,7 @@ function DefaultGraphs() {
           />
         </AreaChart>
       </ResponsiveContainer>
+      <StyledSubHeading as="h3">Diplomados inscritos por edad</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <ScatterChart
           width={400}
@@ -433,6 +438,9 @@ function DefaultGraphs() {
           </Scatter>
         </ScatterChart>
       </ResponsiveContainer>
+      <StyledSubHeading as="h3">
+        Numero de clientes activos por disciplina
+      </StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -453,6 +461,9 @@ function DefaultGraphs() {
           <Bar dataKey="clienteActivo" fill="#4b42d4" />
         </BarChart>
       </ResponsiveContainer>
+      <StyledSubHeading as="h3">
+        Numero de clientes por genero y disciplina
+      </StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -474,6 +485,9 @@ function DefaultGraphs() {
           <Bar dataKey="m" fill="#28d4b7" name="Female" />
         </BarChart>
       </ResponsiveContainer>
+      <StyledSubHeading as="h3">
+        Numero de clientes por disciplina
+      </StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
