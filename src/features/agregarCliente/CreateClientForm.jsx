@@ -5,18 +5,22 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import { FormRow } from "../../ui/FormRow";
 import { StyledSelect, StyledSelectDiplomado } from "../../ui/SelectTwo";
-import { CheckboxWrapper, CheckboxInput, CheckboxBox } from "../../ui/Checkboxes";
+import {
+  CheckboxWrapper,
+  CheckboxInput,
+  CheckboxBox,
+} from "../../ui/Checkboxes";
 
 import { useCreateCliente } from "./useCreateClient";
 
 function CreateClientForm({ onCloseModal }) {
   const { isCreating, createCliente } = useCreateCliente();
-  const isWorking = isCreating ;
+  const isWorking = isCreating;
 
   const { register, watch, handleSubmit, reset, formState } = useForm({});
   const { errors } = formState;
 
-  const fechaInicio = watch("fecha_inicio"); 
+  const fechaInicio = watch("fecha_inicio");
   const watchDiplomados = watch("MasDe1Diploma", false);
 
   const validateFechaFin = (value) => {
@@ -25,7 +29,7 @@ function CreateClientForm({ onCloseModal }) {
     }
     return true;
   };
-  
+
   const validateFechaLimite = (value) => {
     if (value <= fechaInicio) {
       return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
@@ -34,15 +38,15 @@ function CreateClientForm({ onCloseModal }) {
   };
 
   function onSubmit(data) {
-      createCliente(
-        { ...data },
-        {
-          onSuccess: (data) => {
-            reset();
-            onCloseModal?.();
-          },
-        }
-      );
+    createCliente(
+      { ...data },
+      {
+        onSuccess: (data) => {
+          reset();
+          onCloseModal?.();
+        },
+      }
+    );
   }
 
   return (
@@ -166,7 +170,10 @@ function CreateClientForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Lugar de Residencia" error={errors?.lugar_residencia?.message}>
+      <FormRow
+        label="Lugar de Residencia"
+        error={errors?.lugar_residencia?.message}
+      >
         <Input
           type="text"
           id="lugar_residencia"
@@ -177,7 +184,10 @@ function CreateClientForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Diplomados Inscritos" error={errors?.numero_diplomados?.message}>
+      <FormRow
+        label="Diplomados Inscritos"
+        error={errors?.numero_diplomados?.message}
+      >
         <Input
           type="number"
           id="numero_diplomados"
@@ -192,7 +202,10 @@ function CreateClientForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Diplomados Terminados" error={errors?.diplomados_terminados?.message}>
+      <FormRow
+        label="Diplomados Terminados"
+        error={errors?.diplomados_terminados?.message}
+      >
         <Input
           type="number"
           id="diplomados_terminados"
@@ -207,7 +220,10 @@ function CreateClientForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label={"Cursa actualmente"} error={errors?.cursa_actualmente?.message}>
+      <FormRow
+        label={"Cursa actualmente"}
+        error={errors?.cursa_actualmente?.message}
+      >
         <StyledSelect
           id="cursa_actualmente"
           isDisabled={isWorking}
@@ -221,15 +237,12 @@ function CreateClientForm({ onCloseModal }) {
         </StyledSelect>
       </FormRow>
 
-      <FormRow
-        label={"Diplomado"}
-        error={errors?.cursa_actualmente?.message}
-      >
+      <FormRow label={"Diplomado"} error={errors?.cursa_actualmente?.message}>
         <StyledSelectDiplomado
-          Style={{ width: '20rem'}}
-          id="nombre_diplomado"
+          Style={{ width: "20rem" }}
+          id="disciplina"
           isDisabled={isWorking}
-          {...register("nombre_diplomado", {
+          {...register("disciplina", {
             required: "Este campo es requerido",
           })}
         >
@@ -249,17 +262,19 @@ function CreateClientForm({ onCloseModal }) {
           <CheckboxInput
             type="checkbox"
             id="MasDe1Diploma"
-            {...register("MasDe1Diploma", {
-            })}
+            {...register("MasDe1Diploma", {})}
           />
-          <CheckboxBox/>
+          <CheckboxBox />
         </CheckboxWrapper>
       </FormRow>
 
       {watchDiplomados && (
-          <FormRow label="Diplomado 2" error={errors?.diplomados_terminados?.message}>
-            <StyledSelectDiplomado
-            Style={{ width: '20rem'}}
+        <FormRow
+          label="Diplomado 2"
+          error={errors?.diplomados_terminados?.message}
+        >
+          <StyledSelectDiplomado
+            Style={{ width: "20rem" }}
             id="nombre_diplomado2"
             isDisabled={isWorking}
             {...register("nombre_diplomado2", {

@@ -228,9 +228,9 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       <FormRow label={"Diplomado"}>
         <StyledSelectDiplomado
           Style={{ width: "20rem" }}
-          id="nombre_diplomado"
+          id="disciplina"
           isDisabled={isWorking}
-          {...register("nombre_diplomado", {
+          {...register("disciplina", {
             required: "Este campo es requerido",
           })}
         >
