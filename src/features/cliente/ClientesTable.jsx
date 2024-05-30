@@ -50,7 +50,7 @@ function ClienteTable() {
 
     if (searchTermDiplomado.length > 0) {
       filteredProductos = filteredProductos.filter((cliente) =>
-      cliente.numero_diplomados.toString().includes(searchTermDiplomado) 
+      cliente.numero_diplomados.toString().charAt(0).includes(searchTermDiplomado) 
       );
     }
 

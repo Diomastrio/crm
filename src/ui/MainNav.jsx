@@ -71,6 +71,12 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
+          <StyledNavLink to="/PDF">
+            <MdAddBox />
+            <span>PDF</span>
+          </StyledNavLink>
+        </li>
+        <li>
           <StyledNavLink to="/AgregarProspecto">
             <MdAddBox />
             <span>Agrega prospecto</span>
