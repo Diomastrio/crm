@@ -23,10 +23,10 @@ const Img = styled.img`
   position: absolute;
   left: 2rem;
 
-  animation: ${spin} infinite 20s linear; /* Animation properties */
-  animation-play-state: running; /* Initially paused */
+  animation: ${spin} infinite 10s linear; /* Animation properties */
+  animation-play-state: running; /* Initially paused/running */
   &:hover {
-    animation-play-state: running; /* Start animation on hover */
+    animation-play-state: paused; /* Start animation on hover */
   }
 `;
 
@@ -55,10 +55,8 @@ function HeaderMenu() {
     <StyledHeaderMenu>
       <Logo />
       <li>
-        <Button variation="swapii" onClick={() => navigate("/Registro")}>
-          Crear cuenta
-        </Button>
-      </li>{" "}
+        <Button variation="swapii" onClick={() => navigate("/Registro")}>Crear cuenta</Button>
+      </li>
       <li>
         <Button onClick={() => navigate("/Login")}>Iniciar sesion</Button>
       </li>

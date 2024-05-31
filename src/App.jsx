@@ -48,7 +48,6 @@ function App() {
               <Route path="Cliente" element={<Cliente />} />
               <Route path="Prospectos" element={<Prospectos />} />
               <Route path="AgregarCliente" element={<AgregarCliente />} />
-              <Route path="AgregarProspecto" element={<AgregarProspecto />} />
               <Route path="Graphs" element={<Graphs />} />
               <Route path="PDF" element={<PDF />} />
             </Route>
@@ -57,6 +56,7 @@ function App() {
             <Route path="Home" element={<Home />} />
             <Route path="Registro" element={<Registro />} />
             <Route path="*" element={<PageNotFound />} />
+            <Route path="AgregarProspecto" element={<AgregarProspecto />} />
           </Routes>
         </BrowserRouter>
 

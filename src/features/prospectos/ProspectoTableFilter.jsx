@@ -1,5 +1,5 @@
 import TableOperations from "../../ui/TableOperations";
-import {Filter,SecondFilter} from "../../ui/Filter";
+import {Filter} from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
 function ArticuloTableFilter() {

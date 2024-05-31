@@ -5,10 +5,10 @@ import Row from "../ui/Row";
 function Prospecto() {
   return (
     <>
-      <Row type="horizontal">
-        <Heading as="h1">Empecemos con el proceso! </Heading>
+      <Row type="horizontal" style={{ backgroundColor: 'var(--color-grey-0)'}}>
+        <Heading as="h1">¡Empecemos con el proceso! </Heading>
+        <CreateProspecto />
       </Row>
-      <CreateProspecto />
     </>
   );
 }

@@ -17,9 +17,6 @@ import {
   Sector,
   ScatterChart,
   Scatter,
-  Legend,
-  Bar,
-  BarChart,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
 

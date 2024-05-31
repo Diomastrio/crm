@@ -47,7 +47,7 @@ function ProductoRow({ prospecto }) {
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProspecto(prospectoId)}/>
+              <ConfirmDelete resourceName="prospecto" disabled={isDeleting} onConfirm={() => deleteProspecto(prospectoId)}/>
             </Modal.Window>
         </Modal>
       </StyledTableCell>
