@@ -53,6 +53,13 @@ const Error = styled.span`
   text-align: center;
 `;
 
+const ErrorTerminos = styled.span`
+  font-size: 1.4rem;
+  color: var(--color-red-700);
+  grid-column: 6;
+  text-align: center;
+`;
+
 function FormRow({ label, error, children }) {
   return (
     <StyledFormRow>
@@ -73,4 +80,14 @@ function FormRowDiplomado({ label, error, children }) {
   );
 }
 
-export { FormRow, FormRowDiplomado };
+function FormRowTerminos({ label, error, children }) {
+  return (
+    <StyledFormRow>
+      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {children}
+      {error && <ErrorTerminos>{error}</ErrorTerminos>}
+    </StyledFormRow>
+  );
+}
+
+export { FormRow, FormRowDiplomado,FormRowTerminos };

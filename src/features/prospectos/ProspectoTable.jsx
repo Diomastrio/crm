@@ -118,7 +118,7 @@ const filteredProspectos = handleFilter(prospecto);
               <StyledTableRow>
                 <StyledTableHeadCell>Prospecto</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
-                <StyledTableHeadCell>telefono</StyledTableHeadCell>
+                <StyledTableHeadCell>Telefono</StyledTableHeadCell>
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
                 <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomado </StyledTableHeadCell>

@@ -1,21 +1,10 @@
 import TableOperations from "../../ui/TableOperations";
-import {Filter,SecondFilter} from "../../ui/Filter";
+import {SecondFilter} from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
-function ArticuloTableFilter() {
+function ProspectoTableFilter() {
   return (
     <TableOperations>
-       <Filter
-        id=""
-        filterField="nombre"
-        options={[
-          { value: "all", label: "Todos" },
-          { value: "activos", label: "Activos" },
-          { value: "inactivos", label: "Inactivos" },
-          { value: "frecuentes", label: "Clientes frecuentes" },
-          { value: "vence", label: "Vence Pronto" },
-        ]}
-      />
 <SecondFilter
         id=""
         filterField="nombre"
@@ -45,4 +34,4 @@ function ArticuloTableFilter() {
   );
 }
 
-export default ArticuloTableFilter;
+export default ProspectoTableFilter;

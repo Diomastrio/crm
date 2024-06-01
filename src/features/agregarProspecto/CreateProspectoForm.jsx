@@ -8,10 +8,11 @@ import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
-import { FormRow, FormRowDiplomado} from "../../ui/FormRow";
+import { FormRow, FormRowDiplomado, FormRowTerminos } from "../../ui/FormRow";
 import {StyledSelectDiplomado} from "../../ui/SelectTwo";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
+import TerminosCondiciones from "../../ui/Terminos_Condiciones";
 
 import {useCreateProspecto} from "./useCreateProspecto";
 
@@ -37,6 +38,7 @@ function CreateProspectoForm({ onCloseModal }) {
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
@@ -127,6 +129,22 @@ function CreateProspectoForm({ onCloseModal }) {
   const { isLoading, diplomado } = useDiplomado();
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
+
+
+
+
+
+
+
+  const handleOpenModal = (event) => {
+    event.preventDefault();
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
@@ -158,19 +176,17 @@ function CreateProspectoForm({ onCloseModal }) {
       </FormRow>
 
       <FormRow label="Tu Teléfono" error={errors?.telefono?.message}>
-        <>
           <Input
             type="number"
             id="telefono"
             disabled={isWorking}
             {...register("telefono", {
-              required: "Este campo es requerido", minLength: 11, maxLength: 11
+              required: "Este campo es requerido", minLength: {
+                value: 10,
+                message: "El numero de telefono debe ser de 10 digitos",
+              }, MaxLength: { value: 10, message: "error message" }
             })}
           />
-          {errors.telefono && (
-            <p>{"El numero de telefono debe ser de 11 digitos"}</p>
-          )}
-        </>
       </FormRow>
 
       <FormRow label="Tu Ocupación" error={errors?.ocupacion?.message}>
@@ -293,6 +309,36 @@ function CreateProspectoForm({ onCloseModal }) {
         </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}
+
+      <FormRowTerminos  error={errors?.terminosCondiciones?.message}>
+        <>
+        <CheckboxWrapper>
+          <CheckboxInput type="checkbox"  
+          id="terminosCondiciones"
+            {...register("terminosCondiciones", { required: "Necesitas Aceptar los términos y condiciones",})}
+          />
+          <CheckboxBox/>
+          <CheckboxLabel htmlFor="terminosCondiciones">Acepto los términos y condiciones</CheckboxLabel>          
+        </CheckboxWrapper>
+
+        <Button onClick={handleOpenModal} variation="danger">Términos y condiciones</Button>
+      {showModal && (
+        <div 
+        style={{position: 'fixed', top: 0, left: 0, width: '100%',height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999}}
+          onClick={handleCloseModal}
+          >
+          <div 
+          style={{position: 'relative', backgroundColor: 'var(--color-grey-100)',padding: '20px', borderRadius: '5px', width:'90%'}}
+            onClick={(e) => e.stopPropagation()} 
+            >
+            <h2  style={{color: 'var(--color-grey-500)'}}>Términos y condiciones</h2>
+            <TerminosCondiciones/>
+            <Button onClick={handleCloseModal} >Aceptar</Button>
+          </div>
+        </div>
+      )}</>
+      </FormRowTerminos>
 
       <FormRow>
         <Button

@@ -2,7 +2,7 @@ import TableOperations from "../../ui/TableOperations";
 import {Filter,SecondFilter,FiltersWrapper} from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
-function ArticuloTableFilter() {
+function ClienteTableFilter() {
   return (
     <TableOperations>
        <FiltersWrapper>
@@ -46,4 +46,4 @@ function ArticuloTableFilter() {
   );
 }
 
-export default ArticuloTableFilter;
+export default ClienteTableFilter;

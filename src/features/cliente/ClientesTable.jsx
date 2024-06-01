@@ -149,7 +149,7 @@ function ClienteTable() {
           <StyledTableRow>
             <StyledTableHeadCell>Cliente</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
-            <StyledTableHeadCell>telefono</StyledTableHeadCell>
+            <StyledTableHeadCell>Telefono</StyledTableHeadCell>
             <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
             <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>

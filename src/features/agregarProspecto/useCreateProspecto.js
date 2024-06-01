@@ -8,7 +8,9 @@ export function useCreateProspecto() {
   const { mutate: createProspecto, isLoading: isCreating } = useMutation({
     mutationFn: createEditProspecto,
     onSuccess: () => {
-      toast.success("Registro Exitosamente creado");
+      toast.success("Se ha Registrado Exitosamente creado",  {
+        duration: 6000,
+      });
 
       queryClient.invalidateQueries({ queryKey: ["prospecto"] });
     },
