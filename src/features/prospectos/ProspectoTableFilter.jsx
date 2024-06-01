@@ -1,34 +1,44 @@
 import TableOperations from "../../ui/TableOperations";
-import {Filter} from "../../ui/Filter";
+import {Filter,SecondFilter} from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
 function ArticuloTableFilter() {
-
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const letterOptions = Array.from(alphabet).map((letter) => ({
-    value: `letter-${letter}`,
-    label: letter,
-  }));
-  
   return (
     <TableOperations>
-      <Filter id=''
-        filterField="precio"
+       <Filter
+        id=""
+        filterField="nombre"
         options={[
           { value: "all", label: "Todos" },
           { value: "activos", label: "Activos" },
           { value: "inactivos", label: "Inactivos" },
-
-          ...letterOptions,
+          { value: "frecuentes", label: "Clientes frecuentes" },
+          { value: "vence", label: "Vence Pronto" },
         ]}
       />
-
-      <SortBy id='s'
+<SecondFilter
+        id=""
+        filterField="nombre"
         options={[
-          { value: "nombre-asc", label: "Ordenar por nombre (A-Z)",},
-          { value: "nombre-desc", label: "Ordenar por nombre (Z-A)",},
-          { value: "activos", label: "Clientes activos",},
-
+          { value: "Desarrollo Humano", label: "Desarrollo Humano", disciplina: "true", },
+          { value: "Descuentos", label: "Descuentos", disciplina: "true", },
+          { value: "Educación", label: "Educación", disciplina: "true", },
+          { value: "Ingeniería", label: "Ingeniería", disciplina: "true", },
+          { value: "Negocios", label: "Negocios", disciplina: "true", },
+          { value: "OnLive", label: "OnLive", disciplina: "true", },
+          { value: "Psicología", label: "Psicología", disciplina: "true", },
+          { value: "Salud", label: "Salud", disciplina: "true", },
+      
+          
+        ]}
+      />
+      <SortBy
+        id="s"
+        options={[
+          { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
+          { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
+          { value: "diplomados_terminados-asc", label: "Diplomados Terminados Mas",},
+          { value: "diplomados_terminados-desc", label: "Diplomados Terminados Menos",},
         ]}
       />
     </TableOperations>

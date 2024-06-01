@@ -19,7 +19,7 @@ function ProductoRow({ prospecto }) {
     id: prospectoId,
     nombre,
     email, 
-    ocupacion, telefono,diplomado,diplomado2
+    ocupacion, telefono,disciplina,disciplina2,diplomado,diplomado2
   } = prospecto;
 
   return (
@@ -29,7 +29,9 @@ function ProductoRow({ prospecto }) {
                   <StyledTableCell>{email}</StyledTableCell>
                   <StyledTableCell>{telefono}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
+                  <StyledTableCell>{disciplina}</StyledTableCell>
                   <StyledTableCell>{diplomado}</StyledTableCell>
+                  <StyledTableCell>{disciplina2}</StyledTableCell>
                   <StyledTableCell>{diplomado2}</StyledTableCell>
       <StyledTableCell>
         <Modal>

@@ -86,7 +86,14 @@ const StyledTableCell = styled.td`
    &:last-child {
     display: flex;
     align-items: center;  
-    
+  }
+
+  &:nth-child(15) {
+    background-color: var(--color-grey-200);
+  }
+
+  &:nth-child(17) {
+    background-color: var(--color-grey-200);
   }
 `;
 

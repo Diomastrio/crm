@@ -32,6 +32,8 @@ function ClienteRow({ cliente }) {
     telefono,
     disciplina ,
     disciplina2,
+    diplomado,
+    diplomado2,
   } = cliente;
 
   const months = [
@@ -82,8 +84,10 @@ function ClienteRow({ cliente }) {
         <StyledTableCell>{nuevoLimite}</StyledTableCell>
         <StyledTableCell>{edad}</StyledTableCell>
         <StyledTableCell>{lugar_residencia}</StyledTableCell>
-        <StyledTableCell>{disciplina }</StyledTableCell>
+        <StyledTableCell>{disciplina}</StyledTableCell>
+        <StyledTableCell>{diplomado}</StyledTableCell>
         <StyledTableCell>{disciplina2}</StyledTableCell>
+        <StyledTableCell>{diplomado2}</StyledTableCell>
         <StyledTableCell>
           <Modal>
             <Modal.Open opens="edit">

@@ -340,6 +340,7 @@ function CreateClientForm({ onCloseModal }) {
         </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}
+      
       <FormRow>
         <Button
           variation="secondary"

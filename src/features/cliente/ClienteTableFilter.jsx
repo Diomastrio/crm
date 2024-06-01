@@ -6,34 +6,32 @@ function ArticuloTableFilter() {
   return (
     <TableOperations>
        <FiltersWrapper>
-      <Filter
-        id=""
-        filterField="nombre"
-        options={[
-          { value: "all", label: "Todos" },
-          { value: "activos", label: "Activos" },
-          { value: "inactivos", label: "Inactivos" },
-          { value: "frecuentes", label: "Clientes frecuentes" },
-          { value: "vence", label: "Vence Pronto" },
-        ]}
-      />
+        <Filter
+          id=""
+          filterField="nombre"
+          options={[
+            { value: "all", label: "Todos" },
+            { value: "activos", label: "Activos" },
+            { value: "inactivos", label: "Inactivos" },
+            { value: "frecuentes", label: "Clientes frecuentes" },
+            { value: "vence", label: "Vence Pronto" },
+          ]}
+        />
 
-<SecondFilter
-        id=""
-        filterField="nombre"
-        options={[
-          { value: "desarrollo", label: "Desarrollo Humano", disciplina: "true", },
-          { value: "descuentos", label: "Descuentos", disciplina: "true", },
-          { value: "educacion", label: "Educación", disciplina: "true", },
-          { value: "ingenieria", label: "Ingeniería", disciplina: "true", },
-          { value: "negocios", label: "Negocios", disciplina: "true", },
-          { value: "onLive", label: "OnLive", disciplina: "true", },
-          { value: "psicologia", label: "Psicología", disciplina: "true", },
-          { value: "salud", label: "Salud", disciplina: "true", },
-      
-          
-        ]}
-      />
+        <SecondFilter
+          id=""
+          filterField="nombre"
+          options={[
+            { value: "Desarrollo Humano", label: "Desarrollo Humano", disciplina: "true", },
+            { value: "Descuentos", label: "Descuentos", disciplina: "true", },
+            { value: "Educación", label: "Educación", disciplina: "true", },
+            { value: "Ingeniería", label: "Ingeniería", disciplina: "true", },
+            { value: "Negocios", label: "Negocios", disciplina: "true", },
+            { value: "OnLive", label: "OnLive", disciplina: "true", },
+            { value: "Psicología", label: "Psicología", disciplina: "true", },
+            { value: "Salud", label: "Salud", disciplina: "true", },
+          ]}
+        />
       </FiltersWrapper>
       <SortBy
         id="s"

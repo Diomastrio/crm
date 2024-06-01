@@ -54,56 +54,40 @@ function ClienteTable() {
       );
     }
 
-    //FILTRO
-    const filterValue = searchParams.get("nombre") || "all";
+    //FILTRO CLIENTES
+      const filterValue = searchParams.get("nombre") || "all";
 
-    if (filterValue === "activos") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.cursa_actualmente === true
-      );
-    } else if (filterValue === "inactivos") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.cursa_actualmente === false
-      );
-    }
-    else if (filterValue === "frecuentes") {
+      if (filterValue === "activos") {
         filteredProductos = filteredProductos.filter(
-          (cliente) => cliente.numero_diplomados >3
+          (cliente) => cliente.cursa_actualmente === true
+        );
+      } else if (filterValue === "inactivos") {
+        filteredProductos = filteredProductos.filter(
+          (cliente) => cliente.cursa_actualmente === false
         );
       }
-    else if (filterValue === "vence") {
-      const oneWeekAgo = new Date(Date.now() + 7 );
-
-      filteredProductos = filteredProductos.filter((cliente) =>
-        new Date(cliente.fecha_limite) < oneWeekAgo,
-      )
-    }
+      else if (filterValue === "frecuentes") {
+          filteredProductos = filteredProductos.filter(
+            (cliente) => cliente.numero_diplomados >3
+          );
+        }
+      else if (filterValue === "vence") {
+        const oneWeekAgo = new Date(Date.now() + 7 );
+  
+        filteredProductos = filteredProductos.filter((cliente) =>
+          new Date(cliente.fecha_limite) < oneWeekAgo,
+        )
+      }
 
     //otros diplomados
-    else if (filterValue === "desarrollo") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Desarrollo Humano');
-    }
-    else if (filterValue === "descuentos") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Descuentos');
-    }
-    else if (filterValue === "educacion") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Educación');
-    }
-    else if (filterValue === "ingenieria") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Ingeniería');
-    }
-    else if (filterValue === "negocios") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Negocios');
-    }
-    else if (filterValue === "onLive") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'OnLive');
-    }
-    else if (filterValue === "psicologia") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Psicología');
-    }
-    else if (filterValue === "salud") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Salud');
-    }
+    if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
+   || filterValue === "Educación" || filterValue === "Ingeniería"
+   || filterValue === "Negocios" || filterValue === "OnLive"
+   || filterValue === "Psicología" || filterValue === "Salud"
+  ) {
+    filteredProductos = filteredProductos.filter((cliente) => 
+      cliente.disciplina === filterValue || cliente.disciplina2 === filterValue);
+  }
    
   // ORDENAR
     const sortBy = searchParams.get("sortBy") || "nombre-asc";
@@ -143,7 +127,7 @@ function ClienteTable() {
             <StyledTableHeaderCell>
               <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell/>
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
              <Input type="number" value={searchTermDiplomado}
@@ -153,17 +137,11 @@ function ClienteTable() {
             <StyledTableHeaderCell>
               <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell></StyledTableHeaderCell>
-            <StyledTableHeaderCell></StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput/></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
           </tr>
         </StyledTableHeader>
 
@@ -183,7 +161,9 @@ function ClienteTable() {
             <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
             <StyledTableHeadCell>Edad</StyledTableHeadCell>
             <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
+            <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+            <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
             <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
           </StyledTableRow>
