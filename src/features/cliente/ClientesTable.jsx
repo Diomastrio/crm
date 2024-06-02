@@ -37,112 +37,83 @@ function ClienteTable() {
   if (!cliente.length) return <Empty resourceName="clientes" />;
 
   // 1) FILTER
-
   const handleFilter = (clientes) => {
-    let filteredProductos = clientes;
-
-    //BUSQUEDA
-    if (searchTerm.length > 0) {
-      filteredProductos = filteredProductos.filter((cliente) =>
-        cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    if (searchTermDiplomado.length > 0) {
-      filteredProductos = filteredProductos.filter(
-        (cliente) =>
-          cliente.numero_diplomados &&
+    return clientes.filter((cliente) => {
+      //BUSQUEDA
+      let passesSearchTerm =
+        searchTerm.length === 0 ||
+        cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+      let passesSearchTermDiplomado =
+        searchTermDiplomado.length === 0 ||
+        (cliente.numero_diplomados &&
           cliente.numero_diplomados
             .toString()
-            .includes(searchTermDiplomado.toString())
-      );
-    }
+            .includes(searchTermDiplomado.toString()));
 
-    //FILTRO
-    const filterValue = searchParams.get("nombre") || "all";
-    const secondFilterValue = searchParams.get("disciplina") || "all";
+      //FILTRO
+      let filterValue = searchParams.get("nombre") || "all";
+      let passesFilterValue;
+      switch (filterValue) {
+        case "activos":
+          passesFilterValue = cliente.cursa_actualmente === true;
+          break;
+        case "inactivos":
+          passesFilterValue = cliente.cursa_actualmente === false;
+          break;
 
-    if (filterValue === "activos") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.cursa_actualmente === true
-      );
-    } else if (filterValue === "inactivos") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.cursa_actualmente === false
-      );
-    } else if (filterValue === "frecuentes") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.numero_diplomados > 3
-      );
-    } else if (filterValue === "vence") {
-      const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+        case "frecuentes":
+          passesFilterValue = cliente.numero_diplomados > 3;
+          break;
+        case "vence":
+          const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+          passesFilterValue = new Date(cliente.fecha_limite) < oneWeekFromNow;
+          break;
+        default:
+          passesFilterValue = true;
+      }
 
-      filteredProductos = filteredProductos.filter(
-        (cliente) => new Date(cliente.fecha_limite) < oneWeekFromNow
-      );
-    }
+      //otros diplomados
+      let secondFilterValue = searchParams.get("disciplina") || "all";
+      let passesSecondFilterValue;
+      switch (secondFilterValue) {
+        case "desarrollo":
+          passesSecondFilterValue = cliente.disciplina === "Desarrollo Humano";
+          break;
+        case "descuentos":
+          passesSecondFilterValue = cliente.disciplina === "Descuentos";
+          break;
+        case "educacion":
+          passesSecondFilterValue = cliente.disciplina === "Educación";
+          break;
+        case "ingenieria":
+          passesSecondFilterValue = cliente.disciplina === "Ingeniería";
+          break;
+        case "negocios":
+          passesSecondFilterValue = cliente.disciplina === "Negocios";
+          break;
+        case "onLive":
+          passesSecondFilterValue = cliente.disciplina === "OnLive";
+          break;
+        case "psicologia":
+          passesSecondFilterValue = cliente.disciplina === "Psicología";
+          break;
+        case "salud":
+          passesSecondFilterValue = cliente.disciplina === "Salud";
+          break;
+        default:
+          passesSecondFilterValue = true;
+      }
 
-    //otros diplomados
-    else if (secondFilterValue === "desarrollo") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Desarrollo Humano"
+      return (
+        passesSearchTerm &&
+        passesSearchTermDiplomado &&
+        passesFilterValue &&
+        passesSecondFilterValue
       );
-    } else if (secondFilterValue === "descuentos") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Descuentos"
-      );
-    } else if (secondFilterValue === "educacion") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Educación"
-      );
-    } else if (secondFilterValue === "ingenieria") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Ingeniería"
-      );
-    } else if (secondFilterValue === "negocios") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Negocios"
-      );
-    } else if (secondFilterValue === "onLive") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "OnLive"
-      );
-    } else if (secondFilterValue === "psicologia") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Psicología"
-      );
-    } else if (secondFilterValue === "salud") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.disciplina === "Salud"
-      );
-    }
-
-    // ORDENAR
-    const sortBy = searchParams.get("sortBy") || "nombre-asc";
-    const [field, direction] = sortBy.split("-");
-
-    if (field === "nombre") {
-      filteredProductos.sort((a, b) => {
-        const nameA = a[field].toUpperCase();
-        const nameB = b[field].toUpperCase();
-        if (nameA < nameB) {
-          return direction === "asc" ? -1 : 1;
-        }
-        if (nameA > nameB) {
-          return direction === "asc" ? 1 : -1;
-        }
-        return 0;
-      });
-    } else if (field === "diplomados_terminados") {
-      filteredProductos.sort(
-        (a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1)
-      );
-    }
-
-    return filteredProductos;
+    });
   };
-  const filteredClientes = handleFilter(cliente);
 
+  const filteredClientes = handleFilter(cliente);
   return (
     <Menus>
       <StyledTable>
