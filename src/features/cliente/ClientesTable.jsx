@@ -49,13 +49,18 @@ function ClienteTable() {
     }
 
     if (searchTermDiplomado.length > 0) {
-      filteredProductos = filteredProductos.filter((cliente) =>
-      cliente.numero_diplomados.toString().charAt(0).includes(searchTermDiplomado) 
+      filteredProductos = filteredProductos.filter(
+        (cliente) =>
+          cliente.numero_diplomados &&
+          cliente.numero_diplomados
+            .toString()
+            .includes(searchTermDiplomado.toString())
       );
     }
 
     //FILTRO
     const filterValue = searchParams.get("nombre") || "all";
+    const secondFilterValue = searchParams.get("disciplina") || "all";
 
     if (filterValue === "activos") {
       filteredProductos = filteredProductos.filter(
@@ -65,50 +70,57 @@ function ClienteTable() {
       filteredProductos = filteredProductos.filter(
         (cliente) => cliente.cursa_actualmente === false
       );
-    }
-    else if (filterValue === "frecuentes") {
-        filteredProductos = filteredProductos.filter(
-          (cliente) => cliente.numero_diplomados >3
-        );
-      }
-    else if (filterValue === "vence") {
-      const oneWeekAgo = new Date(Date.now() + 7 );
+    } else if (filterValue === "frecuentes") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.numero_diplomados > 3
+      );
+    } else if (filterValue === "vence") {
+      const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-      filteredProductos = filteredProductos.filter((cliente) =>
-        new Date(cliente.fecha_limite) < oneWeekAgo,
-      )
+      filteredProductos = filteredProductos.filter(
+        (cliente) => new Date(cliente.fecha_limite) < oneWeekFromNow
+      );
     }
 
     //otros diplomados
-    else if (filterValue === "desarrollo") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Desarrollo Humano');
+    else if (secondFilterValue === "desarrollo") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Desarrollo Humano"
+      );
+    } else if (secondFilterValue === "descuentos") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Descuentos"
+      );
+    } else if (secondFilterValue === "educacion") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Educación"
+      );
+    } else if (secondFilterValue === "ingenieria") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Ingeniería"
+      );
+    } else if (secondFilterValue === "negocios") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Negocios"
+      );
+    } else if (secondFilterValue === "onLive") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "OnLive"
+      );
+    } else if (secondFilterValue === "psicologia") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Psicología"
+      );
+    } else if (secondFilterValue === "salud") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.disciplina === "Salud"
+      );
     }
-    else if (filterValue === "descuentos") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Descuentos');
-    }
-    else if (filterValue === "educacion") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Educación');
-    }
-    else if (filterValue === "ingenieria") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Ingeniería');
-    }
-    else if (filterValue === "negocios") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Negocios');
-    }
-    else if (filterValue === "onLive") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'OnLive');
-    }
-    else if (filterValue === "psicologia") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Psicología');
-    }
-    else if (filterValue === "salud") {
-      filteredProductos = filteredProductos.filter((cliente) => cliente.disciplina === 'Salud');
-    }
-   
-  // ORDENAR
+
+    // ORDENAR
     const sortBy = searchParams.get("sortBy") || "nombre-asc";
     const [field, direction] = sortBy.split("-");
-    
+
     if (field === "nombre") {
       filteredProductos.sort((a, b) => {
         const nameA = a[field].toUpperCase();
@@ -122,10 +134,12 @@ function ClienteTable() {
         return 0;
       });
     } else if (field === "diplomados_terminados") {
-      filteredProductos.sort((a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1));
+      filteredProductos.sort(
+        (a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1)
+      );
     }
-    
-  return filteredProductos;
+
+    return filteredProductos;
   };
   const filteredClientes = handleFilter(cliente);
 
@@ -136,22 +150,28 @@ function ClienteTable() {
           <tr>
             <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <Input type="text" value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} id="telefono"
+              <Input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                id="telefono"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+              <FaSearch style={{ margin: "0 10px 0 0px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell></StyledTableHeaderCell>
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-             <Input type="number" value={searchTermDiplomado}
-                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="te"
+              <Input
+                type="number"
+                value={searchTermDiplomado}
+                onChange={(e) => setSearchTermDiplomado(e.target.value)}
+                id="te"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+              <FaSearch style={{ margin: "0 10px 0 0px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell></StyledTableHeaderCell>
             <StyledTableHeaderCell></StyledTableHeaderCell>
@@ -189,7 +209,7 @@ function ClienteTable() {
           </StyledTableRow>
         </StyledTableHead>
 
-        {filteredClientes.length ?  (
+        {filteredClientes.length ? (
           filteredClientes.map((clientes, index) => (
             <ClienteRow cliente={clientes} key={clientes.id} />
           ))
