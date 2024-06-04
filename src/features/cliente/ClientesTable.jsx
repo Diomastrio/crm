@@ -37,82 +37,83 @@ function ClienteTable() {
   if (!cliente.length) return <Empty resourceName="clientes" />;
 
   // 1) FILTER
-
   const handleFilter = (clientes) => {
-    let filteredProductos = clientes;
+    return clientes.filter((cliente) => {
+      //BUSQUEDA
+      let passesSearchTerm =
+        searchTerm.length === 0 ||
+        cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+      let passesSearchTermDiplomado =
+        searchTermDiplomado.length === 0 ||
+        (cliente.numero_diplomados &&
+          cliente.numero_diplomados
+            .toString()
+            .includes(searchTermDiplomado.toString()));
 
-    //BUSQUEDA
-    if (searchTerm.length > 0) {
-      filteredProductos = filteredProductos.filter((cliente) =>
-        cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+      //FILTRO
+      let filterValue = searchParams.get("nombre") || "all";
+      let passesFilterValue;
+      switch (filterValue) {
+        case "activos":
+          passesFilterValue = cliente.cursa_actualmente === true;
+          break;
+        case "inactivos":
+          passesFilterValue = cliente.cursa_actualmente === false;
+          break;
 
-    if (searchTermDiplomado.length > 0) {
-      filteredProductos = filteredProductos.filter((cliente) =>
-      cliente.numero_diplomados.toString().charAt(0).includes(searchTermDiplomado) 
-      );
-    }
-
-    //FILTRO CLIENTES
-      const filterValue = searchParams.get("nombre") || "all";
-
-      if (filterValue === "activos") {
-        filteredProductos = filteredProductos.filter(
-          (cliente) => cliente.cursa_actualmente === true
-        );
-      } else if (filterValue === "inactivos") {
-        filteredProductos = filteredProductos.filter(
-          (cliente) => cliente.cursa_actualmente === false
-        );
-      }
-      else if (filterValue === "frecuentes") {
-          filteredProductos = filteredProductos.filter(
-            (cliente) => cliente.numero_diplomados >3
-          );
-        }
-      else if (filterValue === "vence") {
-        const oneWeekAgo = new Date(Date.now() + 7 );
-  
-        filteredProductos = filteredProductos.filter((cliente) =>
-          new Date(cliente.fecha_limite) < oneWeekAgo,
-        )
+        case "frecuentes":
+          passesFilterValue = cliente.numero_diplomados > 3;
+          break;
+        case "vence":
+          const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+          passesFilterValue = new Date(cliente.fecha_limite) < oneWeekFromNow;
+          break;
+        default:
+          passesFilterValue = true;
       }
 
-    //otros diplomados
-    if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
-   || filterValue === "Educación" || filterValue === "Ingeniería"
-   || filterValue === "Negocios" || filterValue === "OnLive"
-   || filterValue === "Psicología" || filterValue === "Salud"
-  ) {
-    filteredProductos = filteredProductos.filter((cliente) => 
-      cliente.disciplina === filterValue || cliente.disciplina2 === filterValue);
-  }
-   
-  // ORDENAR
-    const sortBy = searchParams.get("sortBy") || "nombre-asc";
-    const [field, direction] = sortBy.split("-");
-    
-    if (field === "nombre") {
-      filteredProductos.sort((a, b) => {
-        const nameA = a[field].toUpperCase();
-        const nameB = b[field].toUpperCase();
-        if (nameA < nameB) {
-          return direction === "asc" ? -1 : 1;
-        }
-        if (nameA > nameB) {
-          return direction === "asc" ? 1 : -1;
-        }
-        return 0;
-      });
-    } else if (field === "diplomados_terminados") {
-      filteredProductos.sort((a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1));
-    }
-    
-  return filteredProductos;
+      //otros diplomados
+      let secondFilterValue = searchParams.get("disciplina") || "all";
+      let passesSecondFilterValue;
+      switch (secondFilterValue) {
+        case "desarrollo":
+          passesSecondFilterValue = cliente.disciplina === "Desarrollo Humano";
+          break;
+        case "descuentos":
+          passesSecondFilterValue = cliente.disciplina === "Descuentos";
+          break;
+        case "educacion":
+          passesSecondFilterValue = cliente.disciplina === "Educación";
+          break;
+        case "ingenieria":
+          passesSecondFilterValue = cliente.disciplina === "Ingeniería";
+          break;
+        case "negocios":
+          passesSecondFilterValue = cliente.disciplina === "Negocios";
+          break;
+        case "onLive":
+          passesSecondFilterValue = cliente.disciplina === "OnLive";
+          break;
+        case "psicologia":
+          passesSecondFilterValue = cliente.disciplina === "Psicología";
+          break;
+        case "salud":
+          passesSecondFilterValue = cliente.disciplina === "Salud";
+          break;
+        default:
+          passesSecondFilterValue = true;
+      }
+
+      return (
+        passesSearchTerm &&
+        passesSearchTermDiplomado &&
+        passesFilterValue &&
+        passesSecondFilterValue
+      );
+    });
   };
-  const filteredClientes = handleFilter(cliente);
 
+  const filteredClientes = handleFilter(cliente);
   return (
     <Menus>
       <StyledTable>
@@ -120,27 +121,33 @@ function ClienteTable() {
           <tr>
             <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <Input type="text" value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} id="telefono"
+              <Input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                id="telefono"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+              <FaSearch style={{ margin: "0 10px 0 0px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-             <Input type="number" value={searchTermDiplomado}
-                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="te"
+              <Input
+                type="number"
+                value={searchTermDiplomado}
+                onChange={(e) => setSearchTermDiplomado(e.target.value)}
+                id="te"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+              <FaSearch style={{ margin: "0 10px 0 0px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell/>
-            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell></StyledTableHeaderCell>
             <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
-            <StyledTableHeaderCell><StyledInput/></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
             <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
           </tr>
         </StyledTableHeader>
@@ -149,7 +156,7 @@ function ClienteTable() {
           <StyledTableRow>
             <StyledTableHeadCell>Cliente</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
-            <StyledTableHeadCell>Telefono</StyledTableHeadCell>
+            <StyledTableHeadCell>telefono</StyledTableHeadCell>
             <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
             <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
@@ -161,15 +168,13 @@ function ClienteTable() {
             <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
             <StyledTableHeadCell>Edad</StyledTableHeadCell>
             <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
-            <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
-            <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
             <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
           </StyledTableRow>
         </StyledTableHead>
 
-        {filteredClientes.length ?  (
+        {filteredClientes.length ? (
           filteredClientes.map((clientes, index) => (
             <ClienteRow cliente={clientes} key={clientes.id} />
           ))

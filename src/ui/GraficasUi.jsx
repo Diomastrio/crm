@@ -13,4 +13,12 @@ const DashboardBox = styled.div`
   gap: 2.4rem;
 `;
 
-export default DashboardBox;
+const StyledSubHeading = styled.p`
+  paddingtop: 2.6rem;
+  paddingbottom: 2.6rem;
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+`;
+
+export { DashboardBox, StyledSubHeading };

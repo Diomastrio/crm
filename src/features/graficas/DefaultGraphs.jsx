@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import DashboardBox from "../../ui/GraficasUi";
+import { DashboardBox, StyledSubHeading } from "../../ui/GraficasUi";
 import Heading from "../../ui/Heading";
 import React, { useState, useEffect } from "react";
 import supabase from "../../services/supabase";
@@ -17,6 +17,9 @@ import {
   Sector,
   ScatterChart,
   Scatter,
+  Legend,
+  Bar,
+  BarChart,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
 
@@ -29,6 +32,77 @@ const StyledSalesChart = styled(DashboardBox)`
     stroke: var(--color-grey-300);
   }
 `;
+const fetchActiveClientsByDispGen = async () => {
+  const { data, error } = await supabase
+    .from("cliente")
+    .select("disciplina, genero");
+
+  if (error) {
+    console.error("Error fetching data: ", error);
+    return;
+  }
+
+  const counts = data.reduce((acc, cliente) => {
+    if (!acc[cliente.disciplina]) {
+      acc[cliente.disciplina] = { h: 0, m: 0 };
+    }
+
+    if (cliente.genero === "h") {
+      acc[cliente.disciplina].h++;
+    } else if (cliente.genero === "m") {
+      acc[cliente.disciplina].m++;
+    }
+
+    return acc;
+  }, {});
+
+  return Object.entries(counts).map(([disciplina, { h, m }]) => ({
+    disciplina,
+    h,
+    m,
+  }));
+};
+const fetchActiveClientsByDiscipline = async () => {
+  const { data, error } = await supabase
+    .from("cliente")
+    .select("disciplina, cursa_actualmente")
+    .eq("cursa_actualmente", true);
+
+  if (error) {
+    console.error("Error fetching data: ", error);
+    return;
+  }
+
+  const counts = data.reduce((acc, cliente) => {
+    acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
+    return acc;
+  }, {});
+
+  return Object.entries(counts).map(([disciplinaActive, clienteActivo]) => ({
+    disciplinaActive,
+    clienteActivo,
+  }));
+};
+
+const fetchClientsByDiscipline = async () => {
+  const { data, error } = await supabase.from("cliente").select("disciplina");
+
+  if (error) {
+    console.error("Error fetching data: ", error);
+    return;
+  }
+
+  const counts = data.reduce((acc, cliente) => {
+    acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
+    return acc;
+  }, {});
+
+  return Object.entries(counts).map(([disciplina, cliente]) => ({
+    disciplina,
+    cliente,
+  }));
+};
+
 const fetchClienteGender = async () => {
   const { data, error } = await supabase.from("cliente").select("genero");
 
@@ -63,20 +137,7 @@ const fetchClienteDater = async () => {
     return;
   }
 
-  const labels = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const labels = ["Jan","Feb", "Mar","Apr","May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec", ];
 
   const areaData = data.map((item, index) => ({
     label: labels[index % 12], // Use the month labels, repeating every 12 months
@@ -208,6 +269,24 @@ function DefaultGraphs() {
   const [dataArea, setDataArea] = useState([]);
   const [scatterData, setScatterData] = useState([]);
   const [datagen, setDatagen] = useState([]);
+  const [activeClientsByDiscipline, setActiveClientsByDiscipline] = useState(
+    []
+  );
+  const [activeClientsByDispGen, setActiveClientsByDispGen] = useState([]);
+  const [clientsByDiscipline, setClientsByDiscipline] = useState([]);
+
+  useEffect(() => {
+    fetchClientsByDiscipline().then(setClientsByDiscipline);
+  }, []);
+
+  useEffect(() => {
+    fetchActiveClientsByDispGen().then(setActiveClientsByDispGen);
+  }, []);
+
+  useEffect(() => {
+    fetchActiveClientsByDiscipline().then(setActiveClientsByDiscipline);
+  }, []);
+
   useEffect(() => {
     fetchClienteDated().then(setScatterData);
   }, []);
@@ -247,6 +326,7 @@ function DefaultGraphs() {
   return (
     <StyledSalesChart>
       <Heading as="h2">Graficas</Heading>
+      <StyledSubHeading as="h3">Genero & Clientes activos</StyledSubHeading>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <ResponsiveContainer width="100%" height={400}>
           <PieChart width={400} height={400}>
@@ -281,6 +361,10 @@ function DefaultGraphs() {
           </PieChart>
         </ResponsiveContainer>
       </div>
+
+      <StyledSubHeading as="h3">
+        Diplomados inscritos y terminados por mes
+      </StyledSubHeading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={dataArea}>
           <XAxis
@@ -311,6 +395,8 @@ function DefaultGraphs() {
           />
         </AreaChart>
       </ResponsiveContainer>
+
+      <StyledSubHeading as="h3">Diplomados inscritos por edad</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <ScatterChart
           width={400}
@@ -323,12 +409,8 @@ function DefaultGraphs() {
           }}
         >
           <CartesianGrid />
-          <XAxis type="number" dataKey="x" name="edad" unit="años" />
-          <YAxis
-            type="number"
-            dataKey="y"
-            name="diplomados inscritos"
-            unit="Dipl."
+          <XAxis type="number" dataKey="x" name="Edad" unit="años" />
+          <YAxis type="number" dataKey="y" name="Diplomados Inscritos" unit="Dipl."
           />
           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
           <Scatter name="A school" data={scatterData} fill="#8884d8">
@@ -340,6 +422,64 @@ function DefaultGraphs() {
             ))}
           </Scatter>
         </ScatterChart>
+      </ResponsiveContainer>
+
+      <StyledSubHeading as="h3">
+        Numero de clientes activos por disciplina
+      </StyledSubHeading>
+      <ResponsiveContainer height={400} width="100%">
+        <BarChart
+          height={300}
+          data={activeClientsByDiscipline}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5}}
+          barSize={25}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="disciplinaActive" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="clienteActivo" fill="#4b42d4" />
+        </BarChart>
+      </ResponsiveContainer>
+
+      <StyledSubHeading as="h3">
+        Numero de clientes por genero y disciplina
+      </StyledSubHeading>
+      <ResponsiveContainer height={400} width="100%">
+        <BarChart
+          height={300}
+          data={activeClientsByDispGen}
+          margin={{ top: 5, right: 30, left: 20,  bottom: 5,}}
+          barSize={20}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="disciplina" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="h" fill="#4b42d4" name="Male" />
+          <Bar dataKey="m" fill="#28d4b7" name="Female" />
+        </BarChart>
+      </ResponsiveContainer>
+
+      <StyledSubHeading as="h3">
+        Numero de clientes por disciplina
+      </StyledSubHeading>
+      <ResponsiveContainer height={400} width="100%">
+        <BarChart
+          height={300}
+          data={clientsByDiscipline}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5, }}
+          barSize={20}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="disciplina" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="cliente" fill="#4b42d4" />
+        </BarChart>
       </ResponsiveContainer>
     </StyledSalesChart>
   );

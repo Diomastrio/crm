@@ -54,9 +54,9 @@ function HeaderMenu() {
   return (
     <StyledHeaderMenu>
       <Logo />
-      <li>
+      {/* <li>
         <Button variation="swapii" onClick={() => navigate("/Registro")}>Crear cuenta</Button>
-      </li>
+      </li> */}
       <li>
         <Button onClick={() => navigate("/Login")}>Iniciar sesion</Button>
       </li>

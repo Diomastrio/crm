@@ -41,7 +41,7 @@ function ProductoRow({ prospecto }) {
               </Modal.Open>
 
               <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Eliminar</Menus.Button>
+                <Menus.Button icon={<HiTrash/>} color={"trash"}>Eliminar</Menus.Button>
               </Modal.Open>
 
             <Modal.Window name="edit">

@@ -148,12 +148,12 @@ function CreateProspectoForm({ onCloseModal }) {
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      type={onCloseModal ? "modal" : "regular"}
+      type={onCloseModal ? "modal" : "prospecto"}
       style={{height: '110vh'}}
     >
 
     <Heading as="h1">¡Llena todos los campos! </Heading>
-      <FormRow label="Tu Nombre Completo" error={errors?.nombre?.message}>
+      <FormRow label="Tu Nombre Completo" style={{}}error={errors?.nombre?.message}>
         <Input
           type="text"
           id="nombre"

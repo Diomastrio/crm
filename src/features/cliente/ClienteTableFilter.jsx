@@ -1,11 +1,11 @@
 import TableOperations from "../../ui/TableOperations";
-import {Filter,SecondFilter,FiltersWrapper} from "../../ui/Filter";
+import { Filter, SecondFilter, FiltersWrapper } from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
-function ClienteTableFilter() {
+function ArticuloTableFilter() {
   return (
     <TableOperations>
-       <FiltersWrapper>
+      <FiltersWrapper>
         <Filter
           id=""
           filterField="nombre"
@@ -17,19 +17,23 @@ function ClienteTableFilter() {
             { value: "vence", label: "Vence Pronto" },
           ]}
         />
-
         <SecondFilter
           id=""
-          filterField="nombre"
+          filterField="disciplina"
           options={[
-            { value: "Desarrollo Humano", label: "Desarrollo Humano", disciplina: "true", },
-            { value: "Descuentos", label: "Descuentos", disciplina: "true", },
-            { value: "Educación", label: "Educación", disciplina: "true", },
-            { value: "Ingeniería", label: "Ingeniería", disciplina: "true", },
-            { value: "Negocios", label: "Negocios", disciplina: "true", },
-            { value: "OnLive", label: "OnLive", disciplina: "true", },
-            { value: "Psicología", label: "Psicología", disciplina: "true", },
-            { value: "Salud", label: "Salud", disciplina: "true", },
+            { value: "all", label: "Todas" },
+            {
+              value: "desarrollo",
+              label: "Desarrollo Humano",
+              disciplina: "true",
+            },
+            { value: "descuentos", label: "Descuentos", disciplina: "true" },
+            { value: "educacion", label: "Educación", disciplina: "true" },
+            { value: "ingenieria", label: "Ingeniería", disciplina: "true" },
+            { value: "negocios", label: "Negocios", disciplina: "true" },
+            { value: "onLive", label: "OnLive", disciplina: "true" },
+            { value: "psicologia", label: "Psicología", disciplina: "true" },
+            { value: "salud", label: "Salud", disciplina: "true" },
           ]}
         />
       </FiltersWrapper>
@@ -38,12 +42,18 @@ function ClienteTableFilter() {
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
-          { value: "diplomados_terminados-asc", label: "Diplomados Terminados Mas",},
-          { value: "diplomados_terminados-desc", label: "Diplomados Terminados Menos",},
+          {
+            value: "diplomados_terminados-asc",
+            label: "Diplomados Terminados Mas",
+          },
+          {
+            value: "diplomados_terminados-desc",
+            label: "Diplomados Terminados Menos",
+          },
         ]}
       />
     </TableOperations>
   );
 }
 
-export default ClienteTableFilter;
+export default ArticuloTableFilter;
