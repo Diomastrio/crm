@@ -46,9 +46,11 @@ function ClienteTable() {
       let passesSearchTermDiplomado =
         searchTermDiplomado.length === 0 ||
         (cliente.numero_diplomados &&
-          cliente.numero_diplomados.toString().includes(searchTermDiplomado.toString()));
+          cliente.numero_diplomados
+            .toString()
+            .includes(searchTermDiplomado.toString()));
 
-      //FILTRO
+      //FILTROS
       let filterValue = searchParams.get("nombre") || "all";
       let passesFilterValue;
       switch (filterValue) {
@@ -64,15 +66,13 @@ function ClienteTable() {
           break;
         case "vence":
           const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-          const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-
-          passesFilterValue = (new Date(cliente.fecha_limite) < oneWeekFromNow )&& new Date(cliente.fecha_limite)> oneWeekThen ;
+          passesFilterValue = new Date(cliente.fecha_limite) < oneWeekFromNow;
           break;
         default:
           passesFilterValue = true;
       }
 
-      //otros diplomados
+      //diplomados
       let secondFilterValue = searchParams.get("disciplina") || "all";
       let passesSecondFilterValue;
       switch (secondFilterValue) {
@@ -103,39 +103,37 @@ function ClienteTable() {
         default:
           passesSecondFilterValue = true;
       }
-      let sortedClientes = [...clientes];
 
-      //ORDENAR
-      const sortBy = searchParams.get("sortBy") || "nombre-asc";
-      const [field, direction] = sortBy.split("-");
-
-      if (field === "nombre") {
-        sortedClientes.sort((a, b) => {
-          const nameA = a[field].toUpperCase();
-          const nameB = b[field].toUpperCase();
-          if (nameA < nameB) {
-            return direction === "asc" ? -1 : 1;
-          }
-          if (nameA > nameB) {
-            return direction === "asc" ? 1 : -1;
-          }
-          return 0;
-        }); 
-      } else if (field === "diplomados_terminados") {
-        sortedClientes.sort((a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1));
-      }
-      
       return (
         passesSearchTerm &&
         passesSearchTermDiplomado &&
         passesFilterValue &&
         passesSecondFilterValue &&
-        sortedClientes
+        passesSecondFilterValue
       );
     });
   };
 
   const filteredClientes = handleFilter(cliente);
+  let sortBy = searchParams.get("sortBy") || "";
+  const handleSort = (clientes) => {
+    switch (sortBy) {
+      case "nombre-asc":
+        return [...clientes].sort((a, b) => a.nombre.localeCompare(b.nombre));
+      case "nombre-desc":
+        return [...clientes].sort((a, b) => b.nombre.localeCompare(a.nombre));
+      case "diplomados_terminados-asc":
+        return [...clientes].sort(
+          (a, b) => a.diplomados_terminados - b.diplomados_terminados
+        );
+      case "diplomados_terminados-desc":
+        return [...clientes].sort(
+          (a, b) => b.diplomados_terminados - a.diplomados_terminados
+        );
+      default:
+        return clientes;
+    }
+  };
 
   return (
     <Menus>
@@ -193,8 +191,8 @@ function ClienteTable() {
           </StyledTableRow>
         </StyledTableHead>
 
-        {filteredClientes.length ?  (
-          filteredClientes.map((clientes, index) => (
+        {filteredClientes.length ? (
+          handleSort(filteredClientes).map((clientes, index) => (
             <ClienteRow cliente={clientes} key={clientes.id} />
           ))
         ) : (
