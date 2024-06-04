@@ -83,6 +83,18 @@ function MainNav() {
             <span>Graficas</span>
           </StyledNavLink>
         </li>
+        <li>
+          <StyledNavLink to="/AgregarDiplomado">
+            <MdAddBox />
+            <span>Agrega Diplomados</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/Diplomados">
+            <MdAddBox />
+            <span>Diplomados</span>
+          </StyledNavLink>
+        </li>
       </NavList>
     </nav>
   );

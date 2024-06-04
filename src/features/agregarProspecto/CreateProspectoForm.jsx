@@ -1,4 +1,4 @@
-import { useDiplomado } from "../diplomados/useSelectDiplomado";
+import { useDiplomado } from "../diplomado/useSelectDiplomado";
 
 import { useForm } from "react-hook-form";
 import { useState,useEffect } from 'react';
@@ -130,7 +130,7 @@ function CreateProspectoForm({ onCloseModal }) {
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
-
+console.log(diplomado)
 
 
 

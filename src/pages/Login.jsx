@@ -12,7 +12,7 @@ const LoginLayout = styled.main`
   gap: 3.2rem;
   background-color: var(--color-grey-50);
 `;
-function Entrar() {
+function Login() {
   return (
     <LoginLayout>
       <Heading as="h4">Inicia sesión</Heading>
@@ -22,4 +22,4 @@ function Entrar() {
   );
 }
 
-export default Entrar;
+export default Login;

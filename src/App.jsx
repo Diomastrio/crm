@@ -19,6 +19,8 @@ import AgregarCliente from "./pages/AgregarCliente";
 import AgregarProspecto from "./pages/AgregarProspecto";
 import Graphs from "./pages/Graphs";
 import PDF from "./pages/PDF";
+import AgregarDiplomado from "./pages/AgregarDiplomado";
+import Diplomados from "./pages/Diplomado";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +45,7 @@ function App() {
                 </ProtectedRoute>
               }
             >
+        
               <Route index element={<Navigate replace to="Home" />} />
               <Route path="account" element={<Account />} />
               <Route path="Cliente" element={<Cliente />} />
@@ -50,6 +53,8 @@ function App() {
               <Route path="AgregarCliente" element={<AgregarCliente />} />
               <Route path="Graphs" element={<Graphs />} />
               <Route path="PDF" element={<PDF />} />
+              <Route path="AgregarDiplomado" element={<AgregarDiplomado />} />
+              <Route path="Diplomados" element={<Diplomados />} />
             </Route>
 
             <Route path="Login" element={<Login />} />

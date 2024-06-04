@@ -22,11 +22,7 @@ function ArticuloTableFilter() {
           filterField="disciplina"
           options={[
             { value: "all", label: "Todas" },
-            {
-              value: "desarrollo",
-              label: "Desarrollo Humano",
-              disciplina: "true",
-            },
+            { value: "desarrollo", label: "Desarrollo Humano", disciplina: "true",},
             { value: "descuentos", label: "Descuentos", disciplina: "true" },
             { value: "educacion", label: "Educación", disciplina: "true" },
             { value: "ingenieria", label: "Ingeniería", disciplina: "true" },
@@ -37,19 +33,14 @@ function ArticuloTableFilter() {
           ]}
         />
       </FiltersWrapper>
+
       <SortBy
         id="s"
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
-          {
-            value: "diplomados_terminados-asc",
-            label: "Diplomados Terminados Mas",
-          },
-          {
-            value: "diplomados_terminados-desc",
-            label: "Diplomados Terminados Menos",
-          },
+          { value: "diplomados_terminados-asc", label: "Diplomados Terminados Mas",},
+          {  value: "diplomados_terminados-desc", label: "Diplomados Terminados Menos",},
         ]}
       />
     </TableOperations>

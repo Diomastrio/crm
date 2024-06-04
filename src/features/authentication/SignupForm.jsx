@@ -19,7 +19,7 @@ function SignupForm() {
         onSettled: () => reset(),
       }
     );
-    navigate("/entrar");
+    navigate("/login");
   }
 
   return (

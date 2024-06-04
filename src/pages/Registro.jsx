@@ -13,9 +13,7 @@ const LoginLayout = styled.main`
   gap: 3.2rem;
   background-color: var(--color-grey-50);
 `;
-// import HomeHeader from "../features/homepage/HomeHeader";
-// import HomeMain from "../features/homepage/HomeMain";
-// import Homefooter from "../features/homepage/Homefooter";
+
 function Homepage() {
   return (
     <LoginLayout>

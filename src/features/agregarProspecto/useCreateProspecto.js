@@ -8,7 +8,7 @@ export function useCreateProspecto() {
   const { mutate: createProspecto, isLoading: isCreating } = useMutation({
     mutationFn: createEditProspecto,
     onSuccess: () => {
-      toast.success("Se ha Registrado Exitosamente creado",  {
+      toast.success("¡Se ha Registrado Exitosamente!",  {
         duration: 6000,
       });
 

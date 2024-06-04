@@ -46,9 +46,7 @@ function ClienteTable() {
       let passesSearchTermDiplomado =
         searchTermDiplomado.length === 0 ||
         (cliente.numero_diplomados &&
-          cliente.numero_diplomados
-            .toString()
-            .includes(searchTermDiplomado.toString()));
+          cliente.numero_diplomados.toString().includes(searchTermDiplomado.toString()));
 
       //FILTRO
       let filterValue = searchParams.get("nombre") || "all";
@@ -105,12 +103,34 @@ function ClienteTable() {
         default:
           passesSecondFilterValue = true;
       }
+      let sortedClientes = [...clientes];
 
+      //ORDENAR
+      const sortBy = searchParams.get("sortBy") || "nombre-asc";
+      const [field, direction] = sortBy.split("-");
+
+      if (field === "nombre") {
+        sortedClientes.sort((a, b) => {
+          const nameA = a[field].toUpperCase();
+          const nameB = b[field].toUpperCase();
+          if (nameA < nameB) {
+            return direction === "asc" ? -1 : 1;
+          }
+          if (nameA > nameB) {
+            return direction === "asc" ? 1 : -1;
+          }
+          return 0;
+        }); 
+      } else if (field === "diplomados_terminados") {
+        sortedClientes.sort((a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1));
+      }
+      
       return (
         passesSearchTerm &&
         passesSearchTermDiplomado &&
         passesFilterValue &&
-        passesSecondFilterValue
+        passesSecondFilterValue &&
+        sortedClientes
       );
     });
   };

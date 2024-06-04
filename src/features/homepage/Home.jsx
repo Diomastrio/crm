@@ -28,7 +28,7 @@ z-index: 0;
   
 `;
 
-const HomeHeader = styled.h1`
+const HomeMain= styled.h1`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
@@ -41,7 +41,7 @@ function Home() {
   return (
     <HomeSection>
     <div>
-      <HomeHeader>Bienvenidos a miTitulo.com</HomeHeader>
+      <HomeMain>Bienvenidos a miTitulo.com</HomeMain>
       <Button variation="secondary"  size="large" onClick={() => navigate("/AgregarProspecto")}>Iniciar Registro</Button>
     </div>
   </HomeSection>
