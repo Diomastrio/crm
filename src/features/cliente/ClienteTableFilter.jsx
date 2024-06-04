@@ -45,11 +45,11 @@ function ArticuloTableFilter() {
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
           {
             value: "diplomados_terminados-asc",
-            label: "Diplomados Terminados Mas",
+            label: "Diplomados Terminados - > +",
           },
           {
             value: "diplomados_terminados-desc",
-            label: "Diplomados Terminados Menos",
+            label: "Diplomados Terminados + > -",
           },
         ]}
       />
