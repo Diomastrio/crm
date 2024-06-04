@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-const StyledFilter = styled.div `
+const StyledFilter = styled.div`
   border: 1px solid var(--color-grey-100);
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-sm);
@@ -10,18 +10,15 @@ const StyledFilter = styled.div `
   display: flex;
   gap: 0.4rem;
 
-
   position: relative;
 `;
 
-const SecondStyledFilter = styled(StyledFilter)`
-
-`;
+const SecondStyledFilter = styled(StyledFilter)``;
 
 const FiltersWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px; 
+  gap: 10px;
 `;
 
 const FilterButton = styled.button`
@@ -49,7 +46,6 @@ const FilterButton = styled.button`
 `;
 
 const SecondFilterButton = styled(FilterButton)`
-
   ${(props) =>
     props.active &&
     css`
@@ -57,11 +53,12 @@ const SecondFilterButton = styled(FilterButton)`
       color: var(--color-blue-700);
     `}
 
-    &:hover:not(:disabled) {
-      background-color: var(--color-silver-100);
-      color: var(--color-brand-50);
-    }
+  &:hover:not(:disabled) {
+    background-color: var(--color-silver-100);
+    color: var(--color-brand-50);
+  }
 `;
+
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options.at(0).value;
@@ -116,4 +113,4 @@ function SecondFilter({ filterField, options }) {
   );
 }
 
-export { Filter,SecondFilter,FiltersWrapper};
+export { Filter, SecondFilter, FiltersWrapper };

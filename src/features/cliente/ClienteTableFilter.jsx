@@ -38,7 +38,8 @@ function ArticuloTableFilter() {
         />
       </FiltersWrapper>
       <SortBy
-        id="s"
+        id=""
+        SortByField="nombre"
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },

@@ -50,7 +50,7 @@ function ClienteTable() {
             .toString()
             .includes(searchTermDiplomado.toString()));
 
-      //FILTRO
+      //FILTROS
       let filterValue = searchParams.get("nombre") || "all";
       let passesFilterValue;
       switch (filterValue) {
@@ -72,7 +72,7 @@ function ClienteTable() {
           passesFilterValue = true;
       }
 
-      //otros diplomados
+      //diplomados
       let secondFilterValue = searchParams.get("disciplina") || "all";
       let passesSecondFilterValue;
       switch (secondFilterValue) {
@@ -108,12 +108,32 @@ function ClienteTable() {
         passesSearchTerm &&
         passesSearchTermDiplomado &&
         passesFilterValue &&
+        passesSecondFilterValue &&
         passesSecondFilterValue
       );
     });
   };
 
   const filteredClientes = handleFilter(cliente);
+  let sortBy = searchParams.get("sortBy") || "";
+  const handleSort = (clientes) => {
+    switch (sortBy) {
+      case "nombre-asc":
+        return [...clientes].sort((a, b) => a.nombre.localeCompare(b.nombre));
+      case "nombre-desc":
+        return [...clientes].sort((a, b) => b.nombre.localeCompare(a.nombre));
+      case "diplomados_terminados-asc":
+        return [...clientes].sort(
+          (a, b) => a.diplomados_terminados - b.diplomados_terminados
+        );
+      case "diplomados_terminados-desc":
+        return [...clientes].sort(
+          (a, b) => b.diplomados_terminados - a.diplomados_terminados
+        );
+      default:
+        return clientes;
+    }
+  };
   return (
     <Menus>
       <StyledTable>
@@ -181,7 +201,7 @@ function ClienteTable() {
         </StyledTableHead>
 
         {filteredClientes.length ? (
-          filteredClientes.map((clientes, index) => (
+          handleSort(filteredClientes).map((clientes, index) => (
             <ClienteRow cliente={clientes} key={clientes.id} />
           ))
         ) : (
