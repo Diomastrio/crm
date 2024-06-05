@@ -12,8 +12,8 @@ const ButtonIcon = styled.button`
   }
 
   & svg {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 3.3rem;
+    height: 3.3rem;
     color: var(--color-brand-600);
   }
 `;

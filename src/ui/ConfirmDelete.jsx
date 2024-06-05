@@ -25,16 +25,12 @@ function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
     <StyledConfirmDelete>
       <Heading as="h3">Borrar {resourceName}</Heading>
       <p>
-        Estas seguro de que quieres borrar {resourceName} permanentemente? Esta
+        Estas seguro de que quieres borrar este {resourceName} permanentemente? Esta
         accion no puede ser revertida.
       </p>
 
       <div>
-        <Button
-          variation="secondary"
-          disabled={disabled}
-          onClick={onCloseModal}
-        >
+        <Button variation="secondary" disabled={disabled} onClick={onCloseModal}>
           Cancelar
         </Button>
         <Button variation="danger" disabled={disabled} onClick={onConfirm}>

@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
+import { useState } from 'react';
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import { FormRow } from "../../ui/FormRow";
+import { FormRow,FormRowDiplomado } from "../../ui/FormRow";
 import { StyledSelect, StyledSelectDiplomado } from "../../ui/SelectTwo";
+import { CheckboxWrapper, CheckboxInput, CheckboxBox,CheckboxLabel } from "../../ui/Checkboxes";
 
 import { useEditCliente } from "./useEditCliente";
 
@@ -20,6 +22,15 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   const { errors } = formState;
 
   const fechaInicio = watch("fecha_inicio");
+
+  const watchDiplomados = watch("MasDe1Diploma", false);
+  const primerDiplomado = watch("disciplina", false);
+  const segundoDiplomado = watch("disciplina2", false);
+
+   //WATCHES
+   //const watchDisciplinasMas = watch("disciplina");
+   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
+   const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
 
   const validateFechaFin = (value) => {
     if (value <= fechaInicio) {
@@ -225,15 +236,41 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </StyledSelect>
       </FormRow>
 
-      <FormRow label={"Diplomado"}>
+      <FormRow label="¿Cursaras más de un diplomado?">
+        <>
+        <CheckboxWrapper>
+          <CheckboxInput
+            type="checkbox"
+            id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {})}
+          />
+          <CheckboxBox/>
+          <CheckboxLabel>Si </CheckboxLabel>
+          
+        </CheckboxWrapper>
+
+        {/* <CheckboxWrapper>
+          <CheckboxInput type="checkbox"/>
+          <CheckboxBox/>
+          <CheckboxLabel>No </CheckboxLabel>
+        </CheckboxWrapper> */}
+        </>
+      </FormRow>
+
+      <FormRow
+        label={"Disciplina"}
+        error={errors?.cursa_actualmente?.message}
+      >
         <StyledSelectDiplomado
-          Style={{ width: "20rem" }}
+          Style={{ width: '20rem'}}
           id="disciplina"
+          defaultValue="" 
           isDisabled={isWorking}
           {...register("disciplina", {
             required: "Este campo es requerido",
           })}
         >
+          <option value=""></option>
           <option value="Desarrollo Humano">Desarrollo Humano</option>
           <option value="Descuentos">Descuentos</option>
           <option value="Ingeniería">Ingeniería</option>
@@ -243,6 +280,71 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           <option value="Salud">Salud</option>
         </StyledSelectDiplomado>
       </FormRow>
+
+      {primerDiplomado && (
+      <FormRow
+        label={"Diplomados"}
+        error={errors?.cursa_actualmente?.message}
+      >
+        <StyledSelectDiplomado
+          Style={{ width: '20rem'}}
+          id="diplomado"
+          defaultValue="" 
+          isDisabled={isWorking}
+          {...register("diplomado", {
+            required: "Este campo es requerido",
+          })}
+        >
+          {diplomadosEspecificos.map((diplomado, index) => (
+            <option key={index} value={diplomado}>{diplomado}</option>
+          ))}
+        </StyledSelectDiplomado>
+      </FormRow>
+      )}
+
+      {watchDiplomados && (
+          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.diplomados_terminados?.message}>
+            <StyledSelectDiplomado
+            Style={{ width: '20rem'}}
+            id="disciplina2"
+            isDisabled={isWorking}
+            {...register("disciplina2", {
+              required: "Este campo es requerido",
+            })}
+          >
+            <option value=""></option>
+            <option value="Desarrollo Humano">Desarrollo Humano</option>
+            <option value="Descuentos">Descuentos</option>
+            <option value="Ingeniería">Ingeniería</option>
+            <option value="Negocios">Negocios</option>
+            <option value="OnLive">OnLive</option>
+            <option value="Psicología">Psicología</option>
+            <option value="Salud">Salud</option>
+          </StyledSelectDiplomado>
+        </FormRowDiplomado>
+      )}
+
+      {segundoDiplomado && (
+        <FormRowDiplomado
+        label={"Segundo Diplomado"}
+        error={errors?.cursa_actualmente?.message}
+        >
+        <StyledSelectDiplomado
+          Style={{ width: '20rem'}}
+          id="diplomado2"
+          defaultValue="" 
+          isDisabled={isWorking}
+          {...register("diplomado2", {
+            required: "Este campo es requerido",
+          })}
+        >
+          <option value=""></option>
+          {diplomadosEspecificos2.map((diplomado, index) => (
+            <option key={index} value={diplomado}>{diplomado}</option>
+          ))}
+        </StyledSelectDiplomado>
+        </FormRowDiplomado>
+      )}
 
       <FormRow>
         <Button

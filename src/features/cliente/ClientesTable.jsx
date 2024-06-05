@@ -134,6 +134,7 @@ function ClienteTable() {
         return clientes;
     }
   };
+
   return (
     <Menus>
       <StyledTable>
@@ -141,40 +142,28 @@ function ClienteTable() {
           <tr>
             <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <Input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                id="telefono"
+              <Input type="text" value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)} id="telefono"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 0px", fontSize: "26px" }} />
+              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell></StyledTableHeaderCell>
+            <StyledTableHeaderCell/>
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <Input
-                type="number"
-                value={searchTermDiplomado}
-                onChange={(e) => setSearchTermDiplomado(e.target.value)}
-                id="te"
+             <Input type="number" value={searchTermDiplomado}
+                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="te"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 0px", fontSize: "26px" }} />
+              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell></StyledTableHeaderCell>
-            <StyledTableHeaderCell></StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput/></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
           </tr>
         </StyledTableHeader>
 
@@ -182,7 +171,7 @@ function ClienteTable() {
           <StyledTableRow>
             <StyledTableHeadCell>Cliente</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
-            <StyledTableHeadCell>telefono</StyledTableHeadCell>
+            <StyledTableHeadCell>Telefono</StyledTableHeadCell>
             <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
             <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
@@ -194,7 +183,9 @@ function ClienteTable() {
             <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
             <StyledTableHeadCell>Edad</StyledTableHeadCell>
             <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
+            <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+            <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
             <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
           </StyledTableRow>

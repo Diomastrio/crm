@@ -15,12 +15,9 @@ const ReportButton = () => {
     if (isLoading) return <Spinner />;
     if (!cliente.length) return <Empty resourceName="clientes" />;
 
-    const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-    let filteredClientes = cliente.filter(      
-      (cliente) => (new Date(cliente.fecha_limite) < oneWeekFromNow )&& new Date(cliente.fecha_limite)> oneWeekThen
+    let filteredClientes = cliente.filter(
+      (cliente) => cliente.cursa_actualmente === true
     );
-
 
     var docDefinition = {
       content: [
@@ -64,6 +61,47 @@ const ReportButton = () => {
     var pdfDoc = pdfMake.createPdf(docDefinition);
     pdfDoc.download('Clientes con VENCIMIENTO.pdf');
     
+    const Email = {
+      send: function (a) {
+        return new Promise(function (resolve, reject) {
+          a.nocache = Math.floor(1e6 * Math.random() + 1);
+          a.Action = "Send";
+          var t = JSON.stringify(a);
+          Email.ajaxPost("https://smtpjs.com/v3/smtpjs.aspx?", t, function (response) {
+            resolve(response);
+          });
+        });
+      },
+      ajaxPost: function (url, data, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onload = function () {
+          var response = xhr.responseText;
+          if (callback) callback(response);
+        };
+        xhr.send(data);
+      }
+    };
+
+    pdfDoc.getBase64((pdfDoc) => {
+      // Send email using SMTPJS
+      Email.send({
+        SecureToken : "868f21e7-b70b-43f3-8f9f-c1ea493b529f",
+        To: 'kacraxazeuvu-5931@yopmail.com',
+        From: "utd0197@gmail.com",
+        Subject: "Subject of the Email",
+        Body: "Please find the attached PDF report",
+        Attachments: [
+          {
+            name: "report.pdf",
+            data: pdfDoc
+          }
+        ]
+      }).then(
+        message => alert(message)
+      );
+    });
   };
 
   return (

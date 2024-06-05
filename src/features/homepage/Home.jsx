@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import home from "../../img/home.jpg";
+import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const HomeSection = styled.section`
 position: relative;
@@ -26,9 +28,23 @@ z-index: 0;
   
 `;
 
+const HomeMain= styled.h1`
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
+
 function Home() {
+  const navigate = useNavigate();
+
   return (
-    <HomeSection/>
+    <HomeSection>
+    <div>
+      <HomeMain>Bienvenidos a miTitulo.com</HomeMain>
+      <Button variation="secondary"  size="large" onClick={() => navigate("/AgregarProspecto")}>Iniciar Registro</Button>
+    </div>
+  </HomeSection>
   );
 }
 

@@ -1,4 +1,4 @@
-
+import { useDiplomado } from "../diplomado/useSelectDiplomado";
 
 import { useForm } from "react-hook-form";
 import { useState,useEffect } from 'react';
@@ -7,29 +7,38 @@ import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import {  CheckboxWrapper,CheckboxInput,CheckboxBox} from "../../ui/Checkboxes";
-import {FormRow,FormRowDiplomado} from "../../ui/FormRow";
+import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
+import { FormRow, FormRowDiplomado, FormRowTerminos } from "../../ui/FormRow";
 import {StyledSelectDiplomado} from "../../ui/SelectTwo";
+import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
+import TerminosCondiciones from "../../ui/Terminos_Condiciones";
 
 import {useCreateProspecto} from "./useCreateProspecto";
 
 function CreateProspectoForm({ onCloseModal }) {
+  
   const { isCreating, createProspecto } = useCreateProspecto();
+  
   const isWorking = isCreating ;
 
   const { register, watch, handleSubmit, reset, formState } = useForm({});
   const { errors } = formState;
 
   const watchDiplomados = watch("MasDe1Diploma", false);
+  const primerDiplomado = watch("disciplina", false);
+  const segundoDiplomado = watch("disciplina2", false);
 
 
   //STATES DIPLOMADOS
   //const [desarrolloHumano, setdesarrolloHumano] = useState([]); 
 
+ 
 
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
@@ -37,31 +46,31 @@ function CreateProspectoForm({ onCloseModal }) {
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas === 'Desarrollo Humano') {
-      const diplomadosEspecificos = ['Desarrollo','Humano',];
+      const diplomadosEspecificos = ['','Desarrollo','Humano',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     } 
     else if (watchDisciplinasMas==='Descuentos'){
-      const diplomadosEspecificos = ['Descuentosss','D',];
+      const diplomadosEspecificos = ['','Descuentosss','D',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Ingeniería'){
-      const diplomadosEspecificos = ['Ingenieríaaa','I',];
+      const diplomadosEspecificos = ['','Ingenieríaaa','I',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Negocios'){
-      const diplomadosEspecificos = ['Negocioss','N',];
+      const diplomadosEspecificos = ['','Negocioss','N',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='OnLive'){
-      const diplomadosEspecificos = ['OnLivee','O',];
+      const diplomadosEspecificos = ['','OnLivee','O',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Psicología'){
-      const diplomadosEspecificos = ['Psicologíaa','P',];
+      const diplomadosEspecificos = ['','Psicologíaa','P',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Salud'){
-      const diplomadosEspecificos = ['Saludd','S',];
+      const diplomadosEspecificos = ['','Saludd','S',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
   }, [watchDisciplinasMas]);
@@ -117,14 +126,34 @@ function CreateProspectoForm({ onCloseModal }) {
       );
   }
 
+  const { isLoading, diplomado } = useDiplomado();
+  if (isLoading) return <Spinner />;
+  if (!diplomado.length) return <Empty resourceName="diplomados" />;
+
+console.log(diplomado)
+
+
+
+
+
+  const handleOpenModal = (event) => {
+    event.preventDefault();
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
-      type={onCloseModal ? "modal" : "regular"}
+      type={onCloseModal ? "modal" : "prospecto"}
+      style={{height: '110vh'}}
     >
 
-    <Heading as="h1">Llena todos los campos! </Heading>
-      <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
+    <Heading as="h1">¡Llena todos los campos! </Heading>
+      <FormRow label="Tu Nombre Completo" style={{}}error={errors?.nombre?.message}>
         <Input
           type="text"
           id="nombre"
@@ -135,7 +164,7 @@ function CreateProspectoForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Correo" error={errors?.email?.message}>
+      <FormRow label="Tu Correo" error={errors?.email?.message}>
         <Input
           type="mail"
           id="email"
@@ -146,18 +175,21 @@ function CreateProspectoForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Telefono" error={errors?.telefono?.message}>
-        <Input
-          type="number"
-          id="telefono"
-          disabled={isWorking}
-          {...register("telefono", {
-            required: "Este campo es requerido",
-          })}
-        />
+      <FormRow label="Tu Teléfono" error={errors?.telefono?.message}>
+          <Input
+            type="number"
+            id="telefono"
+            disabled={isWorking}
+            {...register("telefono", {
+              required: "Este campo es requerido", minLength: {
+                value: 10,
+                message: "El numero de telefono debe ser de 10 digitos",
+              }, MaxLength: { value: 10, message: "error message" }
+            })}
+          />
       </FormRow>
 
-      <FormRow label="Ocupacion" error={errors?.ocupacion?.message}>
+      <FormRow label="Tu Ocupación" error={errors?.ocupacion?.message}>
         <Input
           type="text"
           id="ocupacion"
@@ -168,7 +200,8 @@ function CreateProspectoForm({ onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="Mas de un diplomado?">
+      <FormRow label="¿Cursaras más de un diplomado?">
+        <>
         <CheckboxWrapper>
           <CheckboxInput
             type="checkbox"
@@ -176,11 +209,20 @@ function CreateProspectoForm({ onCloseModal }) {
             {...register("MasDe1Diploma", {})}
           />
           <CheckboxBox/>
+          <CheckboxLabel>Si </CheckboxLabel>
+          
         </CheckboxWrapper>
+
+        {/* <CheckboxWrapper>
+          <CheckboxInput type="checkbox"/>
+          <CheckboxBox/>
+          <CheckboxLabel>No </CheckboxLabel>
+        </CheckboxWrapper> */}
+        </>
       </FormRow>
 
       <FormRow
-        label={"Disciplinas"}
+        label={"Disciplina"}
         error={errors?.cursa_actualmente?.message}
       >
         <StyledSelectDiplomado
@@ -203,6 +245,7 @@ function CreateProspectoForm({ onCloseModal }) {
         </StyledSelectDiplomado>
       </FormRow>
 
+      {primerDiplomado && (
       <FormRow
         label={"Diplomados"}
         error={errors?.cursa_actualmente?.message}
@@ -221,10 +264,10 @@ function CreateProspectoForm({ onCloseModal }) {
           ))}
         </StyledSelectDiplomado>
       </FormRow>
+      )}
 
       {watchDiplomados && (
-        <>
-          <FormRowDiplomado label="Disciplina 2" error={errors?.diplomados_terminados?.message}>
+          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.diplomados_terminados?.message}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
             id="disciplina2"
@@ -233,6 +276,7 @@ function CreateProspectoForm({ onCloseModal }) {
               required: "Este campo es requerido",
             })}
           >
+            <option value=""></option>
             <option value="Desarrollo Humano">Desarrollo Humano</option>
             <option value="Descuentos">Descuentos</option>
             <option value="Ingeniería">Ingeniería</option>
@@ -242,9 +286,11 @@ function CreateProspectoForm({ onCloseModal }) {
             <option value="Salud">Salud</option>
           </StyledSelectDiplomado>
         </FormRowDiplomado>
+      )}
 
+      {segundoDiplomado && (
         <FormRowDiplomado
-        label={"Diplomados"}
+        label={"Segundo Diplomado"}
         error={errors?.cursa_actualmente?.message}
         >
         <StyledSelectDiplomado
@@ -262,8 +308,37 @@ function CreateProspectoForm({ onCloseModal }) {
           ))}
         </StyledSelectDiplomado>
         </FormRowDiplomado>
-        </>
       )}
+
+      <FormRowTerminos  error={errors?.terminosCondiciones?.message}>
+        <>
+        <CheckboxWrapper>
+          <CheckboxInput type="checkbox"  
+          id="terminosCondiciones"
+            {...register("terminosCondiciones", { required: "Necesitas Aceptar los términos y condiciones",})}
+          />
+          <CheckboxBox/>
+          <CheckboxLabel htmlFor="terminosCondiciones">Acepto los términos y condiciones</CheckboxLabel>          
+        </CheckboxWrapper>
+
+        <Button onClick={handleOpenModal} variation="danger">Términos y condiciones</Button>
+      {showModal && (
+        <div 
+        style={{position: 'fixed', top: 0, left: 0, width: '100%',height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999}}
+          onClick={handleCloseModal}
+          >
+          <div 
+          style={{position: 'relative', backgroundColor: 'var(--color-grey-100)',padding: '20px', borderRadius: '5px', width:'90%'}}
+            onClick={(e) => e.stopPropagation()} 
+            >
+            <h2  style={{color: 'var(--color-grey-500)'}}>Términos y condiciones</h2>
+            <TerminosCondiciones/>
+            <Button onClick={handleCloseModal} >Aceptar</Button>
+          </div>
+        </div>
+      )}</>
+      </FormRowTerminos>
 
       <FormRow>
         <Button

@@ -19,7 +19,7 @@ function ProductoRow({ prospecto }) {
     id: prospectoId,
     nombre,
     email, 
-    ocupacion, telefono,diplomado,diplomado2
+    ocupacion, telefono,disciplina,disciplina2,diplomado,diplomado2
   } = prospecto;
 
   return (
@@ -29,7 +29,9 @@ function ProductoRow({ prospecto }) {
                   <StyledTableCell>{email}</StyledTableCell>
                   <StyledTableCell>{telefono}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
+                  <StyledTableCell>{disciplina}</StyledTableCell>
                   <StyledTableCell>{diplomado}</StyledTableCell>
+                  <StyledTableCell>{disciplina2}</StyledTableCell>
                   <StyledTableCell>{diplomado2}</StyledTableCell>
       <StyledTableCell>
         <Modal>
@@ -39,7 +41,7 @@ function ProductoRow({ prospecto }) {
               </Modal.Open>
 
               <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Eliminar</Menus.Button>
+                <Menus.Button icon={<HiTrash/>} color={"trash"}>Eliminar</Menus.Button>
               </Modal.Open>
 
             <Modal.Window name="edit">
@@ -47,7 +49,7 @@ function ProductoRow({ prospecto }) {
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cliente" disabled={isDeleting} onConfirm={() => deleteProspecto(prospectoId)}/>
+              <ConfirmDelete resourceName="prospecto" disabled={isDeleting} onConfirm={() => deleteProspecto(prospectoId)}/>
             </Modal.Window>
         </Modal>
       </StyledTableCell>

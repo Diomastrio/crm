@@ -8,7 +8,6 @@ import ProspectoRow from "./ProspectoTableRow";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from 'react';
-import supabase from "../../services/supabase";
 
 import {
   StyledTable,
@@ -30,87 +29,87 @@ const CenteredText = styled.p`
 function ProspectoTable() {
   const { isLoading, prospecto } = useProspecto();
   const [searchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]); 
-  const [searchResults2, setSearchResults2] = useState(1); 
+  const [searchTerm, setSearchTerm] = useState("");
 
   if (isLoading) return <Spinner />;
   if (!prospecto.length) return <Empty resourceName="prospecto" />;
 
-  // 1) FILTER
-  const filterValue = searchParams.get("precio") || "all";
-  
-  let filteredProductos;
-  if (filterValue === "all") {
-    filteredProductos = prospecto;
-  } else if (filterValue.startsWith("letter-")) {
-    const letter = filterValue.split("-")[1].toUpperCase();
-    filteredProductos = prospecto.filter((prospecto) => prospecto.nombre.charAt(0).toUpperCase() === letter);
-  }
-  else if (filterValue === "activos") {
-    filteredProductos = prospecto.filter((prospecto) => prospecto.cursa_actualmente === true);
-  }
-  else if (filterValue === "inactivos") {
-    filteredProductos = prospecto.filter((prospecto) => prospecto.cursa_actualmente === false);
+ // 1) FILTER
+
+ const handleFilter = (clientes) => {
+  let filteredProductos = clientes;
+
+  //BUSQUEDA
+  if (searchTerm.length > 0) {
+    filteredProductos = filteredProductos.filter((cliente) =>
+      cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   }
 
-// 2) BUSQUEDA
-const handleSearch = async (event) => {
-  setSearchTerm(event.target.value);
-  if (event.target.value === ' ') {
-    filteredProductos = prospecto;
-  } else if (event.target.value.length === 0 && event.target.value.match(/[a-zA-Z]/)) {
-    const letter = event.target.value.toUpperCase();
-    filteredProductos = prospecto.filter((prospecto) => prospecto.nombre.charAt(0).toUpperCase() === letter);
-  } else {
-    const { data, error } = await supabase.from('prospecto').select('*').ilike('nombre', `%${event.target.value}%`);
-    if (error) {
-      console.log(error);
-    } else {
-      if (data.length) {
-        setSearchResults(data);
-        setSearchResults2(data.length);
-      }
-      if (!data.length) {
-        setSearchResults2(0);
-      }
+  //FILTRO PROSPECTO
+  const filterValue = searchParams.get("nombre") || "all";
+
+  if (filterValue === "activos") {
+    filteredProductos = filteredProductos.filter(
+      (cliente) => cliente.telefono === 8
+    );
+  } else if (filterValue === "inactivos") {
+    filteredProductos = filteredProductos.filter(
+      (cliente) => cliente.cursa_actualmente === false
+    );
+  }
+  else if (filterValue === "frecuentes") {
+      filteredProductos = filteredProductos.filter(
+        (cliente) => cliente.numero_diplomados >3
+      );
     }
+  else if (filterValue === "vence") {
+    const oneWeekAgo = new Date(Date.now() + 7 );
+
+    filteredProductos = filteredProductos.filter((cliente) =>
+      new Date(cliente.fecha_limite) < oneWeekAgo,
+    )
   }
-}
 
-  if (searchResults.length > 0) { filteredProductos = searchResults; }
+  if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
+   || filterValue === "Educación" || filterValue === "Ingeniería"
+   || filterValue === "Negocios" || filterValue === "OnLive"
+   || filterValue === "Psicología" || filterValue === "Salud"
+  ) {
+    filteredProductos = filteredProductos.filter((cliente) => 
+      cliente.disciplina === filterValue || cliente.disciplina2 === filterValue);
+  }
 
-  // 3) ORDENAR
+// ORDENAR
   const sortBy = searchParams.get("sortBy") || "nombre-asc";
-
   const [field, direction] = sortBy.split("-");
-  const modifier = direction === "asc" ? 1 : -1;
+  
   if (field === "nombre") {
-    // eslint-disable-next-line no-unused-vars
-    const sortedProductos = filteredProductos.sort((a, b) => {
-      const nameA = a[field].toUpperCase(); // convert to uppercase to compare
-      const nameB = b[field].toUpperCase(); // convert to uppercase to compare
+    filteredProductos.sort((a, b) => {
+      const nameA = a[field].toUpperCase();
+      const nameB = b[field].toUpperCase();
       if (nameA < nameB) {
-        return -1 * modifier; // if A comes before B return -1 for desc order, 1 for asc order
+        return direction === "asc" ? -1 : 1;
       }
       if (nameA > nameB) {
-        return 1 * modifier; // if A comes after B return 1 for desc order, -1 for asc order
+        return direction === "asc" ? 1 : -1;
       }
-      return 0; // if A and B are the same return 0
+      return 0;
     });
+  } else if (field === "diplomados_terminados") {
+    filteredProductos.sort((a, b) => (a[field] - b[field]) * (direction === "asc" ? 1 : -1));
   }
-
   
-  const sortedProductos = filteredProductos.sort(
-    (a, b) => (a[field] - b[field]) * modifier
-  );
+return filteredProductos;
+};
+const filteredProspectos = handleFilter(prospecto);
 
   return (
     <Menus>
       <StyledTable >
         <StyledTableHeader> 
       <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
-      <StyledTableHeaderCell><Input type="text" value={searchTerm} onChange={ handleSearch } id="telefono"/></StyledTableHeaderCell>
+      <StyledTableHeaderCell><Input type="text" value={searchTerm} onChange={ (e) => setSearchTerm(e.target.value) } id="telefono"/></StyledTableHeaderCell>
         <StyledTableHeaderCell><FaSearch style={{ margin: '0 10px 0 10px',  fontSize: '26px' }} /></StyledTableHeaderCell>
         </StyledTableHeader> 
 
@@ -119,18 +118,18 @@ const handleSearch = async (event) => {
               <StyledTableRow>
                 <StyledTableHeadCell>Prospecto</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
-                <StyledTableHeadCell>telefono</StyledTableHeadCell>
-          
+                <StyledTableHeadCell>Telefono</StyledTableHeadCell>
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
-             
-                <StyledTableHeadCell>Diplomados Escritos</StyledTableHeadCell>
+                <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
+                <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+                <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
               </StyledTableRow>
             </StyledTableHead>
 
-      {searchResults2 > 0 ? (
-          sortedProductos.map((prospecto, index) => (
+      {filteredProspectos.length ? (
+          filteredProspectos.map((prospecto, index) => (
             <ProspectoRow prospecto={prospecto} key={prospecto.id} />
       ))
       ) : (

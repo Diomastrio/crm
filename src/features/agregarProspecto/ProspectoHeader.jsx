@@ -1,6 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import Button from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "../../ui/DarkModeToggle";
 import { useDarkMode } from "../../context/DarkModeContext";
 
@@ -43,23 +41,16 @@ function Logo() {
 }
 
 const StyledHeaderMenu = styled.ul`
-  height: 6.1rem;
+  height: 6rem;
   display: flex;
   gap: 0.4rem;
 `;
 
 function HeaderMenu() {
-  const navigate = useNavigate();
 
   return (
     <StyledHeaderMenu>
       <Logo />
-      {/* <li>
-        <Button variation="swapii" onClick={() => navigate("/Registro")}>Crear cuenta</Button>
-      </li> */}
-      <li>
-        <Button onClick={() => navigate("/Login")}>Iniciar sesion</Button>
-      </li>
       <li>
         <DarkModeToggle />
       </li>
@@ -68,7 +59,7 @@ function HeaderMenu() {
 }
 
 const StyledHeader = styled.header`
-  background-color: var(--color-grey-0);
+  background-color: var(--color-grey-50);
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
 

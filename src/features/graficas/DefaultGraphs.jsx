@@ -137,20 +137,7 @@ const fetchClienteDater = async () => {
     return;
   }
 
-  const labels = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const labels = ["Jan","Feb", "Mar","Apr","May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec", ];
 
   const areaData = data.map((item, index) => ({
     label: labels[index % 12], // Use the month labels, repeating every 12 months
@@ -374,6 +361,7 @@ function DefaultGraphs() {
           </PieChart>
         </ResponsiveContainer>
       </div>
+
       <StyledSubHeading as="h3">
         Diplomados inscritos y terminados por mes
       </StyledSubHeading>
@@ -407,6 +395,7 @@ function DefaultGraphs() {
           />
         </AreaChart>
       </ResponsiveContainer>
+
       <StyledSubHeading as="h3">Diplomados inscritos por edad</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <ScatterChart
@@ -420,12 +409,8 @@ function DefaultGraphs() {
           }}
         >
           <CartesianGrid />
-          <XAxis type="number" dataKey="x" name="edad" unit="años" />
-          <YAxis
-            type="number"
-            dataKey="y"
-            name="diplomados inscritos"
-            unit="Dipl."
+          <XAxis type="number" dataKey="x" name="Edad" unit="años" />
+          <YAxis type="number" dataKey="y" name="Diplomados Inscritos" unit="Dipl."
           />
           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
           <Scatter name="A school" data={scatterData} fill="#8884d8">
@@ -438,6 +423,7 @@ function DefaultGraphs() {
           </Scatter>
         </ScatterChart>
       </ResponsiveContainer>
+
       <StyledSubHeading as="h3">
         Numero de clientes activos por disciplina
       </StyledSubHeading>
@@ -445,12 +431,7 @@ function DefaultGraphs() {
         <BarChart
           height={300}
           data={activeClientsByDiscipline}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5}}
           barSize={25}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -461,6 +442,7 @@ function DefaultGraphs() {
           <Bar dataKey="clienteActivo" fill="#4b42d4" />
         </BarChart>
       </ResponsiveContainer>
+
       <StyledSubHeading as="h3">
         Numero de clientes por genero y disciplina
       </StyledSubHeading>
@@ -468,12 +450,7 @@ function DefaultGraphs() {
         <BarChart
           height={300}
           data={activeClientsByDispGen}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          margin={{ top: 5, right: 30, left: 20,  bottom: 5,}}
           barSize={20}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -485,6 +462,7 @@ function DefaultGraphs() {
           <Bar dataKey="m" fill="#28d4b7" name="Female" />
         </BarChart>
       </ResponsiveContainer>
+
       <StyledSubHeading as="h3">
         Numero de clientes por disciplina
       </StyledSubHeading>
@@ -492,12 +470,7 @@ function DefaultGraphs() {
         <BarChart
           height={300}
           data={clientsByDiscipline}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5, }}
           barSize={20}
         >
           <CartesianGrid strokeDasharray="3 3" />

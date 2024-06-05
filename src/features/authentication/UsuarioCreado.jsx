@@ -5,7 +5,7 @@ function IniciaSession() {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/entrar");
+    navigate("/login");
   }
 
   return <Button onClick={handleClick}>Ya tengo una cuenta</Button>;

@@ -1,4 +1,4 @@
-import Send from "../features/emails/Send";
+import CreatePDF from "../features/pdf/CreatePDF";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
@@ -8,7 +8,7 @@ function PDF() {
       <Row type="horizontal">
         <Heading as="h1">Reporte clientes PDF </Heading>
       </Row>
-      <Send />
+      <CreatePDF />
     </>
   );
 }
