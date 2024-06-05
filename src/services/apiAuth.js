@@ -3,7 +3,7 @@ import supabase, { supabaseUrl } from "./supabase";
 export async function signup({ fullName, email, password }) {
   // Check if user already exists
  /* const { data: users, error: fetchError } = await supabase
-    .from("auth.users")
+    .from("users")
     .select("*")
     .eq("email", email)
     .limit(1);

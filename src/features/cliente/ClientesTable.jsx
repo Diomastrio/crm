@@ -66,7 +66,8 @@ function ClienteTable() {
           break;
         case "vence":
           const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-          passesFilterValue = new Date(cliente.fecha_limite) < oneWeekFromNow;
+          const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+          passesFilterValue = (new Date(cliente.fecha_limite) < oneWeekFromNow ) && (new Date(cliente.fecha_limite)> oneWeekThen);
           break;
         default:
           passesFilterValue = true;

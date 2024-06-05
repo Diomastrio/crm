@@ -225,13 +225,9 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         <StyledSelect
           id="cursa_actualmente"
           isDisabled={isWorking}
-          {...register("cursa_actualmente", {
-            required: "Este campo es requerido",
-          })}
+          {...register("cursa_actualmente", {})}
         >
-          <option value="true" selected>
-            Si
-          </option>
+          <option value="true" selected>Si</option>
           <option value="false">No</option>
         </StyledSelect>
       </FormRow>

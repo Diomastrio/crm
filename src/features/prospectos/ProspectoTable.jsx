@@ -49,28 +49,6 @@ function ProspectoTable() {
   //FILTRO PROSPECTO
   const filterValue = searchParams.get("nombre") || "all";
 
-  if (filterValue === "activos") {
-    filteredProductos = filteredProductos.filter(
-      (cliente) => cliente.telefono === 8
-    );
-  } else if (filterValue === "inactivos") {
-    filteredProductos = filteredProductos.filter(
-      (cliente) => cliente.cursa_actualmente === false
-    );
-  }
-  else if (filterValue === "frecuentes") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.numero_diplomados >3
-      );
-    }
-  else if (filterValue === "vence") {
-    const oneWeekAgo = new Date(Date.now() + 7 );
-
-    filteredProductos = filteredProductos.filter((cliente) =>
-      new Date(cliente.fecha_limite) < oneWeekAgo,
-    )
-  }
-
   if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
    || filterValue === "Educación" || filterValue === "Ingeniería"
    || filterValue === "Negocios" || filterValue === "OnLive"

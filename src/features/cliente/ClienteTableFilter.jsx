@@ -39,8 +39,8 @@ function ArticuloTableFilter() {
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
-          { value: "diplomados_terminados-asc", label: "Diplomados Terminados - > +",},
-          {  value: "diplomados_terminados-desc", label: "Diplomados Terminados + > -",},
+          { value: "diplomados_terminados-asc", label: "Diplomados Terminados (- > +)",},
+          {  value: "diplomados_terminados-desc", label: "Diplomados Terminados (+ > -)",},
         ]}
       />
     </TableOperations>

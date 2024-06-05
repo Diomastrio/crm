@@ -38,14 +38,8 @@ function CreateProspectoForm({ onCloseModal }) {
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]);
-  const [filteredProductos, setfilteredProductos] = useState([]);
-
+ 
   const [showModal, setShowModal] = useState(false);
-  const { isLoading, diplomado } = useDiplomado();
-
-  useEffect(() => {
-    setfilteredProductos(diplomado);
-  }, [diplomado]);
 
   useEffect(() => {
     if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
@@ -53,34 +47,34 @@ function CreateProspectoForm({ onCloseModal }) {
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas === 'Desarrollo Humano') {
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
+      const diplomadosEspecificos = ['','Descuentosss','D',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     } 
     else if (watchDisciplinasMas==='Descuentos'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
+      const diplomadosEspecificos = ['','Descuentosss','D',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Ingeniería'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
+      const diplomadosEspecificos = ['','Ingenieríaaa','I',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Negocios'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
+      const diplomadosEspecificos = ['','Negocioss','N',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='OnLive'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
+      const diplomadosEspecificos = ['','OnLivee','O',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Psicología'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
+      const diplomadosEspecificos = ['','Psicologíaa','P',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
     else if (watchDisciplinasMas==='Salud'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
+      const diplomadosEspecificos = ['','Saludd','S',];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
-  }, [watchDisciplinasMas,filteredProductos]);
+  }, [watchDisciplinasMas]);
 
   const watchDisciplinasMas2 = watch("disciplina2");
   const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
@@ -133,8 +127,24 @@ function CreateProspectoForm({ onCloseModal }) {
       );
   }
 
+  const [filteredProductos, setfilteredProductos] = useState([]); 
+  const { isLoading, diplomado } = useDiplomado();
+
+  useEffect(() => {
+    setfilteredProductos(diplomado);
+  }, [diplomado]);
+  
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
+
+  
+  // Assuming filteredProductos is an array of objects with a 'disciplina' property
+  const specificDiplomados = {
+    'Desarrollo Humano': filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano"),
+    'Descuentos': filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos"),
+    'Educación': filteredProductos.filter((diplomado) => diplomado.disciplina === "Educación"),
+    // ... and so on for other disciplines
+  };
   
   const handleOpenModal = (event) => {
     event.preventDefault();
@@ -260,7 +270,7 @@ function CreateProspectoForm({ onCloseModal }) {
           })}
         >
           {diplomadosEspecificos.map((diplomado, index) => (
-            <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
+            <option key={index} value={diplomado}>{diplomado}</option>
           ))}
         </StyledSelectDiplomado>
       </FormRow>
