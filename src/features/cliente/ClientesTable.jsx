@@ -60,7 +60,6 @@ function ClienteTable() {
         case "inactivos":
           passesFilterValue = cliente.cursa_actualmente === false;
           break;
-
         case "frecuentes":
           passesFilterValue = cliente.numero_diplomados > 3;
           break;
@@ -71,7 +70,6 @@ function ClienteTable() {
         default:
           passesFilterValue = true;
       }
-
       //diplomados
       let secondFilterValue = searchParams.get("disciplina") || "all";
       let passesSecondFilterValue;
@@ -142,28 +140,41 @@ function ClienteTable() {
           <tr>
             <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-              <Input type="text" value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} id="telefono"
+              <Input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                id="telefono"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
               <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell />
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
-             <Input type="number" value={searchTermDiplomado}
-                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="te"
+              <Input
+                placeholder="0"
+                type="number"
+                value={searchTermDiplomado}
+                onChange={(e) => setSearchTermDiplomado(e.target.value)}
+                id="te"
               />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
               <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell/>
-            <StyledTableHeaderCell/>
-            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
-            <StyledTableHeaderCell><StyledInput/></StyledTableHeaderCell>
-            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
+            <StyledTableHeaderCell />
+            <StyledTableHeaderCell />
+            <StyledTableHeaderCell>
+              <StyledInput />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <StyledInput />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <StyledInput />
+            </StyledTableHeaderCell>
           </tr>
         </StyledTableHeader>
 
@@ -172,17 +183,17 @@ function ClienteTable() {
             <StyledTableHeadCell>Cliente</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
             <StyledTableHeadCell>Telefono</StyledTableHeadCell>
-            <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
-            <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
+            <StyledTableHeadCell>No.Diplomados</StyledTableHeadCell>
+            <StyledTableHeadCell>Dipl.Terminados</StyledTableHeadCell>
             <StyledTableHeadCell>CURP</StyledTableHeadCell>
+            <StyledTableHeadCell>Cursando</StyledTableHeadCell>
             <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
             <StyledTableHeadCell>RFC</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
             <StyledTableHeadCell>Edad</StyledTableHeadCell>
-            <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
+            <StyledTableHeadCell>Residencia</StyledTableHeadCell>
             <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
             <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>

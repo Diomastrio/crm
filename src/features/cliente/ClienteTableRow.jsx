@@ -30,7 +30,7 @@ function ClienteRow({ cliente }) {
     lugar_residencia,
     ocupacion,
     telefono,
-    disciplina ,
+    disciplina,
     disciplina2,
     diplomado,
     diplomado2,
@@ -75,8 +75,8 @@ function ClienteRow({ cliente }) {
         <StyledTableCell>{telefono}</StyledTableCell>
         <StyledTableCell>{numero_diplomados}</StyledTableCell>
         <StyledTableCell>{diplomados_terminados}</StyledTableCell>
-        <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
         <StyledTableCell>{curp}</StyledTableCell>
+        <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
         <StyledTableCell>{ocupacion}</StyledTableCell>
         <StyledTableCell>{rfc}</StyledTableCell>
         <StyledTableCell>{nuevoInicio}</StyledTableCell>
