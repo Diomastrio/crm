@@ -5,6 +5,7 @@ import { useCliente } from "../cliente/useSelectCliente";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 import Button from "../../ui/Button";
+import emailjs from 'emailjs-com';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -64,6 +65,21 @@ const ReportButton = () => {
     var pdfDoc = pdfMake.createPdf(docDefinition);
     pdfDoc.download('Clientes con VENCIMIENTO.pdf');
     
+
+      // Generate the PDF and send the email
+      pdfDoc.getBase64(() => {
+        emailjs.send('service_eucps2l', 'template_vq62ght', {
+          to_name: 'CES Centro de Estudios Superiores en Negocios y Humanidades',
+          from_name: 'Storm Chasers',
+          to_email: 'loflions123@gmail.com',
+          message: filteredClientes.map(cliente => [cliente.email]),
+        }, '2RViu0pWfHIP5eOxh')
+        .then(function(response) {
+          console.log('Email sent:', response);
+        }, function(error) {
+          console.log('Failed to send email:', error);
+        });
+      });
   };
 
   return (
