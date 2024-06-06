@@ -9,7 +9,7 @@ export function useEditDiplomado() {
     mutationFn: ({ newDiplomado, id }) =>
       createEditDiplomados(newDiplomado, id),
     onSuccess: () => {
-      toast.success("Cliente exitosamente editado");
+      toast.success("Diplomado exitosamente editado");
       queryClient.invalidateQueries({ queryKey: ["diplomado"] });
     },
     onError: (err) => toast.error(err.message),

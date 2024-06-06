@@ -2,13 +2,14 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { MdAddBox } from "react-icons/md";
+import { MdAddBox, MdPadding } from "react-icons/md";
 import { FaChartPie } from "react-icons/fa";
 
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  width: 20%;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -16,11 +17,11 @@ const StyledNavLink = styled(NavLink)`
   &:visited {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
     color: var(--color-grey-600);
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 500;
-    padding: 2.5rem 2.4rem;
+    padding: 1.5rem 1.2rem;
     transition: all 0.3s;
   }
 
@@ -35,8 +36,8 @@ const StyledNavLink = styled(NavLink)`
   }
 
   & svg {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.3rem;
+    height: 2.3rem;
     color: var(--color-grey-500);
     transition: all 0.3s;
   }
@@ -48,55 +49,58 @@ const StyledNavLink = styled(NavLink)`
     color: var(--color-brand-600);
   }
 `;
+const StyledNav = styled.nav`
+  width: 200px; /* Adjust the width as needed */
+`;
 
 function MainNav() {
   return (
-    <nav>
+    <StyledNav>
       <NavList>
         <li>
           <StyledNavLink to="/Cliente">
             <BsFillPersonLinesFill />
-            <span>Clientes</span>
+            {/* <span>Clientes</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/AgregarCliente">
             <MdAddBox />
-            <span>Agrega Cliente</span>
+            {/* <span>Agrega Cliente</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Prospectos">
             <BsFillPersonLinesFill />
-            <span>Prospectos</span>
+            {/* <span>Prospectos</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/PDF">
             <MdAddBox />
-            <span>PDF</span>
+            {/* <span>PDF</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Graphs">
             <FaChartPie />
-            <span>Graficas</span>
+            {/* <span>Graficas</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/AgregarDiplomado">
             <MdAddBox />
-            <span>Agrega Diplomados</span>
+            {/* <span>Agrega Diplomados</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Diplomados">
             <MdAddBox />
-            <span>Diplomados</span>
+            {/* <span>Diplomados</span> */}
           </StyledNavLink>
         </li>
       </NavList>
-    </nav>
+    </StyledNav>
   );
 }
 

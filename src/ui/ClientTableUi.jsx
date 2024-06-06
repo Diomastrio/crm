@@ -18,7 +18,30 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 `;
+const StyledNumberInput = styled.input.attrs({ type: "number" })`
+  width: 100px;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
 
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &::placeholder {
+    color: #aaa;
+  }
+`;
 const StyledInput = styled.div`
   padding: 0.8rem 8rem;
 `;
@@ -38,7 +61,6 @@ const StyledTableHeadCell = styled.th`
   align-items: center;
   object-position: center;
   justify-content: center;
-
   &:first-child {
     border-top-left-radius: 20px;
   }
@@ -60,7 +82,7 @@ const StyledTableHeaderCell = styled.th`
 const StyledTableBody = styled.tbody`
   background-color: var(--color-grey-0);
   padding: 1.2rem 2.4rem;
-  
+
   &:nth-child(even) {
     background-color: var(--color-grey-100);
   }
@@ -81,12 +103,15 @@ const StyledTableRow = styled.tr`
 `;
 
 const StyledTableCell = styled.td`
-  padding: 5px 15px;
+  padding: 5px 10px;
   border-bottom: 1px solid #dddddd;
+  text-align: center;
+  align-items: center;
+  object-position: center;
 
-   &:last-child {
+  &:last-child {
     display: flex;
-    align-items: center;  
+    align-items: center;
   }
 
   &:nth-child(15) {
@@ -109,4 +134,5 @@ export {
   StyledTableCell,
   StyledInput,
   Input,
+  StyledNumberInput,
 };

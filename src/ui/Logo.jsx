@@ -14,7 +14,7 @@ const spin = keyframes`
 `;
 
 const Img = styled.img`
-  height: 8rem;
+  height: 4.6rem;
   width: auto;
   animation: ${spin} infinite 20s linear; /* Animation properties */
   animation-play-state: running; /* Initially paused */
