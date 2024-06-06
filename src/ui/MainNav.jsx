@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import { BsFillPersonLinesFill,BsPersonFill,BsFillPersonPlusFill   } from "react-icons/bs";
+import { BsFillPersonLinesFill,BsPersonBadge ,BsFillPersonPlusFill   } from "react-icons/bs";
 import { FaChartPie } from "react-icons/fa";
 import { MdAssignmentAdd,MdAssignmentTurnedIn   } from "react-icons/md";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
@@ -70,7 +70,7 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/Prospectos">
-            <BsPersonFill  />
+            <BsPersonBadge   />
           </StyledNavLink>
         </li>
         <li>

@@ -18,7 +18,8 @@ function CreateClientForm({ onCloseModal }) {
 
   const { register, watch, handleSubmit, reset, formState } = useForm({});
   const { errors } = formState;
-
+  
+ 
   const fechaInicio = watch("fecha_inicio"); 
 
   const validateFechaFin = (value) => {
@@ -39,7 +40,7 @@ function CreateClientForm({ onCloseModal }) {
       createCliente(
         { ...data },
         {
-          onSuccess: (data) => {
+          onSuccess: () => {
             reset();
             onCloseModal?.();
           },
@@ -135,6 +136,29 @@ function CreateClientForm({ onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+  
+  //curp
+  const getCurp = (curpInput) => {
+    if (!curpInput || curpInput === "0") return "N/A";
+
+    const genderRegex = /[HM]/;
+    const genderMatch = curpInput.match(genderRegex);
+    const gender = genderMatch ? genderMatch[0] : "Gender not found";
+  
+    return gender;
+  };
+
+  const curpInput = watch("curp"); 
+  const nuevoCurp = getCurp(curpInput);
+  const [generoValue, setGeneroValue] = useState('');
+
+  console.log(generoValue)
+
+  useEffect(() => {
+    setGeneroValue(nuevoCurp); // Update the value when '[nuevoCurp]' changes
+  }, [nuevoCurp]);
+  //curp
+
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
@@ -143,6 +167,18 @@ function CreateClientForm({ onCloseModal }) {
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
+
+    {/* genero */}
+        <Input
+          type="text"
+          id="genero"
+          disabled={isCreating}
+          value={generoValue}
+          hidden
+          {...register("genero")}
+        />
+    {/* genero */}
+
       <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
         <Input
           type="text"
@@ -161,6 +197,10 @@ function CreateClientForm({ onCloseModal }) {
           disabled={isCreating}
           {...register("email", {
             required: "Este campo es requerido",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Por favor ingresa un correo electrónico valido",
+            },
           })}
         />
       </FormRow>
@@ -172,6 +212,10 @@ function CreateClientForm({ onCloseModal }) {
           disabled={isCreating}
           {...register("telefono", {
             required: "Este campo es requerido",
+            minLength: {
+              value: 10,
+              message: "El numero de telefono debe ser de 10 digitos",
+            }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
           })}
         />
       </FormRow>
@@ -183,6 +227,10 @@ function CreateClientForm({ onCloseModal }) {
           disabled={isCreating}
           {...register("curp", {
             required: "Este campo es requerido",
+            pattern: {
+              value: /^[A-Z]{4}\d{6}[HM][A-Z]{5}\d{2}$/,
+              message: "Por favor ingresa un CURP valido",
+            },
           })}
         />
       </FormRow>
@@ -194,6 +242,10 @@ function CreateClientForm({ onCloseModal }) {
           disabled={isCreating}
           {...register("rfc", {
             required: "Este campo es requerido",
+            pattern: {
+              value:  /^[A-Z&]{3,4}(\d{6})((\D|\d){3})?$/,
+              message: "Por favor ingresa un RFC electrónico valido",
+            },
           })}
         />
       </FormRow>
@@ -252,8 +304,8 @@ function CreateClientForm({ onCloseModal }) {
           {...register("edad", {
             required: "Este campo es requerido",
             min: {
-              value: 1,
-              message: "Debe ser mínimo 1",
+              value: 18,
+              message: "Edad mayor de 18",
             },
           })}
         />
@@ -293,8 +345,8 @@ function CreateClientForm({ onCloseModal }) {
           {...register("diplomados_terminados", {
             required: "Este campo es requerido",
             min: {
-              value: 1,
-              message: "debería ser mínimo 1",
+              value: 0,
+              message: "debería ser mínimo 0+",
             },
           })}
         />
@@ -362,7 +414,7 @@ function CreateClientForm({ onCloseModal }) {
       {primerDiplomado && (
       <FormRow
         label={"Diplomados"}
-        error={errors?.cursa_actualmente?.message}
+        error={errors?.diplomado?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}

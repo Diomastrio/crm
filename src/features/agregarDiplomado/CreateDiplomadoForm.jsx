@@ -36,7 +36,8 @@ function CreateDiplomadoForm({ onCloseModal }) {
       style={{height: '60vh'}}
     >
 
-      <Heading as="h1">Anadir diplomado </Heading>
+      <Heading as="h1">Añadir diplomado </Heading>
+      <Heading as="h2">Estos diplomados seran visibles al prospecto </Heading>
       <FormRow label="Nombre del diplomado" style={{}}error={errors?.nombre?.message}>
         <Input
           type="text"

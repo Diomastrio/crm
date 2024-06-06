@@ -140,6 +140,28 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+  //curp
+  const getCurp = (curpInput) => {
+    if (!curpInput || curpInput === "0") return "N/A";
+
+    const genderRegex = /[HM]/;
+    const genderMatch = curpInput.match(genderRegex);
+    const gender = genderMatch ? genderMatch[0] : "Gender not found";
+  
+    return gender;
+  };
+
+  const curpInput = watch("curp"); 
+  const nuevoCurp = getCurp(curpInput);
+  const [generoValue, setGeneroValue] = useState('');
+
+  console.log(generoValue)
+
+  useEffect(() => {
+    setGeneroValue(nuevoCurp); // Update the value when '[nuevoCurp]' changes
+  }, [nuevoCurp]);
+  //curp
+
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
@@ -148,6 +170,18 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
+
+    {/* genero */}
+        <Input
+          type="text"
+          id="genero"
+          disabled={isEditing}
+          value={generoValue}
+          hidden
+          {...register("genero")}
+        />
+    {/* genero */}
+
       <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
         <Input
           type="text"
@@ -158,6 +192,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           })}
         />
       </FormRow>
+
       <FormRow label="Correo" error={errors?.email?.message}>
         <Input
           type="mail"
@@ -165,9 +200,14 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           disabled={isEditing}
           {...register("email", {
             required: "Este campo es requerido",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Por favor ingresa un correo electrónico valido",
+            },
           })}
         />
       </FormRow>
+
       <FormRow label="Telefono" error={errors?.telefono?.message}>
         <Input
           type="number"
@@ -175,9 +215,14 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           disabled={isEditing}
           {...register("telefono", {
             required: "Este campo es requerido",
+            minLength: {
+              value: 10,
+              message: "El numero de telefono debe ser de 10 digitos",
+            }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
           })}
         />
       </FormRow>
+
       <FormRow label="Curp" error={errors?.curp?.message}>
         <Input
           type="text"
@@ -185,9 +230,14 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           disabled={isEditing}
           {...register("curp", {
             required: "Este campo es requerido",
+            pattern: {
+              value: /^[A-Z]{4}\d{6}[HM][A-Z]{5}\d{2}$/,
+              message: "Por favor ingresa un CURP valido",
+            },
           })}
         />
       </FormRow>
+
       <FormRow label="RFC" error={errors?.rfc?.message}>
         <Input
           type="text"
@@ -195,9 +245,14 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           disabled={isEditing}
           {...register("rfc", {
             required: "Este campo es requerido",
+            pattern: {
+              value:  /^[A-Z&]{3,4}(\d{6})((\D|\d){3})?$/,
+              message: "Por favor ingresa un RFC electrónico valido",
+            },
           })}
         />
       </FormRow>
+
       <FormRow label="Ocupacion" error={errors?.ocupacion?.message}>
         <Input
           type="text"
@@ -248,8 +303,8 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           {...register("edad", {
             required: "Este campo es requerido",
             min: {
-              value: 1,
-              message: "Debe ser mínimo 1",
+              value: 18,
+              message: "Edad mayor de 18",
             },
           })}
         />
@@ -296,8 +351,8 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           {...register("diplomados_terminados", {
             required: "Este campo es requerido",
             min: {
-              value: 1,
-              message: "debería ser mínimo 1",
+              value: 0,
+              message: "debería ser mínimo +0",
             },
           })}
         />
@@ -364,7 +419,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       {primerDiplomado && (
       <FormRow
         label={"Diplomados"}
-        error={errors?.cursa_actualmente?.message}
+        error={errors?.diplomado?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}

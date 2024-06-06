@@ -34,19 +34,18 @@ function ProspectoTable() {
   if (isLoading) return <Spinner />;
   if (!prospecto.length) return <Empty resourceName="prospecto" />;
 
- // 1) FILTER
-
+ //FILTER
  const handleFilter = (clientes) => {
   let filteredProductos = clientes;
 
-  //BUSQUEDA
+  //1)BUSQUEDA
   if (searchTerm.length > 0) {
     filteredProductos = filteredProductos.filter((cliente) =>
       cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
-  //FILTRO PROSPECTO
+  //2)FILTRO PROSPECTO
   const filterValue = searchParams.get("nombre") || "all";
 
   if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
@@ -58,7 +57,7 @@ function ProspectoTable() {
       cliente.disciplina === filterValue || cliente.disciplina2 === filterValue);
   }
 
-// ORDENAR
+//3)ORDENAR
   const sortBy = searchParams.get("sortBy") || "nombre-asc";
   const [field, direction] = sortBy.split("-");
   

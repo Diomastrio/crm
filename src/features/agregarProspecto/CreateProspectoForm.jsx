@@ -175,7 +175,7 @@ function CreateProspectoForm({ onCloseModal }) {
               required: "Este campo es requerido", minLength: {
                 value: 10,
                 message: "El numero de telefono debe ser de 10 digitos",
-              }, MaxLength: { value: 10, message: "error message" }
+              }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
             })}
           />
       </FormRow>

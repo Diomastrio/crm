@@ -15,6 +15,8 @@ function ArticuloTableFilter() {
             { value: "inactivos", label: "Inactivos" },
             { value: "frecuentes", label: "Clientes frecuentes" },
             { value: "vence", label: "Vence Pronto" },
+            { value: "Hombres", label: "Hombres" },
+            { value: "Mujeres", label: "Mujeres" },
           ]}
         />
         <SecondFilter

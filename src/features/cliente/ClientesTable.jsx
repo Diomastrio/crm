@@ -60,7 +60,6 @@ function ClienteTable() {
         case "inactivos":
           passesFilterValue = cliente.cursa_actualmente === false;
           break;
-
         case "frecuentes":
           passesFilterValue = cliente.numero_diplomados > 3;
           break;
@@ -69,6 +68,12 @@ function ClienteTable() {
           const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
           passesFilterValue = (new Date(cliente.fecha_limite) < oneWeekFromNow ) && (new Date(cliente.fecha_limite)> oneWeekThen);
           break;
+        case "Hombres":
+          passesFilterValue = cliente.genero === 'H';
+          break;  
+        case "Mujeres":
+          passesFilterValue = cliente.genero === 'M';
+          break;  
         default:
           passesFilterValue = true;
       }
@@ -78,28 +83,28 @@ function ClienteTable() {
       let passesSecondFilterValue;
       switch (secondFilterValue) {
         case "desarrollo":
-          passesSecondFilterValue = cliente.disciplina === "Desarrollo Humano";
+          passesSecondFilterValue = cliente.disciplina === "Desarrollo Humano" || cliente.disciplina2 === "Desarrollo Humano";
           break;
         case "descuentos":
-          passesSecondFilterValue = cliente.disciplina === "Descuentos";
+          passesSecondFilterValue = cliente.disciplina === "Descuentos" || cliente.disciplina2 === "Descuentos";
           break;
         case "educacion":
-          passesSecondFilterValue = cliente.disciplina === "Educación";
+          passesSecondFilterValue = cliente.disciplina === "Educación" || cliente.disciplina2 === "Educación";
           break;
         case "ingenieria":
-          passesSecondFilterValue = cliente.disciplina === "Ingeniería";
+          passesSecondFilterValue = cliente.disciplina === "Ingeniería" || cliente.disciplina2 === "Ingeniería";
           break;
         case "negocios":
-          passesSecondFilterValue = cliente.disciplina === "Negocios";
+          passesSecondFilterValue = cliente.disciplina === "Negocios" || cliente.disciplina2 === "Negocios";
           break;
         case "onLive":
-          passesSecondFilterValue = cliente.disciplina === "OnLive";
+          passesSecondFilterValue = cliente.disciplina === "OnLive" || cliente.disciplina2 === "OnLive";
           break;
         case "psicologia":
-          passesSecondFilterValue = cliente.disciplina === "Psicología";
+          passesSecondFilterValue = cliente.disciplina === "Psicología" || cliente.disciplina2 === "Psicología";
           break;
         case "salud":
-          passesSecondFilterValue = cliente.disciplina === "Salud";
+          passesSecondFilterValue = cliente.disciplina === "Salud" || cliente.disciplina2 === "Salud";
           break;
         default:
           passesSecondFilterValue = true;
@@ -162,6 +167,8 @@ function ClienteTable() {
             </StyledTableHeaderCell>
             <StyledTableHeaderCell/>
             <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
             <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
             <StyledTableHeaderCell><StyledInput/></StyledTableHeaderCell>
             <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
@@ -173,16 +180,17 @@ function ClienteTable() {
             <StyledTableHeadCell>Cliente</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
             <StyledTableHeadCell>Telefono</StyledTableHeadCell>
+            <StyledTableHeadCell>CURP</StyledTableHeadCell>
+            <StyledTableHeadCell>Edad</StyledTableHeadCell>
+            <StyledTableHeadCell>Genero</StyledTableHeadCell>
+            <StyledTableHeadCell>RFC</StyledTableHeadCell>
+            <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
             <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
             <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
-            <StyledTableHeadCell>CURP</StyledTableHeadCell>
-            <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
-            <StyledTableHeadCell>RFC</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
-            <StyledTableHeadCell>Edad</StyledTableHeadCell>
             <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
             <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
