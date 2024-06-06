@@ -8,7 +8,7 @@ function Logout() {
 
   return (
     <ButtonIcon disabled={isLoading} onClick={logout}>
-      {!isLoading ? <HiArrowRightOnRectangle style={{width:30}} /> : <SpinnerMini />}
+      {!isLoading ? <HiArrowRightOnRectangle style={{width:25}} /> : <SpinnerMini />}
     </ButtonIcon>
   );
 }

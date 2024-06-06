@@ -8,11 +8,11 @@ import { StyledSelectDiplomado } from "../../ui/SelectTwo";
 
 import { useEditDiplomado } from "./useEditDiplomado";
 
-function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
+function ModificarClientForm({ diplomadoToEdit = {}, onCloseModal }) {
   const { isEditing, editDiplomado } = useEditDiplomado();
   const isWorking = isEditing;
 
-  const { id: editId, ...editValues } = clienteToEdit;
+  const { id: editId, ...editValues } = diplomadoToEdit;
   const isEditSession = Boolean(editId);
 
   const { register, handleSubmit, reset, formState } = useForm({

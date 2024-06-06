@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -7,27 +7,19 @@ import Button from "../../ui/Button";
 import { FormRow,FormRowDiplomado } from "../../ui/FormRow";
 import { StyledSelect, StyledSelectDiplomado } from "../../ui/SelectTwo";
 import { CheckboxWrapper, CheckboxInput, CheckboxBox,CheckboxLabel } from "../../ui/Checkboxes";
+import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
 
 import { useCreateCliente } from "./useCreateClient";
+import { useDiplomado } from "../diplomado/useSelectDiplomado";
 
 function CreateClientForm({ onCloseModal }) {
   const { isCreating, createCliente } = useCreateCliente();
-  const isWorking = isCreating ;
 
   const { register, watch, handleSubmit, reset, formState } = useForm({});
   const { errors } = formState;
 
   const fechaInicio = watch("fecha_inicio"); 
-
-  const watchDiplomados = watch("MasDe1Diploma", false);
-  const primerDiplomado = watch("disciplina", false);
-  const segundoDiplomado = watch("disciplina2", false);
-
-
-   //WATCHES
-   //const watchDisciplinasMas = watch("disciplina");
-   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
-   const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
 
   const validateFechaFin = (value) => {
     if (value <= fechaInicio) {
@@ -54,6 +46,97 @@ function CreateClientForm({ onCloseModal }) {
         }
       );
   }
+  
+  const watchDiplomados = watch("MasDe1Diploma", false);
+  const primerDiplomado = watch("disciplina", false);
+  const segundoDiplomado = watch("disciplina2", false);
+
+  //WATCHES
+  const watchDisciplinasMas = watch("disciplina");
+  const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]);
+  const [filteredProductos, setfilteredProductos] = useState([]);
+
+  const { isLoading, diplomado } = useDiplomado();
+
+  useEffect(() => {
+    setfilteredProductos(diplomado);
+  }, [diplomado]);
+
+  useEffect(() => {
+    if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
+      const diplomadosEspecificos = [''];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas === 'Desarrollo Humano') {
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } 
+    else if (watchDisciplinasMas==='Descuentos'){
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Ingeniería'){
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Negocios'){
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='OnLive'){
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Psicología'){
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+    else if (watchDisciplinasMas==='Salud'){
+      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    }
+  }, [watchDisciplinasMas,filteredProductos]);
+
+  const watchDisciplinasMas2 = watch("disciplina2");
+  const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
+
+  useEffect(() => {
+    if (watchDisciplinasMas2===undefined||watchDisciplinasMas2===''){
+      const diplomadosEspecificos2 = [''];
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+    else if (watchDisciplinasMas2 === 'Desarrollo Humano') {
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } 
+    else if (watchDisciplinasMas2==='Descuentos'){
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+    else if (watchDisciplinasMas2==='Ingeniería'){
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+    else if (watchDisciplinasMas2==='Negocios'){
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+    else if (watchDisciplinasMas2==='OnLive'){
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+    else if (watchDisciplinasMas2==='Psicología'){
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+    else if (watchDisciplinasMas2==='Salud'){
+      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    }
+  }, [watchDisciplinasMas2,filteredProductos]);
+
+  if (isLoading) return <Spinner />;
+  if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
   return (
     <Form
@@ -64,7 +147,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="text"
           id="nombre"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("nombre", {
             required: "Este campo es requerido",
           })}
@@ -75,7 +158,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="mail"
           id="email"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("email", {
             required: "Este campo es requerido",
           })}
@@ -86,7 +169,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="number"
           id="telefono"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("telefono", {
             required: "Este campo es requerido",
           })}
@@ -97,7 +180,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="text"
           id="curp"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("curp", {
             required: "Este campo es requerido",
           })}
@@ -108,7 +191,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="text"
           id="rfc"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("rfc", {
             required: "Este campo es requerido",
           })}
@@ -119,7 +202,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="text"
           id="ocupacion"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("ocupacion", {
             required: "Este campo es requerido",
           })}
@@ -130,7 +213,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="date"
           id="fecha_inicio"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("fecha_inicio", {
             required: "Este campo es requerido",
           })}
@@ -141,7 +224,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="date"
           id="fecha_fin"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("fecha_fin", {
             required: "Este campo es requerido",
             validate: validateFechaFin,
@@ -153,7 +236,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="date"
           id="fecha_limite"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("fecha_limite", {
             required: "Este campo es requerido",
             validate: validateFechaLimite,
@@ -165,7 +248,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="number"
           id="edad"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("edad", {
             required: "Este campo es requerido",
             min: {
@@ -180,7 +263,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="text"
           id="lugar_residencia"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("lugar_residencia", {
             required: "Este campo es requerido",
           })}
@@ -191,7 +274,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="number"
           id="numero_diplomados"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("numero_diplomados", {
             required: "Este campo es requerido",
             min: {
@@ -206,7 +289,7 @@ function CreateClientForm({ onCloseModal }) {
         <Input
           type="number"
           id="diplomados_terminados"
-          disabled={isWorking}
+          disabled={isCreating}
           {...register("diplomados_terminados", {
             required: "Este campo es requerido",
             min: {
@@ -220,7 +303,7 @@ function CreateClientForm({ onCloseModal }) {
       <FormRow label={"Cursa actualmente"} error={errors?.cursa_actualmente?.message}>
         <StyledSelect
           id="cursa_actualmente"
-          isDisabled={isWorking}
+          isDisabled={isCreating}
           {...register("cursa_actualmente", {
             required: "Este campo es requerido",
           })}
@@ -260,7 +343,7 @@ function CreateClientForm({ onCloseModal }) {
           Style={{ width: '20rem'}}
           id="disciplina"
           defaultValue="" 
-          isDisabled={isWorking}
+          isDisabled={isCreating}
           {...register("disciplina", {
             required: "Este campo es requerido",
           })}
@@ -285,24 +368,26 @@ function CreateClientForm({ onCloseModal }) {
           Style={{ width: '20rem'}}
           id="diplomado"
           defaultValue="" 
-          isDisabled={isWorking}
+          isDisabled={isCreating}
           {...register("diplomado", {
             required: "Este campo es requerido",
           })}
         >
+                    <option value=""></option>
+
           {diplomadosEspecificos.map((diplomado, index) => (
-            <option key={index} value={diplomado}>{diplomado}</option>
+            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
       </FormRow>
       )}
 
       {watchDiplomados && (
-          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.diplomados_terminados?.message}>
+          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
             id="disciplina2"
-            isDisabled={isWorking}
+            isDisabled={isCreating}
             {...register("disciplina2", {
               required: "Este campo es requerido",
             })}
@@ -319,23 +404,22 @@ function CreateClientForm({ onCloseModal }) {
         </FormRowDiplomado>
       )}
 
-      {segundoDiplomado && (
+      {watchDiplomados && segundoDiplomado && (
         <FormRowDiplomado
         label={"Segundo Diplomado"}
-        error={errors?.cursa_actualmente?.message}
+        error={errors?.diplomado2?.message}
         >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
           id="diplomado2"
-          defaultValue="" 
-          isDisabled={isWorking}
+          isDisabled={isCreating}
           {...register("diplomado2", {
             required: "Este campo es requerido",
           })}
         >
           <option value=""></option>
           {diplomadosEspecificos2.map((diplomado, index) => (
-            <option key={index} value={diplomado}>{diplomado}</option>
+            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
         </FormRowDiplomado>
@@ -349,7 +433,7 @@ function CreateClientForm({ onCloseModal }) {
         >
           Cancelar
         </Button>
-        <Button disabled={isWorking}>Crear cliente</Button>
+        <Button disabled={isCreating}>Crear cliente</Button>
       </FormRow>
     </Form>
   );

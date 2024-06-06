@@ -32,7 +32,7 @@ const Form = styled.form`
         width: 70rem;
 
         /* Make form scrollable */
-        max-height: 120vh;
+        max-height: 200vh;
         overflow-y: auto;
   
         /* Ensure the form fits the screen properly */

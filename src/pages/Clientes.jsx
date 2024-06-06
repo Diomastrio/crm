@@ -15,7 +15,7 @@ function Clientes() {
   return (
     <>
       <Row type="horizontal">
-        <Heading as="h1">Clientes Encontrados</Heading>
+        <Heading as="h1">Clientes</Heading>
         <ClientTableFilter />
       </Row>
       <ClientTable />

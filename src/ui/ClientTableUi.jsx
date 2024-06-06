@@ -112,6 +112,7 @@ const StyledTableCell = styled.td`
   &:last-child {
     display: flex;
     align-items: center;
+    border-bottom: 0px solid #000;
   }
 
   &:nth-child(15) {

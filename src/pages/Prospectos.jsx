@@ -15,7 +15,7 @@ function Prospectos() {
   return (
     <>
       <Row type="horizontal">
-        <Heading as="h1">Prospectos Encontrados</Heading>
+        <Heading as="h1">Prospectos</Heading>
         <ProspectoTableFilter />
       </Row>
       <ProspectoTable />

@@ -35,7 +35,7 @@ function DiplomadoRow({ diplomados }) {
             </Modal.Open>
 
             <Modal.Window name="edit">
-              <ModificarDiplomadoForm clienteToEdit={diplomados} />
+              <ModificarDiplomadoForm diplomadoToEdit={diplomados} />
             </Modal.Window>
 
             <Modal.Window name="delete">

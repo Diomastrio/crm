@@ -17,7 +17,7 @@ function HeaderMenu() {
     <StyledHeaderMenu>
       <li>
         <ButtonIcon onClick={() => navigate("/account")}>
-          <HiOutlineUser style={{width:30}}/>
+          <HiOutlineUser style={{width:25}}/>
         </ButtonIcon>
       </li>
       <li>

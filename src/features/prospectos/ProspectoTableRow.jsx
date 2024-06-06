@@ -45,7 +45,7 @@ function ProductoRow({ prospecto }) {
               </Modal.Open>
 
             <Modal.Window name="edit">
-              <ModificarProspectoForm clienteToEdit={prospecto} />
+              <ModificarProspectoForm prospectoToEdit={prospecto} />
             </Modal.Window>
 
             <Modal.Window name="delete">
