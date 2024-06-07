@@ -1,12 +1,17 @@
 import { useForm } from "react-hook-form";
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import { FormRow,FormRowDiplomado } from "../../ui/FormRow";
+import { FormRow, FormRowDiplomado } from "../../ui/FormRow";
 import { StyledSelect, StyledSelectDiplomado } from "../../ui/SelectTwo";
-import { CheckboxWrapper, CheckboxInput, CheckboxBox,CheckboxLabel } from "../../ui/Checkboxes";
+import {
+  CheckboxWrapper,
+  CheckboxInput,
+  CheckboxBox,
+  CheckboxLabel,
+} from "../../ui/Checkboxes";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 
@@ -68,94 +73,106 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   }, [diplomado]);
 
   useEffect(() => {
-    if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
-      const diplomadosEspecificos = [''];
+    if (watchDisciplinasMas === undefined || watchDisciplinasMas === "") {
+      const diplomadosEspecificos = [""];
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "Desarrollo Humano") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Desarrollo Humano"
+      );
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "Descuentos") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Descuentos"
+      );
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "Ingeniería") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Ingeniería"
+      );
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "Negocios") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Negocios"
+      );
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "OnLive") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "OnLive"
+      );
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "Psicología") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Psicología"
+      );
+      setdiplomadosEspecificos(diplomadosEspecificos);
+    } else if (watchDisciplinasMas === "Salud") {
+      const diplomadosEspecificos = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Salud"
+      );
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
-    else if (watchDisciplinasMas === 'Desarrollo Humano') {
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    } 
-    else if (watchDisciplinasMas==='Descuentos'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Ingeniería'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Negocios'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='OnLive'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Psicología'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Salud'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-  }, [watchDisciplinasMas,filteredProductos]);
+  }, [watchDisciplinasMas, filteredProductos]);
 
   const watchDisciplinasMas2 = watch("disciplina2");
-  const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
+  const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]);
 
   useEffect(() => {
-    if (watchDisciplinasMas2===undefined||watchDisciplinasMas2===''){
-      const diplomadosEspecificos2 = [''];
+    if (watchDisciplinasMas2 === undefined || watchDisciplinasMas2 === "") {
+      const diplomadosEspecificos2 = [""];
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "Desarrollo Humano") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Desarrollo Humano"
+      );
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "Descuentos") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Descuentos"
+      );
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "Ingeniería") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Ingeniería"
+      );
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "Negocios") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Negocios"
+      );
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "OnLive") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "OnLive"
+      );
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "Psicología") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Psicología"
+      );
+      setdiplomadosEspecificos2(diplomadosEspecificos2);
+    } else if (watchDisciplinasMas2 === "Salud") {
+      const diplomadosEspecificos2 = filteredProductos.filter(
+        (diplomado) => diplomado.disciplina === "Salud"
+      );
       setdiplomadosEspecificos2(diplomadosEspecificos2);
     }
-    else if (watchDisciplinasMas2 === 'Desarrollo Humano') {
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    } 
-    else if (watchDisciplinasMas2==='Descuentos'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Ingeniería'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Negocios'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='OnLive'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Psicología'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Salud'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-  }, [watchDisciplinasMas2,filteredProductos]);
+  }, [watchDisciplinasMas2, filteredProductos]);
 
   //curp
   const getCurp = (curpInput) => {
     if (!curpInput || curpInput === "0") return "N/A";
 
-    const genderRegex = /[HM]/;
+    const genderRegex = /^(?:.{10})([HM])/;
     const genderMatch = curpInput.match(genderRegex);
-    const gender = genderMatch ? genderMatch[0] : "Gender not found";
-  
+    const gender = genderMatch ? genderMatch[1] : "Gender not found";
+
     return gender;
   };
 
-  const curpInput = watch("curp"); 
+  const curpInput = watch("curp");
   const nuevoCurp = getCurp(curpInput);
-  const [generoValue, setGeneroValue] = useState('');
-
-  console.log(generoValue)
+  const [generoValue, setGeneroValue] = useState("");
 
   useEffect(() => {
     setGeneroValue(nuevoCurp); // Update the value when '[nuevoCurp]' changes
@@ -170,17 +187,16 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
-
-    {/* genero */}
-        <Input
-          type="text"
-          id="genero"
-          disabled={isEditing}
-          value={generoValue}
-          hidden
-          {...register("genero")}
-        />
-    {/* genero */}
+      {/* genero */}
+      <Input
+        type="text"
+        id="genero"
+        disabled={isEditing}
+        value={generoValue}
+        hidden
+        {...register("genero")}
+      />
+      {/* genero */}
 
       <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
         <Input
@@ -218,7 +234,11 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
             minLength: {
               value: 10,
               message: "El numero de telefono debe ser de 10 digitos",
-            }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
+            },
+            MaxLength: {
+              value: 11,
+              message: "El numero de telefono debe ser menor de 10 digitos",
+            },
           })}
         />
       </FormRow>
@@ -231,7 +251,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           {...register("curp", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[A-Z]{4}\d{6}[HM][A-Z]{5}\d{2}$/,
+              value: /^[A-Z]{4}\d{6}[HM][A-Z]{6}\d{1}$/,
               message: "Por favor ingresa un CURP valido",
             },
           })}
@@ -246,7 +266,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           {...register("rfc", {
             required: "Este campo es requerido",
             pattern: {
-              value:  /^[A-Z&]{3,4}(\d{6})((\D|\d){3})?$/,
+              value: /^[A-Z&]{3,4}(\d{6})((\D|\d){3})?$/,
               message: "Por favor ingresa un RFC electrónico valido",
             },
           })}
@@ -367,25 +387,26 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           isDisabled={isEditing}
           {...register("cursa_actualmente", {})}
         >
-          <option value="true" selected>Si</option>
+          <option value="true" selected>
+            Si
+          </option>
           <option value="false">No</option>
         </StyledSelect>
       </FormRow>
 
       <FormRow label="¿Cursaras más de un diplomado?">
         <>
-        <CheckboxWrapper>
-          <CheckboxInput
-            type="checkbox"
-            id="MasDe1Diploma"
-            {...register("MasDe1Diploma", {})}
-          />
-          <CheckboxBox/>
-          <CheckboxLabel>Si </CheckboxLabel>
-          
-        </CheckboxWrapper>
+          <CheckboxWrapper>
+            <CheckboxInput
+              type="checkbox"
+              id="MasDe1Diploma"
+              {...register("MasDe1Diploma", {})}
+            />
+            <CheckboxBox />
+            <CheckboxLabel>Si </CheckboxLabel>
+          </CheckboxWrapper>
 
-        {/* <CheckboxWrapper>
+          {/* <CheckboxWrapper>
           <CheckboxInput type="checkbox"/>
           <CheckboxBox/>
           <CheckboxLabel>No </CheckboxLabel>
@@ -393,14 +414,11 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </>
       </FormRow>
 
-      <FormRow
-        label={"Disciplina"}
-        error={errors?.cursa_actualmente?.message}
-      >
+      <FormRow label={"Disciplina"} error={errors?.cursa_actualmente?.message}>
         <StyledSelectDiplomado
-          Style={{ width: '20rem'}}
+          Style={{ width: "20rem" }}
           id="disciplina"
-          defaultValue="" 
+          defaultValue=""
           isDisabled={isEditing}
           {...register("disciplina", {
             required: "Este campo es requerido",
@@ -417,32 +435,34 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       </FormRow>
 
       {primerDiplomado && (
-      <FormRow
-        label={"Diplomados"}
-        error={errors?.diplomado?.message}
-      >
-        <StyledSelectDiplomado
-          Style={{ width: '20rem'}}
-          id="diplomado"
-          defaultValue="" 
-          isDisabled={isEditing}
-          {...register("diplomado", {
-            required: "Este campo es requerido",
-          })}
-        >
-                    <option value=""></option>
+        <FormRow label={"Diplomados"} error={errors?.diplomado?.message}>
+          <StyledSelectDiplomado
+            Style={{ width: "20rem" }}
+            id="diplomado"
+            defaultValue=""
+            isDisabled={isEditing}
+            {...register("diplomado", {
+              required: "Este campo es requerido",
+            })}
+          >
+            <option value=""></option>
 
-          {diplomadosEspecificos.map((diplomado, index) => (
-            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
-          ))}
-        </StyledSelectDiplomado>
-      </FormRow>
+            {diplomadosEspecificos.map((diplomado, index) => (
+              <option key={index} value={diplomado.nombre}>
+                {diplomado.nombre}
+              </option>
+            ))}
+          </StyledSelectDiplomado>
+        </FormRow>
       )}
 
       {watchDiplomados && (
-          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
-            <StyledSelectDiplomado
-            Style={{ width: '20rem'}}
+        <FormRowDiplomado
+          label="Segunda Disciplina (2)"
+          error={errors?.disciplina2?.message}
+        >
+          <StyledSelectDiplomado
+            Style={{ width: "20rem" }}
             id="disciplina2"
             isDisabled={isEditing}
             {...register("disciplina2", {
@@ -463,23 +483,25 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
 
       {watchDiplomados && segundoDiplomado && (
         <FormRowDiplomado
-        label={"Segundo Diplomado"}
-        error={errors?.diplomado2?.message}
+          label={"Segundo Diplomado"}
+          error={errors?.diplomado2?.message}
         >
-        <StyledSelectDiplomado
-          Style={{ width: '20rem'}}
-          id="diplomado2"
-          defaultValue="" 
-          isDisabled={isEditing}
-          {...register("diplomado2", {
-            required: "Este campo es requerido",
-          })}
-        >
-          <option value=""></option>
-          {diplomadosEspecificos2.map((diplomado, index) => (
-            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
-          ))}
-        </StyledSelectDiplomado>
+          <StyledSelectDiplomado
+            Style={{ width: "20rem" }}
+            id="diplomado2"
+            defaultValue=""
+            isDisabled={isEditing}
+            {...register("diplomado2", {
+              required: "Este campo es requerido",
+            })}
+          >
+            <option value=""></option>
+            {diplomadosEspecificos2.map((diplomado, index) => (
+              <option key={index} value={diplomado.nombre}>
+                {diplomado.nombre}
+              </option>
+            ))}
+          </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}
 
