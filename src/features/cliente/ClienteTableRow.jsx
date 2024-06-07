@@ -27,10 +27,11 @@ function ClienteRow({ cliente }) {
     fecha_fin,
     fecha_limite,
     edad,
+    genero,
     lugar_residencia,
     ocupacion,
     telefono,
-    disciplina,
+    disciplina ,
     disciplina2,
     diplomado,
     diplomado2,
@@ -73,16 +74,17 @@ function ClienteRow({ cliente }) {
         <StyledTableCell>{nombre}</StyledTableCell>
         <StyledTableCell>{email}</StyledTableCell>
         <StyledTableCell>{telefono}</StyledTableCell>
+        <StyledTableCell>{curp}</StyledTableCell>
+        <StyledTableCell>{edad}</StyledTableCell>
+        <StyledTableCell>{genero}</StyledTableCell>
+        <StyledTableCell>{rfc}</StyledTableCell>
         <StyledTableCell>{numero_diplomados}</StyledTableCell>
         <StyledTableCell>{diplomados_terminados}</StyledTableCell>
-        <StyledTableCell>{curp}</StyledTableCell>
         <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
         <StyledTableCell>{ocupacion}</StyledTableCell>
-        <StyledTableCell>{rfc}</StyledTableCell>
         <StyledTableCell>{nuevoInicio}</StyledTableCell>
         <StyledTableCell>{nuevoFin}</StyledTableCell>
         <StyledTableCell>{nuevoLimite}</StyledTableCell>
-        <StyledTableCell>{edad}</StyledTableCell>
         <StyledTableCell>{lugar_residencia}</StyledTableCell>
         <StyledTableCell>{disciplina}</StyledTableCell>
         <StyledTableCell>{diplomado}</StyledTableCell>

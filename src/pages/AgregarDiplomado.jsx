@@ -1,5 +1,4 @@
 import CreateDiplomado from "../features/agregarDiplomado/CreateDiplomado";
-import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 function Prospecto() {

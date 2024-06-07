@@ -7,7 +7,7 @@ function DarkModeToggle() {
 
   return (
     <ButtonIcon onClick={toggleDarkMode}>
-      {isDarkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
+      {isDarkMode ? <HiOutlineSun style={{width:27}}/> : <HiOutlineMoon style={{width:27}}/>}
     </ButtonIcon>
   );
 }

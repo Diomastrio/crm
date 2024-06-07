@@ -34,42 +34,19 @@ function ProspectoTable() {
   if (isLoading) return <Spinner />;
   if (!prospecto.length) return <Empty resourceName="prospecto" />;
 
- // 1) FILTER
-
+ //FILTER
  const handleFilter = (clientes) => {
   let filteredProductos = clientes;
 
-  //BUSQUEDA
+  //1)BUSQUEDA
   if (searchTerm.length > 0) {
     filteredProductos = filteredProductos.filter((cliente) =>
       cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
-  //FILTRO PROSPECTO
+  //2)FILTRO PROSPECTO
   const filterValue = searchParams.get("nombre") || "all";
-
-  if (filterValue === "activos") {
-    filteredProductos = filteredProductos.filter(
-      (cliente) => cliente.telefono === 8
-    );
-  } else if (filterValue === "inactivos") {
-    filteredProductos = filteredProductos.filter(
-      (cliente) => cliente.cursa_actualmente === false
-    );
-  }
-  else if (filterValue === "frecuentes") {
-      filteredProductos = filteredProductos.filter(
-        (cliente) => cliente.numero_diplomados >3
-      );
-    }
-  else if (filterValue === "vence") {
-    const oneWeekAgo = new Date(Date.now() + 7 );
-
-    filteredProductos = filteredProductos.filter((cliente) =>
-      new Date(cliente.fecha_limite) < oneWeekAgo,
-    )
-  }
 
   if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
    || filterValue === "Educación" || filterValue === "Ingeniería"
@@ -80,7 +57,7 @@ function ProspectoTable() {
       cliente.disciplina === filterValue || cliente.disciplina2 === filterValue);
   }
 
-// ORDENAR
+//3)ORDENAR
   const sortBy = searchParams.get("sortBy") || "nombre-asc";
   const [field, direction] = sortBy.split("-");
   

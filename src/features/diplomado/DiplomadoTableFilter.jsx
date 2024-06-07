@@ -1,11 +1,12 @@
 import TableOperations from "../../ui/TableOperations";
 import {SecondFilter} from "../../ui/Filter";
 
-function ProspectoTableFilter() {
+function DiplomadoTableFilter() {
   return (
     <TableOperations>
 <SecondFilter
         id=""
+        filterField="nombre"
         options={[
           { value: "Todos", label: "Todos", disciplina: "true", },
           { value: "Desarrollo Humano", label: "Desarrollo Humano", disciplina: "true", },
@@ -22,4 +23,4 @@ function ProspectoTableFilter() {
   );
 }
 
-export default ProspectoTableFilter;
+export default DiplomadoTableFilter;

@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useState } from 'react';
 
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
@@ -9,45 +8,21 @@ import { StyledSelectDiplomado } from "../../ui/SelectTwo";
 
 import { useEditDiplomado } from "./useEditDiplomado";
 
-function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
+function ModificarClientForm({ diplomadoToEdit = {}, onCloseModal }) {
   const { isEditing, editDiplomado } = useEditDiplomado();
   const isWorking = isEditing;
 
-  const { id: editId, ...editValues } = clienteToEdit;
+  const { id: editId, ...editValues } = diplomadoToEdit;
   const isEditSession = Boolean(editId);
 
-  const { register, watch, handleSubmit, reset, formState } = useForm({
+  const { register, handleSubmit, reset, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
-  const fechaInicio = watch("fecha_inicio");
-  const watchDiplomados = watch("MasDe1Diploma", false);
-  const primerDiplomado = watch("disciplina", false);
-  const segundoDiplomado = watch("disciplina2", false);
-
-   //WATCHES
-   //const watchDisciplinasMas = watch("disciplina");
-   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]); 
-   const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
-
-  const validateFechaFin = (value) => {
-    if (value <= fechaInicio) {
-      return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
-    }
-    return true;
-  };
-
-  const validateFechaLimite = (value) => {
-    if (value <= fechaInicio) {
-      return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
-    }
-    return true;
-  };
-
   function onSubmit(data) {
     editDiplomado(
-      { newCliente: { ...data }, id: editId },
+      { newDiplomado: { ...data }, id: editId },
       {
         onSuccess: () => {
           reset();

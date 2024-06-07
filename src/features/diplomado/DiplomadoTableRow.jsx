@@ -16,25 +16,14 @@ function DiplomadoRow({ diplomados }) {
 
   const {
     id: clienteId,
-    DesarrolloHumano,
-    Descuentos,
-    Ingeniería,
-    Negocios,
-    OnLive,
-    Psicología,
-    Salud,
+    nombre,disciplina
   } = diplomados;
 
   return (
     <StyledTableBody>
       <StyledTableRow>
-        <StyledTableCell>{DesarrolloHumano}</StyledTableCell> 
-        <StyledTableCell>{Descuentos}</StyledTableCell> 
-        <StyledTableCell>{Ingeniería}</StyledTableCell> 
-        <StyledTableCell>{Negocios}</StyledTableCell> 
-        <StyledTableCell>{OnLive}</StyledTableCell> 
-        <StyledTableCell>{Psicología}</StyledTableCell> 
-        <StyledTableCell>{Salud}</StyledTableCell> 
+        <StyledTableCell>{nombre}</StyledTableCell> 
+        <StyledTableCell>{disciplina}</StyledTableCell> 
         <StyledTableCell>
           <Modal>
             <Modal.Open opens="edit">
@@ -46,12 +35,12 @@ function DiplomadoRow({ diplomados }) {
             </Modal.Open>
 
             <Modal.Window name="edit">
-              <ModificarDiplomadoForm clienteToEdit={diplomados} />
+              <ModificarDiplomadoForm diplomadoToEdit={diplomados} />
             </Modal.Window>
 
             <Modal.Window name="delete">
               <ConfirmDelete
-                resourceName="cliente"
+                resourceName="diplomado"
                 disabled={isDeleting}
                 onConfirm={() => deleteDiplomado(clienteId)}
               />

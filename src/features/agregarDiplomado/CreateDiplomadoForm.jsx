@@ -14,15 +14,12 @@ function CreateDiplomadoForm({ onCloseModal }) {
   const { isCreating, createDiplomado } = useCreateDiplomado();
   const isWorking = isCreating ;
 
-  const { register, watch, handleSubmit, reset, formState } = useForm({});
+  const { register, handleSubmit, reset, formState } = useForm({});
   const { errors } = formState;
 
-  const disciplina = watch("disciplina");
-
   function onSubmit(data) {
-    const { nombre } = data; 
     createDiplomado(
-      { newDiplomado: nombre, disciplina: disciplina },
+      { ...data},
       {
         onSuccess: () => {
           reset();
@@ -39,7 +36,8 @@ function CreateDiplomadoForm({ onCloseModal }) {
       style={{height: '60vh'}}
     >
 
-      <Heading as="h1">Anadir diplomado </Heading>
+      <Heading as="h1">Añadir diplomado </Heading>
+      <Heading as="h2">Estos diplomados seran visibles al prospecto </Heading>
       <FormRow label="Nombre del diplomado" style={{}}error={errors?.nombre?.message}>
         <Input
           type="text"
@@ -67,6 +65,7 @@ function CreateDiplomadoForm({ onCloseModal }) {
           <option value=""></option>
           <option value="Desarrollo Humano">Desarrollo Humano</option>
           <option value="Descuentos">Descuentos</option>
+          <option value="Educación">Educación</option>
           <option value="Ingeniería">Ingeniería</option>
           <option value="Negocios">Negocios</option>
           <option value="OnLive">OnLive</option>

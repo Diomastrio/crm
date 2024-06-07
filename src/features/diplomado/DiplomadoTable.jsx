@@ -36,28 +36,47 @@ function ProspectoTable() {
 
  // 1) FILTER
 
- const handleFilter = (clientes) => {
-  let filteredProductos = clientes;
+ const handleFilter = (diplomado) => {
+  let filteredProductos = diplomado;
 
   //BUSQUEDA
   if (searchTerm.length > 0) {
-    filteredProductos = filteredProductos.filter((cliente) =>
-      cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    filteredProductos = filteredProductos.filter((diplomado) =>
+      diplomado.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
   //FILTRO PROSPECTO
-  const filterValue = searchParams.get("all");
+  const filterValue = searchParams.get("nombre") || "all";
 
-  if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
-   || filterValue === "Educación" || filterValue === "Ingeniería"
-   || filterValue === "Negocios" || filterValue === "OnLive"
-   || filterValue === "Psicología" || filterValue === "Salud"
-  ) {
-    filteredProductos = filteredProductos.filter((diplomado) => 
-      diplomado.Educación === filterValue);
+  if (filterValue === "Todos") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado);
   }
-  
+  else if (filterValue === "Desarrollo Humano") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Desarrollo Humano');
+  }
+  else if (filterValue === "Descuentos") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Descuentos');
+  }
+  else if (filterValue === "Educación") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Educación');
+  }
+  else if (filterValue === "Ingeniería") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Ingeniería');
+  }
+  else if (filterValue === "Negocios") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Negocios');
+  }
+  else if (filterValue === "OnLive") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'OnLive');
+  }
+  else if (filterValue === "Psicología") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Psicología');
+  }
+  else if (filterValue === "Salud") {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Salud');
+  }
+
 return filteredProductos;
 };
 const filteredProspectos = handleFilter(diplomado);
@@ -74,13 +93,8 @@ const filteredProspectos = handleFilter(diplomado);
             <StyledTableHead>
        
               <StyledTableRow>
-                <StyledTableHeadCell>Desarrollo Humano</StyledTableHeadCell>
-                <StyledTableHeadCell>Descuentos</StyledTableHeadCell>
-                <StyledTableHeadCell>Ingeniería</StyledTableHeadCell>
-                <StyledTableHeadCell>Negocios</StyledTableHeadCell>
-                <StyledTableHeadCell>OnLive</StyledTableHeadCell>
-                <StyledTableHeadCell>Psicología </StyledTableHeadCell>
-                <StyledTableHeadCell>Salud</StyledTableHeadCell>
+                <StyledTableHeadCell>Diplomado</StyledTableHeadCell>
+                <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
               </StyledTableRow>
             </StyledTableHead>
