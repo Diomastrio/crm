@@ -163,7 +163,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   const getCurp = (curpInput) => {
     if (!curpInput || curpInput === "0") return "N/A";
 
-    const genderRegex = /^(?:.{10})([HM])/;
+    const genderRegex = /[HM]/;
     const genderMatch = curpInput.match(genderRegex);
     const gender = genderMatch ? genderMatch[1] : "Gender not found";
 

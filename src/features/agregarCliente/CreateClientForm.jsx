@@ -158,9 +158,9 @@ function CreateClientForm({ onCloseModal }) {
   const getCurp = (curpInput) => {
     if (!curpInput || curpInput === "0") return "N/A";
 
-    const genderRegex = /^(?:.{10})([HM])/;
+    const genderRegex = /[HM]/;
     const genderMatch = curpInput.match(genderRegex);
-    const gender = genderMatch ? genderMatch[1] : "Gender not found";
+    const gender = genderMatch ? genderMatch[0] : "Gender not found";
 
     return gender;
   };
@@ -168,6 +168,8 @@ function CreateClientForm({ onCloseModal }) {
   const curpInput = watch("curp");
   const nuevoCurp = getCurp(curpInput);
   const [generoValue, setGeneroValue] = useState("");
+
+  console.log(generoValue);
 
   useEffect(() => {
     setGeneroValue(nuevoCurp); // Update the value when '[nuevoCurp]' changes
@@ -247,7 +249,7 @@ function CreateClientForm({ onCloseModal }) {
             required: "Este campo es requerido",
             pattern: {
               // COEM031009HNENSGA3
-              // PEGJ850315HJCRRNO7
+              // PEGJ850315HJCRRN07
               value: /^[A-Z]{4}\d{6}[HM][A-Z]{6}\d{1}$/,
               message: "Por favor ingresa un CURP valido",
             },
