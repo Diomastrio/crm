@@ -67,13 +67,13 @@ const ReportButton = () => {
 
       // Generate the PDF and send the email
       pdfDoc.getBase64(() => {
-        emailjs.send('service_eucps2l', 'template_vq62ght', {
+        emailjs.send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_ID, {
           to_name: 'CES Centro de Estudios Superiores en Negocios y Humanidades',
           from_name: 'Storm Chasers',
-          to_email: 'loflions123@gmail.com',
+          to_email: process.env.EMAILJS_FROM,
           message: filteredClientes,
           email: filteredClientes.map(cliente => [cliente.email]),
-        }, '2RViu0pWfHIP5eOxh')
+        }, process.env.EMAILJS_PUBLIC_KEY)
         .then(function(response) {
           //console.log('Email sent:', response);
         }, function(error) {

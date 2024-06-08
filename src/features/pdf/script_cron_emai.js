@@ -19,8 +19,8 @@ const createTestAccount = (() => {
           port: 465,
           secure: true,
           auth: {
-            user: "loflions123@gmail.com",
-            pass: "eggb syin gdos jmyr",
+            user: process.env.NODEMAILER_USER,
+            pass: process.env.NODEMAILER_PASS,
           },
           tls: {
             rejectUnauthorized: false // Deshabilitar la verificación del certificado
