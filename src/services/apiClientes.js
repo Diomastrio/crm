@@ -1,16 +1,26 @@
-import supabase from "./supabase";
+import supabase from "./supabase.js";
 
 export async function createEditCliente(newCliente, id) {
   
+  let curpInput = newCliente.curp
+
+   const getCurp = (curpInput) => {  
+    const genderRegex = /[HM]/;
+    const genderMatch = curpInput.match(genderRegex);
+    const gender = genderMatch ? genderMatch[0] : "Gender not found";
+
+    return gender;
+  };
+      let nuevoGenero = getCurp(curpInput);
+
   let query = supabase.from("cliente");
   // A) CREAR
-  if (!id) query = query.insert([{ ...newCliente }]);
+  if (!id) query = query.insert([{ genero: nuevoGenero, ...newCliente }]);
   // B) EDITAR
   if (id)
     query = query.update({ ...newCliente }).eq("id", id);
 
   const { data, error } = await query.select().single();
-  console.log(data);
 
   if (error) {
     console.error(error);

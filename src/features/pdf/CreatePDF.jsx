@@ -22,7 +22,6 @@ const ReportButton = () => {
       (cliente) => (new Date(cliente.fecha_limite) < oneWeekFromNow )&& new Date(cliente.fecha_limite)> oneWeekThen
     );
 
-
     var docDefinition = {
       content: [
         { text: 'Clientes con pronto vencimiento', style: 'header' },
@@ -72,12 +71,13 @@ const ReportButton = () => {
           to_name: 'CES Centro de Estudios Superiores en Negocios y Humanidades',
           from_name: 'Storm Chasers',
           to_email: 'loflions123@gmail.com',
-          message: filteredClientes.map(cliente => [cliente.email]),
+          message: filteredClientes,
+          email: filteredClientes.map(cliente => [cliente.email]),
         }, '2RViu0pWfHIP5eOxh')
         .then(function(response) {
-          console.log('Email sent:', response);
+          //console.log('Email sent:', response);
         }, function(error) {
-          console.log('Failed to send email:', error);
+          //console.log('Failed to send email:', error);
         });
       });
   };

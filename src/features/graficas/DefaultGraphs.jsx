@@ -114,9 +114,9 @@ const fetchClienteGender = async () => {
   let countM = 0;
 
   data.forEach((cliente) => {
-    if (cliente.genero === "h") {
+    if (cliente.genero === "H") {
       countH++;
-    } else if (cliente.genero === "m") {
+    } else if (cliente.genero === "M") {
       countM++;
     }
   });

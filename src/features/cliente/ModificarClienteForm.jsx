@@ -140,28 +140,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
-  //curp
-  const getCurp = (curpInput) => {
-    if (!curpInput || curpInput === "0") return "N/A";
-
-    const genderRegex = /[HM]/;
-    const genderMatch = curpInput.match(genderRegex);
-    const gender = genderMatch ? genderMatch[0] : "Gender not found";
-  
-    return gender;
-  };
-
-  const curpInput = watch("curp"); 
-  const nuevoCurp = getCurp(curpInput);
-  const [generoValue, setGeneroValue] = useState('');
-
-  console.log(generoValue)
-
-  useEffect(() => {
-    setGeneroValue(nuevoCurp); // Update the value when '[nuevoCurp]' changes
-  }, [nuevoCurp]);
-  //curp
-
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
@@ -170,17 +148,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
     >
-
-    {/* genero */}
-        <Input
-          type="text"
-          id="genero"
-          disabled={isEditing}
-          value={generoValue}
-          hidden
-          {...register("genero")}
-        />
-    {/* genero */}
 
       <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
         <Input
@@ -231,7 +198,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           {...register("curp", {
             required: "Este campo es requerido",
             pattern: {
-              value: /^[A-Z]{4}\d{6}[HM][A-Z]{5}\d{2}$/,
+              value: /^[A-Z]{4}\d{5,6}[HM][A-Z]{5,6}\d{1}$/,
               message: "Por favor ingresa un CURP valido",
             },
           })}
@@ -259,6 +226,44 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="ocupacion"
           disabled={isEditing}
           {...register("ocupacion", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+
+      <FormRow label={"Genero"} error={errors?.genero?.message}>
+        <StyledSelect style={{  width:'55%'}}
+          id="genero"
+          isDisabled={isEditing}
+          {...register("genero", {})}
+        >
+          <option value="H" selected>Hombre</option>
+          <option value="M">Mujer</option>
+        </StyledSelect>
+      </FormRow>
+      <FormRow label="Edad" error={errors?.edad?.message}>
+        <Input
+          type="number"
+          id="edad"
+          disabled={isEditing}
+          {...register("edad", {
+            required: "Este campo es requerido",
+            min: {
+              value: 18,
+              message: "Edad mayor de 18",
+            },
+          })}
+        />
+      </FormRow>
+      <FormRow
+        label="Lugar de Residencia"
+        error={errors?.lugar_residencia?.message}
+      >
+        <Input
+          type="text"
+          id="lugar_residencia"
+          disabled={isEditing}
+          {...register("lugar_residencia", {
             required: "Este campo es requerido",
           })}
         />
@@ -292,33 +297,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           {...register("fecha_limite", {
             required: "Este campo es requerido",
             validate: validateFechaLimite,
-          })}
-        />
-      </FormRow>
-      <FormRow label="Edad" error={errors?.edad?.message}>
-        <Input
-          type="number"
-          id="edad"
-          disabled={isEditing}
-          {...register("edad", {
-            required: "Este campo es requerido",
-            min: {
-              value: 18,
-              message: "Edad mayor de 18",
-            },
-          })}
-        />
-      </FormRow>
-      <FormRow
-        label="Lugar de Residencia"
-        error={errors?.lugar_residencia?.message}
-      >
-        <Input
-          type="text"
-          id="lugar_residencia"
-          disabled={isEditing}
-          {...register("lugar_residencia", {
-            required: "Este campo es requerido",
           })}
         />
       </FormRow>
@@ -358,10 +336,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow
-        label={"Cursa actualmente"}
-        error={errors?.cursa_actualmente?.message}
-      >
+      <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message} >
         <StyledSelect
           id="cursa_actualmente"
           isDisabled={isEditing}
@@ -372,7 +347,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </StyledSelect>
       </FormRow>
 
-      <FormRow label="¿Cursaras más de un diplomado?">
+      <FormRow label="Más de un diplomado?">
         <>
         <CheckboxWrapper>
           <CheckboxInput
@@ -395,7 +370,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
 
       <FormRow
         label={"Disciplina"}
-        error={errors?.cursa_actualmente?.message}
+        error={errors?.disciplina?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}

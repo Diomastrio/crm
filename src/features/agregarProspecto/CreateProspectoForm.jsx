@@ -260,7 +260,8 @@ function CreateProspectoForm({ onCloseModal }) {
       )}
 
       {watchDiplomados && (
-          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
+          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}
+          style={{ borde: '20px', borderTopRigthRadius: '20px'}}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
             id="disciplina2"

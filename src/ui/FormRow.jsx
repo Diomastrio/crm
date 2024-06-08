@@ -28,16 +28,6 @@ const StyledFormRow = styled.div`
 
 const StyledFormRowDiplomado = styled(StyledFormRow)`
 background-color: var(--color-grey-200);
-
-&:nth-child(even) {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-&:nth-child(odd) {
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
 `;
 
 const Label = styled.label`
