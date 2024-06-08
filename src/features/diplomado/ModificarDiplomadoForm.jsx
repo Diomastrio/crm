@@ -61,7 +61,6 @@ function ModificarClientForm({ diplomadoToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value=""></option>
           <option value="Desarrollo Humano">Desarrollo Humano</option>
           <option value="Descuentos">Descuentos</option>
           <option value="Ingeniería">Ingeniería</option>

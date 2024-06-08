@@ -231,8 +231,6 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-                    <option value=""></option>
-
           {diplomadosEspecificos.map((diplomado, index) => (
             <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}
@@ -250,7 +248,6 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
               required: "Este campo es requerido",
             })}
           >
-            <option value=""></option>
             <option value="Desarrollo Humano">Desarrollo Humano</option>
             <option value="Descuentos">Descuentos</option>
             <option value="Ingeniería">Ingeniería</option>
@@ -276,7 +273,6 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value=""></option>
           {diplomadosEspecificos2.map((diplomado, index) => (
             <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}

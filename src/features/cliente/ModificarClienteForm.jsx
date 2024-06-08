@@ -357,7 +357,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           />
           <CheckboxBox/>
           <CheckboxLabel>Si </CheckboxLabel>
-          
         </CheckboxWrapper>
 
         {/* <CheckboxWrapper>
@@ -399,14 +398,11 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
           id="diplomado"
-          defaultValue="" 
           isDisabled={isEditing}
           {...register("diplomado", {
             required: "Este campo es requerido",
           })}
         >
-                    <option value=""></option>
-
           {diplomadosEspecificos.map((diplomado, index) => (
             <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}
@@ -424,7 +420,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
               required: "Este campo es requerido",
             })}
           >
-            <option value=""></option>
             <option value="Desarrollo Humano">Desarrollo Humano</option>
             <option value="Descuentos">Descuentos</option>
             <option value="Ingeniería">Ingeniería</option>
@@ -450,7 +445,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value=""></option>
           {diplomadosEspecificos2.map((diplomado, index) => (
             <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}
