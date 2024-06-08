@@ -1,7 +1,6 @@
 
 import {  createTransport  } from 'nodemailer';
 //import nodemailer from "nodemailer";
-
 // Generate SMTP service account from ethereal.email
 const createTestAccount = (() => {
 
@@ -19,8 +18,8 @@ const createTestAccount = (() => {
           port: 465,
           secure: true,
           auth: {
-            user: process.env.NODEMAILER_USER,
-            pass: process.env.NODEMAILER_PASS,
+            user: import.meta.env.VITE_NODEMAILER_USER,
+            pass: import.meta.env.VITE_NODEMAILER_PASS,
           },
           tls: {
             rejectUnauthorized: false // Deshabilitar la verificación del certificado
