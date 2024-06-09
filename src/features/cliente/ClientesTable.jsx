@@ -18,6 +18,7 @@ import {
   StyledInput,
   StyledTableHeader,
   StyledTableHeaderCell,
+  StyledTableWrapper,
 } from "../../ui/ClientTableUi";
 
 import styled from "styled-components";
@@ -159,83 +160,91 @@ function ClienteTable() {
 
   return (
     <Menus>
-      <StyledTable>
-        <StyledTableHeader>
-          <tr>
-            <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <Input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                id="telefono"
-              />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell />
-            <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <Input
-                type="number"
-                value={searchTermDiplomado}
-                onChange={(e) => setSearchTermDiplomado(e.target.value)}
-                id="te"
-              />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell />
-            <StyledTableHeaderCell />
-            <StyledTableHeaderCell />
-            <StyledTableHeaderCell />
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <StyledInput />
-            </StyledTableHeaderCell>
-          </tr>
-        </StyledTableHeader>
-        <StyledTableHead>
-          <StyledTableRow>
-            <StyledTableHeadCell>Cliente</StyledTableHeadCell>
-            <StyledTableHeadCell>Email</StyledTableHeadCell>
-            <StyledTableHeadCell>Telefono</StyledTableHeadCell>
-            <StyledTableHeadCell>CURP</StyledTableHeadCell>
-            <StyledTableHeadCell>Edad</StyledTableHeadCell>
-            <StyledTableHeadCell>Genero</StyledTableHeadCell>
-            <StyledTableHeadCell>RFC</StyledTableHeadCell>
-            <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
-            <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
-            <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
-            <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
-            <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
-            <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
-            <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
-            <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
-            <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
-            <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
-            <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
-          </StyledTableRow>
-        </StyledTableHead>
-        {filteredClientes.length ? (
-          handleSort(filteredClientes).map((clientes, index) => (
-            <ClienteRow cliente={clientes} key={clientes.id} />
-          ))
-        ) : (
-          <div style={{ padding: "4rem" }}>
-            <CenteredText>No se encontraron clientes</CenteredText>
-          </div>
-        )}
-      </StyledTable>
+      <StyledTableWrapper>
+        <StyledTable>
+          <StyledTableHeader>
+            <tr>
+              <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
+              <StyledTableHeaderCell>
+                <Input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  id="telefono"
+                />
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell>
+                <FaSearch
+                  style={{ margin: "0 10px 0 10px", fontSize: "26px" }}
+                />
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell />
+              <StyledTableHeaderCell>
+                Busqueda N. Diplomas
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell>
+                <Input
+                  type="number"
+                  value={searchTermDiplomado}
+                  onChange={(e) => setSearchTermDiplomado(e.target.value)}
+                  id="te"
+                />
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell>
+                <FaSearch
+                  style={{ margin: "0 10px 0 10px", fontSize: "26px" }}
+                />
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell />
+              <StyledTableHeaderCell />
+              <StyledTableHeaderCell />
+              <StyledTableHeaderCell />
+              <StyledTableHeaderCell>
+                <StyledInput />
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell>
+                <StyledInput />
+              </StyledTableHeaderCell>
+              <StyledTableHeaderCell>
+                <StyledInput />
+              </StyledTableHeaderCell>
+            </tr>
+          </StyledTableHeader>
+          <StyledTableHead>
+            <StyledTableRow>
+              <StyledTableHeadCell>Cliente</StyledTableHeadCell>
+              <StyledTableHeadCell>Email</StyledTableHeadCell>
+              <StyledTableHeadCell>Telefono</StyledTableHeadCell>
+              <StyledTableHeadCell>CURP</StyledTableHeadCell>
+              <StyledTableHeadCell>Edad</StyledTableHeadCell>
+              <StyledTableHeadCell>Genero</StyledTableHeadCell>
+              <StyledTableHeadCell>RFC</StyledTableHeadCell>
+              <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
+              <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
+              <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
+              <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
+              <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
+              <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
+              <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
+              <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
+              <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
+              <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+              <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
+              <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
+              <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
+            </StyledTableRow>
+          </StyledTableHead>
+          {filteredClientes.length ? (
+            handleSort(filteredClientes).map((clientes, index) => (
+              <ClienteRow cliente={clientes} key={clientes.id} />
+            ))
+          ) : (
+            <div style={{ padding: "4rem" }}>
+              <CenteredText>No se encontraron clientes</CenteredText>
+            </div>
+          )}
+        </StyledTable>
+      </StyledTableWrapper>
     </Menus>
   );
 }

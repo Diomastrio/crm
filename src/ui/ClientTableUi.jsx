@@ -1,16 +1,52 @@
 import styled from "styled-components";
 
+// const StyledTable = styled.table`
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 7px;
+//   border: 1px solid var(--color-grey-200);
+//   font-size: 1.4rem;
+//   background-color: var(--color-grey-0);
+//   overflow: scroll; /* Always show scrollbars */
+// `;
 const StyledTable = styled.table`
-  width: 100%;
-  height: 100%;
+  width: 100%; /* Maintain full width */
+  height: 100%; /* Maintain full height */
   border-radius: 7px;
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
-  overflow-y: scroll;
-  overflow-x: scroll;
+
+  /* Create a wrapper element for diagonal scrolling effect */
+  position: relative;
+
+  /* Set overflow to hidden to prevent default scrollbars */
+  overflow: hidden;
 `;
 
+const StyledTableWrapper = styled.div`
+  /* Set the wrapper to be slightly larger than the table */
+  width: calc(100% + 1px); /* Adjust width based on content size */
+  height: calc(100% + 1px); /* Adjust height based on content size */
+
+  top: 0;
+  left: 0;
+
+  /* Enable both horizontal and vertical scrollbars */
+  overflow-x: scroll;
+  overflow-y: scroll;
+
+  /* Hide the default horizontal scrollbar */
+  &::-webkit-scrollbar {
+    width: 0px; /* Hide horizontal scrollbar */
+  }
+
+  /* Optionally style the vertical scrollbar (custom scrollbar libraries can be used for more advanced styling) */
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-grey-400); /* Adjust scrollbar thumb color */
+    border-radius: 6px; /* Add rounded corners to scrollbar thumb */
+  }
+`;
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
   background-color: var(--color-grey-0);
@@ -125,6 +161,7 @@ const StyledTableCell = styled.td`
 
 export {
   StyledTable,
+  StyledTableWrapper,
   StyledTableHead,
   StyledTableHeader,
   StyledTableHeadCell,
