@@ -253,7 +253,7 @@ function CreateProspectoForm({ onCloseModal }) {
                     <option value=""></option>
 
           {diplomadosEspecificos.map((diplomado, index) => (
-            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
+            <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
       </FormRow>
@@ -298,7 +298,7 @@ function CreateProspectoForm({ onCloseModal }) {
         >
           <option value=""></option>
           {diplomadosEspecificos2.map((diplomado, index) => (
-            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
+            <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
         </FormRowDiplomado>

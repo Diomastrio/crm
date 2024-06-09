@@ -316,6 +316,29 @@ function CreateClientForm({ onCloseModal }) {
         />
       </FormRow>
 
+      <FormRow label="Diplomados enviados"error={errors?.dipl_sent?.message}>
+        <Input
+          type="number"
+          id="dipl_sent"
+          disabled={isCreating}
+          {...register("dipl_sent", {
+            required: "Este campo es requerido",
+            min: { value: 0, message: "debería ser mínimo +0",},
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Cuenta de Banco" error={errors?.cuentaBanco?.message}>
+        <Input
+          type="text"
+          id="cuentaBanco"
+          disabled={isCreating}
+          {...register("cuentaBanco", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+
       <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message}>
         <StyledSelect
           id="cursa_actualmente"
@@ -329,6 +352,7 @@ function CreateClientForm({ onCloseModal }) {
           <option value="false">No</option>
         </StyledSelect>
       </FormRow>
+      
       <FormRow label="Más de un diplomado?">
         <>
         <CheckboxWrapper>

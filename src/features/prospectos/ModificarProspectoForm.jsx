@@ -232,7 +232,7 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
           })}
         >
           {diplomadosEspecificos.map((diplomado, index) => (
-            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
+            <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
       </FormRow>
@@ -274,7 +274,7 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
           })}
         >
           {diplomadosEspecificos2.map((diplomado, index) => (
-            <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
+            <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
         </FormRowDiplomado>
@@ -288,7 +288,7 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
       >
         Cancelar
       </Button>
-      <Button disabled={isEditing}>Crear cliente</Button>
+      <Button disabled={isEditing}>Modificar Prospecto</Button>
     </FormRow>
   </Form>
   );

@@ -21,6 +21,7 @@ import Graphs from "./pages/Graphs";
 import PDF from "./pages/PDF";
 import AgregarDiplomado from "./pages/AgregarDiplomado";
 import Diplomados from "./pages/Diplomado";
+import QuickAddCliente from "./pages/QuickAddCliente";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,8 @@ function App() {
               <Route path="PDF" element={<PDF />} />
               <Route path="AgregarDiplomado" element={<AgregarDiplomado />} />
               <Route path="Diplomados" element={<Diplomados />} />
+              <Route path="QuickAddCliente" element={<QuickAddCliente />} />
+
             </Route>
 
             <Route path="Login" element={<Login />} />
