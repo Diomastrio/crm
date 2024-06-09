@@ -24,7 +24,6 @@ const StyledSalesChart = styled(DashboardBox)`
 `;
 
 const StyledSubHeading = styled.p`
-  paddingtop: 2.6rem;
   paddingbottom: 2.6rem;
   font-size: 2rem;
   font-weight: 400;

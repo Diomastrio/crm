@@ -261,7 +261,7 @@ function DinamicGraphs(data) {
   return (
     <StyledSalesChart>
       <Heading as="h2">Graficas</Heading>
-      <StyledSubHeading as="h3">Genero & Clientes activos</StyledSubHeading>
+      <StyledSubHeading as="h3">Género y Clientes Activos</StyledSubHeading>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <ResponsiveContainer  height={400} width="91%">
           <PieChart width={400} height={400} >
@@ -273,7 +273,7 @@ function DinamicGraphs(data) {
               cy="50%"
               innerRadius={60}
               outerRadius={80}
-              fill="#4b42d4"
+              fill= {isDarkMode? "#eeeee4": "#4b42d4"}
               dataKey="value"
               onMouseEnter={onPieEnter}
             />
@@ -289,7 +289,7 @@ function DinamicGraphs(data) {
               cy="50%"
               innerRadius={60}
               outerRadius={80}
-              fill="#4b42d4"
+              fill= {isDarkMode? "#eeeee4": "#4b42d4"}
               dataKey="value"
               onMouseEnter={onPieEnter1}
             />
@@ -297,9 +297,7 @@ function DinamicGraphs(data) {
         </ResponsiveContainer>
       </div>
 
-      <StyledSubHeading as="h3">
-        Diplomados inscritos y terminados por mes
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Diplomados Inscritos y Terminados por Mes</StyledSubHeading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={dataArea}>
           <XAxis
@@ -331,7 +329,7 @@ function DinamicGraphs(data) {
         </AreaChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">Diplomados inscritos por edad</StyledSubHeading>
+      <StyledSubHeading as="h3">Diplomados Inscritos por Edad</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <ScatterChart
           width={400}
@@ -359,9 +357,7 @@ function DinamicGraphs(data) {
         </ScatterChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">
-        Numero de clientes por disciplina
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Número de Clientes por Disciplina</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -378,9 +374,7 @@ function DinamicGraphs(data) {
         </BarChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">
-        Numero de clientes activos por disciplina
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Número de Clientes Activos por Disciplina</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -397,9 +391,7 @@ function DinamicGraphs(data) {
         </BarChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">
-        Numero de clientes por genero y disciplina
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Número de Clientes por Género y Disciplina</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
