@@ -10,7 +10,7 @@ export function useEditCliente() {
       createEditCliente(newCliente, id),
     onSuccess: () => {
       toast.success("Cliente exitosamente editado");
-      queryClient.invalidateQueries({ queryKey: ["cliente"] });
+      queryClient.invalidateQueries({ queryKey: ["clientes"] });
     },
     onError: (err) => toast.error(err.message),
   });

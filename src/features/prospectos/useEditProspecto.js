@@ -10,7 +10,7 @@ export function useEditProspecto() {
       createEditProspecto(newProspecto, id),
     onSuccess: () => {
       toast.success("Prospecto exitosamente editado");
-      queryClient.invalidateQueries({ queryKey: ["prospecto"] });
+      queryClient.invalidateQueries({ queryKey: ["prospectos"] });
     },
     onError: (err) => toast.error(err.message),
   });

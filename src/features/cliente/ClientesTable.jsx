@@ -5,6 +5,7 @@ import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import { FaSearch } from "react-icons/fa";
 import ClienteRow from "./ClienteTableRow";
+import DinamicGraphs from "../graficas/DinamicGraphs";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
@@ -201,15 +202,21 @@ function ClienteTable() {
         </StyledTableHead>
 
         {filteredClientes.length ? (
-          handleSort(filteredClientes).map((clientes, index) => (
+          handleSort(filteredClientes).map((clientes) => (
             <ClienteRow cliente={clientes} key={clientes.id} />
-          ))
+          ))         
         ) : (
           <div style={{ padding: "4rem" }}>
             <CenteredText>No se encontraron clientes</CenteredText>
           </div>
         )}
       </StyledTable>
+
+      {filteredClientes.length ? (
+         <DinamicGraphs data={filteredClientes}/>
+        ) : (
+          null
+        )}
     </Menus>
   );
 }
