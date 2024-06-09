@@ -1,14 +1,6 @@
 
 import {  createTransport  } from 'nodemailer';
-//import nodemailer from "nodemailer";
-// Generate SMTP service account from ethereal.email
 const createTestAccount = (() => {
-
-
-    console.log('Credentials obtained, sending message...');
-
-    // NB! Store the account object values somewhere if you want
-    // to re-use the same account for future mail deliveries
 
     // Create a SMTP transporter object
     let transporter = createTransport(
@@ -18,8 +10,8 @@ const createTestAccount = (() => {
           port: 465,
           secure: true,
           auth: {
-            user: import.meta.env.VITE_NODEMAILER_USER,
-            pass: import.meta.env.VITE_NODEMAILER_PASS,
+            user: "loflions123@gmail.com",
+            pass: "eggb syin gdos jmyr",
           },
           tls: {
             rejectUnauthorized: false // Deshabilitar la verificación del certificado
@@ -72,9 +64,8 @@ const createTestAccount = (() => {
         attachments: [
             // String attachment
             {
-                filename: 'notes.txt',
+                filename: 'notes.pdf',
                 content: 'Some notes about this e-mail',
-                contentType: 'text/plain' // optional, would be detected from the filename
             },
 
             // Binary Buffer attachment
