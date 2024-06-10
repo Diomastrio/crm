@@ -64,7 +64,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/AddCliente">
+          <StyledNavLink to="/QuickAddCliente">
             <FaShippingFast  />
           </StyledNavLink>
         </li>

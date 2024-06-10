@@ -19,6 +19,7 @@ import {
   StyledInput,
   StyledTableHeader,
   StyledTableHeaderCell,
+  StyledTableWrapper
 } from "../../ui/ClientTableUi";
 
 import styled from "styled-components";
@@ -144,6 +145,7 @@ function ClienteTable() {
 
   return (
     <Menus>
+      <StyledTableWrapper>
       <StyledTable>
         <StyledTableHeader>
           <tr>
@@ -211,7 +213,7 @@ function ClienteTable() {
           </div>
         )}
       </StyledTable>
-
+</StyledTableWrapper>
       {filteredClientes.length ? (
          <DinamicGraphs data={filteredClientes}/>
         ) : (

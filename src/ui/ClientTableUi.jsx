@@ -1,14 +1,34 @@
 import styled from "styled-components";
 
 const StyledTable = styled.table`
-  width: 100%;
-  height: 100%;
+  width: 100%; 
+  height: 100%; 
   border-radius: 7px;
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
-  overflow-y: scroll;
+  position: relative;
+  overflow: hidden;
+`;
+
+
+const StyledTableWrapper = styled.div`
+  width: calc(100% + 1px); 
+  height: calc(100% + 1px); 
+  top: 0;
+  left: 0;
+
   overflow-x: scroll;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0px; 
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-grey-400); 
+    border-radius: 6px; /
+  }
 `;
 
 const Input = styled.input`
@@ -18,6 +38,7 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 `;
+
 const StyledNumberInput = styled.input.attrs({ type: "number" })`
   width: 100px;
   padding: 8px;
@@ -136,4 +157,5 @@ export {
   StyledInput,
   Input,
   StyledNumberInput,
+  StyledTableWrapper
 };

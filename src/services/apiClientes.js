@@ -33,7 +33,7 @@ export async function createEditCliente(newCliente, id) {
   // A) CREAR
   if (!id) query = query.insert([{ genero: nuevoGenero, ...newCliente }]);
   // B) EDITAR
-  if (id) query = query.update({  ...newCliente }).eq("id", id);
+  if (id) query = query.update({ genero: nuevoGenero, ...newCliente }).eq("id", id);
 
 
   const { data, error } = await query.select().single();

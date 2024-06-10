@@ -1,5 +1,9 @@
 
 import {  createTransport  } from 'nodemailer';
+import supabase from "./supabase";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+
 const createTestAccount = (() => {
 
     // Create a SMTP transporter object

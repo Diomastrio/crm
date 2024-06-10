@@ -37,14 +37,14 @@ export async function createEditProspecto(newProspecto, id) {
   if (id)
     query = query.update({ ...newProspecto }).eq("id", id);
 
-  const { datas, error } = await query.select().single();
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.error(error);
     throw new Error("Prospecto no pudo ser modificado");
   }
 
-  return datas;
+  return data;
 }
 
 export async function getProspectos() {

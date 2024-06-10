@@ -17,6 +17,7 @@ import {
   Input,
   StyledTableHeader,
   StyledTableHeaderCell,
+  StyledTableWrapper,
 } from "../../ui/ClientTableUi";
 
 import styled from 'styled-components';
@@ -83,6 +84,7 @@ const filteredProspectos = handleFilter(prospecto);
 
   return (
     <Menus>
+      <StyledTableWrapper>
       <StyledTable >
         <StyledTableHeader> 
       <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
@@ -116,6 +118,7 @@ const filteredProspectos = handleFilter(prospecto);
       )}
 
       </StyledTable>
+      </StyledTableWrapper>
     </Menus>
   );
 }
