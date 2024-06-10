@@ -10,7 +10,7 @@ export function useEditDiplomado() {
       createEditDiplomados(newDiplomado, id),
     onSuccess: () => {
       toast.success("Diplomado exitosamente editado");
-      queryClient.invalidateQueries({ queryKey: ["diplomado"] });
+      queryClient.invalidateQueries({ queryKey: ["diplomados"] });
     },
     onError: (err) => toast.error(err.message),
   });

@@ -41,7 +41,7 @@ function Home() {
   return (
     <HomeSection>
     <div>
-      <HomeMain>Bienvenidos a miTitulo.com</HomeMain>
+      <HomeMain>Bienvenidos a Midiplomado.com</HomeMain>
       <Button variation="secondary"  size="large" onClick={() => navigate("/AgregarProspecto")}>Iniciar Registro</Button>
     </div>
   </HomeSection>

@@ -57,12 +57,11 @@ function App() {
               <Route path="AgregarDiplomado" element={<AgregarDiplomado />} />
               <Route path="Diplomados" element={<Diplomados />} />
               <Route path="QuickAddCliente" element={<QuickAddCliente />} />
-
+              <Route path="Registro" element={<Registro />} />
             </Route>
 
             <Route path="Login" element={<Login />} />
             <Route path="Home" element={<Home />} />
-            <Route path="Registro" element={<Registro />} />
             <Route path="*" element={<PageNotFound />} />
             <Route path="AgregarProspecto" element={<AgregarProspecto />} />
           </Routes>

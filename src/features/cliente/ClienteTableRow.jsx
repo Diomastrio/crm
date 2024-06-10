@@ -64,9 +64,25 @@ function ClienteRow({ cliente }) {
     return `${day} de ${month} de ${year}`;
   };
 
+  
   const nuevoInicio = formatDate(fecha_inicio);
   const nuevoFin = formatDate(fecha_fin);
   const nuevoLimite = formatDate(fecha_limite);
+
+  const formatGenero = (genero) => {
+    if (!genero || genero === "0") {
+      return "N/A";
+    }
+
+    if (genero==='H'){
+      genero='Hombre'
+    }
+    if (genero==='M'){
+      genero='Mujer'
+    }
+    return genero;
+  };
+  const nuevoGenero = formatGenero(genero);
 
   return (
     <StyledTableBody>
@@ -76,7 +92,7 @@ function ClienteRow({ cliente }) {
         <StyledTableCell>{telefono}</StyledTableCell>
         <StyledTableCell>{curp}</StyledTableCell>
         <StyledTableCell>{edad}</StyledTableCell>
-        <StyledTableCell>{genero}</StyledTableCell>
+        <StyledTableCell>{nuevoGenero}</StyledTableCell>
         <StyledTableCell>{rfc}</StyledTableCell>
         <StyledTableCell>{numero_diplomados}</StyledTableCell>
         <StyledTableCell>{diplomados_terminados}</StyledTableCell>

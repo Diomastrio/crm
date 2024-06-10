@@ -144,9 +144,9 @@ function ClienteTable() {
   };
 
   return (
-    <Menus>
-      <StyledTableWrapper>
-      <StyledTable>
+    <Menus> <StyledTableWrapper>
+      <StyledTable>     
+
         <StyledTableHeader>
           <tr>
             <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
@@ -213,7 +213,8 @@ function ClienteTable() {
           </div>
         )}
       </StyledTable>
-</StyledTableWrapper>
+      </StyledTableWrapper>
+
       {filteredClientes.length ? (
          <DinamicGraphs data={filteredClientes}/>
         ) : (
