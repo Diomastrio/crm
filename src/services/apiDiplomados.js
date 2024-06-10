@@ -1,6 +1,22 @@
 import supabase from "./supabase";
 
+async function insertUserName() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user.user_metadata.fullName;
+}
+
+async function insertUserId() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user.id;
+}
+
 export async function createEditDiplomados(newDiplomado, id ) {
+
+  const userName = await insertUserName();
+  const userId = await insertUserId();
+
+  newDiplomado.id_user = userId;
+  newDiplomado.nombre_modifico = userName;
 
   let query = supabase.from("diplomados");
   // A) CREAR

@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import { BsFillPersonLinesFill } from "react-icons/bs";
-import { MdAddBox, MdPadding } from "react-icons/md";
-import { FaChartPie } from "react-icons/fa";
+import { BsFillPersonLinesFill,BsPersonBadge ,BsFillPersonPlusFill   } from "react-icons/bs";
+import { FaChartPie,FaShippingFast  } from "react-icons/fa";
+import { MdAssignmentAdd,MdAssignmentTurnedIn   } from "react-icons/md";
+import { BsFileEarmarkPdfFill } from "react-icons/bs";
 
 const NavList = styled.ul`
   display: flex;
@@ -60,43 +61,41 @@ function MainNav() {
         <li>
           <StyledNavLink to="/Cliente">
             <BsFillPersonLinesFill />
-            {/* <span>Clientes</span> */}
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/QuickAddCliente">
+            <FaShippingFast  />
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/AgregarCliente">
-            <MdAddBox />
-            {/* <span>Agrega Cliente</span> */}
+            <BsFillPersonPlusFill />
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Prospectos">
-            <BsFillPersonLinesFill />
-            {/* <span>Prospectos</span> */}
+            <BsPersonBadge   />
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/PDF">
-            <MdAddBox />
-            {/* <span>PDF</span> */}
+            <BsFileEarmarkPdfFill />
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Graphs">
             <FaChartPie />
-            {/* <span>Graficas</span> */}
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/AgregarDiplomado">
-            <MdAddBox />
-            {/* <span>Agrega Diplomados</span> */}
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Diplomados">
-            <MdAddBox />
-            {/* <span>Diplomados</span> */}
+            <MdAssignmentTurnedIn   />
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/AgregarDiplomado">
+            <MdAssignmentAdd />
           </StyledNavLink>
         </li>
       </NavList>

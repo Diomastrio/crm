@@ -18,6 +18,7 @@ const Img = styled.img`
   width: auto;
   animation: ${spin} infinite 20s linear; /* Animation properties */
   animation-play-state: running; /* Initially paused */
+
   &:hover {
     animation-play-state: running; /* Start animation on hover */
   }

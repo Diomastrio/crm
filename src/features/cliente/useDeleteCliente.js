@@ -11,7 +11,7 @@ export function useDeleteCliente() {
       toast.success("Cliente existosamente eliminado");
 
       queryClient.invalidateQueries({
-        queryKey: ["cliente"],
+        queryKey: ["clientes"],
       });
     },
     onError: (err) => toast.error(err.message),

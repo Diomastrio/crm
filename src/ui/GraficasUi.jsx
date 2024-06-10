@@ -13,12 +13,21 @@ const DashboardBox = styled.div`
   gap: 2.4rem;
 `;
 
+const StyledSalesChart = styled(DashboardBox)`
+  grid-column: 1 / -1;
+ justfy-between;
+  /* Hack to change grid line colors */
+  & .recharts-cartesian-grid-horizontal line,
+  & .recharts-cartesian-grid-vertical line {
+    stroke: var(--color-grey-300);
+  }
+`;
+
 const StyledSubHeading = styled.p`
-  paddingtop: 2.6rem;
   paddingbottom: 2.6rem;
   font-size: 2rem;
   font-weight: 400;
   text-align: center;
 `;
 
-export { DashboardBox, StyledSubHeading };
+export { DashboardBox, StyledSubHeading,StyledSalesChart };

@@ -1,52 +1,36 @@
 import styled from "styled-components";
 
-// const StyledTable = styled.table`
-//   width: 100%;
-//   height: 100%;
-//   border-radius: 7px;
-//   border: 1px solid var(--color-grey-200);
-//   font-size: 1.4rem;
-//   background-color: var(--color-grey-0);
-//   overflow: scroll; /* Always show scrollbars */
-// `;
 const StyledTable = styled.table`
-  width: 100%; /* Maintain full width */
-  height: 100%; /* Maintain full height */
+  width: 100%; 
+  height: 100%; 
   border-radius: 7px;
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
-
-  /* Create a wrapper element for diagonal scrolling effect */
   position: relative;
-
-  /* Set overflow to hidden to prevent default scrollbars */
   overflow: hidden;
 `;
 
-const StyledTableWrapper = styled.div`
-  /* Set the wrapper to be slightly larger than the table */
-  width: calc(100% + 1px); /* Adjust width based on content size */
-  height: calc(100% + 1px); /* Adjust height based on content size */
 
+const StyledTableWrapper = styled.div`
+  width: calc(100% + 1px); 
+  height: calc(100% + 1px); 
   top: 0;
   left: 0;
 
-  /* Enable both horizontal and vertical scrollbars */
   overflow-x: scroll;
   overflow-y: scroll;
 
-  /* Hide the default horizontal scrollbar */
   &::-webkit-scrollbar {
-    width: 0px; /* Hide horizontal scrollbar */
+    width: 0px; 
   }
 
-  /* Optionally style the vertical scrollbar (custom scrollbar libraries can be used for more advanced styling) */
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-grey-400); /* Adjust scrollbar thumb color */
-    border-radius: 6px; /* Add rounded corners to scrollbar thumb */
+    background-color: var(--color-grey-400); 
+    border-radius: 6px; /
   }
 `;
+
 const Input = styled.input`
   border: 1px solid var(--color-grey-300);
   background-color: var(--color-grey-0);
@@ -54,6 +38,7 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 `;
+
 const StyledNumberInput = styled.input.attrs({ type: "number" })`
   width: 100px;
   padding: 8px;
@@ -148,6 +133,7 @@ const StyledTableCell = styled.td`
   &:last-child {
     display: flex;
     align-items: center;
+    border-bottom: 0px solid #000;
   }
 
   &:nth-child(15) {
@@ -161,7 +147,6 @@ const StyledTableCell = styled.td`
 
 export {
   StyledTable,
-  StyledTableWrapper,
   StyledTableHead,
   StyledTableHeader,
   StyledTableHeadCell,
@@ -172,4 +157,5 @@ export {
   StyledInput,
   Input,
   StyledNumberInput,
+  StyledTableWrapper
 };

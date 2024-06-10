@@ -11,7 +11,7 @@ export function useDeleteProspecto() {
       toast.success("Prospecto existosamente eliminado");
 
       queryClient.invalidateQueries({
-        queryKey: ["prospecto"],
+        queryKey: ["prospectos"],
       });
     },
     onError: (err) => toast.error(err.message),

@@ -5,6 +5,7 @@ import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import { FaSearch } from "react-icons/fa";
 import ClienteRow from "./ClienteTableRow";
+import DinamicGraphs from "../graficas/DinamicGraphs";
 
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
@@ -18,7 +19,7 @@ import {
   StyledInput,
   StyledTableHeader,
   StyledTableHeaderCell,
-  StyledTableWrapper,
+  StyledTableWrapper
 } from "../../ui/ClientTableUi";
 
 import styled from "styled-components";
@@ -67,16 +68,14 @@ function ClienteTable() {
         case "vence":
           const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
           const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-          passesFilterValue =
-            new Date(cliente.fecha_limite) < oneWeekFromNow &&
-            new Date(cliente.fecha_limite) > oneWeekThen;
+          passesFilterValue = (new Date(cliente.fecha_limite) < oneWeekFromNow ) && (new Date(cliente.fecha_limite)> oneWeekThen);
           break;
         case "Hombres":
-          passesFilterValue = cliente.genero === "H";
-          break;
+          passesFilterValue = cliente.genero === 'H';
+          break;  
         case "Mujeres":
-          passesFilterValue = cliente.genero === "M";
-          break;
+          passesFilterValue = cliente.genero === 'M';
+          break;  
         default:
           passesFilterValue = true;
       }
@@ -86,42 +85,28 @@ function ClienteTable() {
       let passesSecondFilterValue;
       switch (secondFilterValue) {
         case "desarrollo":
-          passesSecondFilterValue =
-            cliente.disciplina === "Desarrollo Humano" ||
-            cliente.disciplina2 === "Desarrollo Humano";
+          passesSecondFilterValue = cliente.disciplina === "Desarrollo Humano" || cliente.disciplina2 === "Desarrollo Humano";
           break;
         case "descuentos":
-          passesSecondFilterValue =
-            cliente.disciplina === "Descuentos" ||
-            cliente.disciplina2 === "Descuentos";
+          passesSecondFilterValue = cliente.disciplina === "Descuentos" || cliente.disciplina2 === "Descuentos";
           break;
         case "educacion":
-          passesSecondFilterValue =
-            cliente.disciplina === "Educación" ||
-            cliente.disciplina2 === "Educación";
+          passesSecondFilterValue = cliente.disciplina === "Educación" || cliente.disciplina2 === "Educación";
           break;
         case "ingenieria":
-          passesSecondFilterValue =
-            cliente.disciplina === "Ingeniería" ||
-            cliente.disciplina2 === "Ingeniería";
+          passesSecondFilterValue = cliente.disciplina === "Ingeniería" || cliente.disciplina2 === "Ingeniería";
           break;
         case "negocios":
-          passesSecondFilterValue =
-            cliente.disciplina === "Negocios" ||
-            cliente.disciplina2 === "Negocios";
+          passesSecondFilterValue = cliente.disciplina === "Negocios" || cliente.disciplina2 === "Negocios";
           break;
         case "onLive":
-          passesSecondFilterValue =
-            cliente.disciplina === "OnLive" || cliente.disciplina2 === "OnLive";
+          passesSecondFilterValue = cliente.disciplina === "OnLive" || cliente.disciplina2 === "OnLive";
           break;
         case "psicologia":
-          passesSecondFilterValue =
-            cliente.disciplina === "Psicología" ||
-            cliente.disciplina2 === "Psicología";
+          passesSecondFilterValue = cliente.disciplina === "Psicología" || cliente.disciplina2 === "Psicología";
           break;
         case "salud":
-          passesSecondFilterValue =
-            cliente.disciplina === "Salud" || cliente.disciplina2 === "Salud";
+          passesSecondFilterValue = cliente.disciplina === "Salud" || cliente.disciplina2 === "Salud";
           break;
         default:
           passesSecondFilterValue = true;
@@ -161,90 +146,79 @@ function ClienteTable() {
   return (
     <Menus>
       <StyledTableWrapper>
-        <StyledTable>
-          <StyledTableHeader>
-            <tr>
-              <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
-              <StyledTableHeaderCell>
-                <Input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  id="telefono"
-                />
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell>
-                <FaSearch
-                  style={{ margin: "0 10px 0 10px", fontSize: "26px" }}
-                />
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell />
-              <StyledTableHeaderCell>
-                Busqueda N. Diplomas
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell>
-                <Input
-                  type="number"
-                  value={searchTermDiplomado}
-                  onChange={(e) => setSearchTermDiplomado(e.target.value)}
-                  id="te"
-                />
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell>
-                <FaSearch
-                  style={{ margin: "0 10px 0 10px", fontSize: "26px" }}
-                />
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell />
-              <StyledTableHeaderCell />
-              <StyledTableHeaderCell />
-              <StyledTableHeaderCell />
-              <StyledTableHeaderCell>
-                <StyledInput />
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell>
-                <StyledInput />
-              </StyledTableHeaderCell>
-              <StyledTableHeaderCell>
-                <StyledInput />
-              </StyledTableHeaderCell>
-            </tr>
-          </StyledTableHeader>
-          <StyledTableHead>
-            <StyledTableRow>
-              <StyledTableHeadCell>Cliente</StyledTableHeadCell>
-              <StyledTableHeadCell>Email</StyledTableHeadCell>
-              <StyledTableHeadCell>Telefono</StyledTableHeadCell>
-              <StyledTableHeadCell>CURP</StyledTableHeadCell>
-              <StyledTableHeadCell>Edad</StyledTableHeadCell>
-              <StyledTableHeadCell>Genero</StyledTableHeadCell>
-              <StyledTableHeadCell>RFC</StyledTableHeadCell>
-              <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
-              <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
-              <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
-              <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
-              <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
-              <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
-              <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
-              <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
-              <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
-              <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
-              <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
-              <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
-              <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
-            </StyledTableRow>
-          </StyledTableHead>
-          {filteredClientes.length ? (
-            handleSort(filteredClientes).map((clientes, index) => (
-              <ClienteRow cliente={clientes} key={clientes.id} />
-            ))
-          ) : (
-            <div style={{ padding: "4rem" }}>
-              <CenteredText>No se encontraron clientes</CenteredText>
-            </div>
-          )}
-        </StyledTable>
-      </StyledTableWrapper>
+      <StyledTable>
+        <StyledTableHeader>
+          <tr>
+            <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <Input type="text" value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)} id="telefono"
+              />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+             <Input type="number" value={searchTermDiplomado}
+                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="te"
+              />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell/>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput/></StyledTableHeaderCell>
+            <StyledTableHeaderCell><StyledInput /></StyledTableHeaderCell>
+          </tr>
+        </StyledTableHeader>
+
+        <StyledTableHead>
+          <StyledTableRow>
+            <StyledTableHeadCell>Cliente</StyledTableHeadCell>
+            <StyledTableHeadCell>Email</StyledTableHeadCell>
+            <StyledTableHeadCell>Telefono</StyledTableHeadCell>
+            <StyledTableHeadCell>CURP</StyledTableHeadCell>
+            <StyledTableHeadCell>Edad</StyledTableHeadCell>
+            <StyledTableHeadCell>Genero</StyledTableHeadCell>
+            <StyledTableHeadCell>RFC</StyledTableHeadCell>
+            <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
+            <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
+            <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
+            <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
+            <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
+            <StyledTableHeadCell>Fecha de Limite</StyledTableHeadCell>
+            <StyledTableHeadCell>Lugar Residencia</StyledTableHeadCell>
+            <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+            <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
+            <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
+            <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
+          </StyledTableRow>
+        </StyledTableHead>
+
+        {filteredClientes.length ? (
+          handleSort(filteredClientes).map((clientes) => (
+            <ClienteRow cliente={clientes} key={clientes.id} />
+          ))         
+        ) : (
+          <div style={{ padding: "4rem" }}>
+            <CenteredText>No se encontraron clientes</CenteredText>
+          </div>
+        )}
+      </StyledTable>
+</StyledTableWrapper>
+      {filteredClientes.length ? (
+         <DinamicGraphs data={filteredClientes}/>
+        ) : (
+          null
+        )}
     </Menus>
   );
 }

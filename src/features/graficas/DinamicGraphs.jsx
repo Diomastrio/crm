@@ -1,7 +1,6 @@
 import { StyledSubHeading, StyledSalesChart } from "../../ui/GraficasUi";
 import Heading from "../../ui/Heading";
 import React, { useState, useEffect } from "react";
-import supabase from "../../services/supabase";
 import {
   Area,
   AreaChart,
@@ -21,167 +20,6 @@ import {
   BarChart,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
-
-
-const fetchActiveClientsByDispGen = async () => {
-  const { data, error } = await supabase
-    .from("cliente")
-    .select("disciplina, genero");
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-
-  const counts = data.reduce((acc, cliente) => {
-    if (!acc[cliente.disciplina]) {
-      acc[cliente.disciplina] = { h: 0, m: 0 };
-    }
-
-    if (cliente.genero === "H") {
-      acc[cliente.disciplina].h++;
-    } else if (cliente.genero === "M") {
-      acc[cliente.disciplina].m++;
-    }
-
-    return acc;
-  }, {});
-
-  return Object.entries(counts).map(([disciplina, { h, m }]) => ({
-    disciplina,
-    h,
-    m,
-  }));
-};
-
-const fetchActiveClientsByDiscipline = async () => {
-  const { data, error } = await supabase
-    .from("cliente")
-    .select("disciplina, cursa_actualmente")
-    .eq("cursa_actualmente", true);
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-
-  const counts = data.reduce((acc, cliente) => {
-    acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
-    return acc;
-  }, {});
-
-  return Object.entries(counts).map(([disciplinaActive, clienteActivo]) => ({
-    disciplinaActive,
-    clienteActivo,
-  }));
-};
-
-const fetchClientsByDiscipline = async () => {
-  const { data, error } = await supabase.from("cliente").select("disciplina");
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-
-  const counts = data.reduce((acc, cliente) => {
-    acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
-    return acc;
-  }, {});
-
-  return Object.entries(counts).map(([disciplina, cliente]) => ({
-    disciplina,
-    cliente,
-  }));
-};
-
-const fetchClienteGender = async () => {
-  const { data, error } = await supabase.from("cliente").select("genero");
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-  let countH = 0;
-  let countM = 0;
-
-  data.forEach((cliente) => {
-    if (cliente.genero === "H") {
-      countH++;
-    } else if (cliente.genero === "M") {
-      countM++;
-    }
-  });
-
-  return [
-    { name: "Hombres", value: countH },
-    { name: "Mujeres", value: countM },
-  ];
-};
-
-const fetchClienteDater = async () => {
-  const { data, error } = await supabase
-    .from("cliente")
-    .select("numero_diplomados, diplomados_terminados");
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-
-  const labels = ["Jan","Feb", "Mar","Apr","May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec", ];
-
-  const areaData = data.map((item, index) => ({
-    label: labels[index % 12], // Use the month labels, repeating every 12 months
-    num_clientes: data.length, // The total number of clients is the length of the data array
-    numero_diplomados: item.numero_diplomados,
-    diplomados_terminados: item.diplomados_terminados,
-  }));
-
-  return areaData;
-};
-
-const fetchClienteActive = async () => {
-  const { data, error } = await supabase
-    .from("cliente")
-    .select("cursa_actualmente");
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-  const counts = data.reduce(
-    (acc, cliente) => {
-      acc[cliente.cursa_actualmente ? "true" : "false"] += 1;
-      return acc;
-    },
-    { true: 0, false: 0 }
-  );
-  const pieData = [
-    { name: "Activos", value: counts.true },
-    { name: "Inactivos", value: counts.false },
-  ];
-  return pieData;
-};
-
-const fetchClienteDated = async () => {
-  const { data, error } = await supabase
-    .from("cliente")
-    .select("numero_diplomados, edad");
-
-  if (error) {
-    console.error("Error fetching data: ", error);
-    return;
-  }
-
-  const scatterData = data.map((item, index) => ({
-    x: item.edad,
-    y: item.numero_diplomados,
-    z: index + 1,
-  }));
-
-  return scatterData;
-};
 
 const COLORSS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
@@ -210,11 +48,10 @@ const renderActiveShape = (props) => {
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
 
+
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload.name}
-      </text>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
       <Sector
         cx={cx}
         cy={cy}
@@ -222,7 +59,7 @@ const renderActiveShape = (props) => {
         outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
-        fill="#32C9FF"
+        fill="#28d4b7"
         stroke="#fff"
       />
       <Sector
@@ -255,51 +92,21 @@ const renderActiveShape = (props) => {
   );
 };
 
-function DefaultGraphs() {
-  const [data, setData] = useState([]);
+
+function DinamicGraphs(data) {
+  data= data.data
+  const [datagen, setDatagen] = useState([]);
+  const [datas, setData] = useState([]);
   const [dataArea, setDataArea] = useState([]);
   const [scatterData, setScatterData] = useState([]);
-  const [datagen, setDatagen] = useState([]);
   const [activeClientsByDiscipline, setActiveClientsByDiscipline] = useState([]);
-  const [activeClientsByDispGen, setActiveClientsByDispGen] = useState([]);
   const [clientsByDiscipline, setClientsByDiscipline] = useState([]);
-
-  useEffect(() => {
-    fetchClientsByDiscipline().then(setClientsByDiscipline);
-  }, []);
-
-  useEffect(() => {
-    fetchActiveClientsByDispGen().then(setActiveClientsByDispGen);
-  }, []);
-
-  useEffect(() => {
-    fetchActiveClientsByDiscipline().then(setActiveClientsByDiscipline);
-  }, []);
-
-  useEffect(() => {
-    fetchClienteDated().then(setScatterData);
-  }, []);
-
-  useEffect(() => {
-    fetchClienteDater().then(setDataArea);
-  }, []);
-
-  useEffect(() => {
-    fetchClienteActive().then(setData);
-  }, []);
-  useEffect(() => {
-    fetchClienteGender().then(setDatagen);
-  }, []);
+  const [activeClientsByDispGen, setActiveClientsByDispGen] = useState([]);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const onPieEnter = (data, index) => {
-    setActiveIndex(index);
-  };
-
+  const onPieEnter = (data, index) => { setActiveIndex(index); };
   const [activeIndex1, setActiveIndex1] = useState(0);
-  const onPieEnter1 = (data, index) => {
-    setActiveIndex1(index);
-  };
+  const onPieEnter1 = (data, index) => { setActiveIndex1(index); };
 
   const { isDarkMode } = useDarkMode();
 
@@ -317,13 +124,147 @@ function DefaultGraphs() {
         background: "#fff",
       };
 
+  useEffect(() => {
+    const fetchClienteGender = async () => {
+      let countH = 0;
+      let countM = 0;
+
+      data.forEach((cliente) => {
+        if (cliente.genero === "H") {
+          countH++;
+        } else if (cliente.genero === "M") {
+          countM++;
+        }
+      });
+
+      setDatagen([
+        { name: "Hombres", value: countH },
+        { name: "Mujeres", value: countM },
+      ]);
+    };
+
+    fetchClienteGender();
+  }, [data]);
+
+  useEffect(() => {
+    const fetchClienteActive = async () => {
+      const counts = data.reduce(
+        (acc, cliente) => {
+          acc[cliente.cursa_actualmente ? "true" : "false"] += 1;
+          return acc;
+        },
+        { true: 0, false: 0 }
+      );
+      const pieData = [
+        { name: "Activos", value: counts.true },
+        { name: "Inactivos", value: counts.false },
+      ];
+      setData(pieData);
+    };
+
+    fetchClienteActive();
+  }, [data]);
+
+  useEffect(() => {
+    const fetchClienteDater = async () => {
+    
+      const labels = ["Jan","Feb", "Mar","Apr","May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec", ];
+    
+      const areaData = data.map((item, index) => ({
+        label: labels[index % 12], // Use the month labels, repeating every 12 months
+        num_clientes: data.length, // The total number of clients is the length of the data array
+        numero_diplomados: item.numero_diplomados,
+        diplomados_terminados: item.diplomados_terminados,
+      }));
+    
+      setDataArea(areaData);
+    };
+
+    fetchClienteDater();
+  }, [data]);
+
+  useEffect(() => {
+    const fetchClienteDate = async () => {
+
+      const scatterData = data.map((item, index) => ({
+        x: item.edad,
+        y: item.numero_diplomados,
+        z: index + 1,
+      }));
+    
+      setScatterData(scatterData);
+    };
+    
+    fetchClienteDate();
+  }, [data]);
+
+  //faefadfafsfsafafafdafdsffdsfds
+  useEffect(() => {
+    const fetchActiveClientsByDiscipline = async () => {
+    
+      const counts = data.reduce((acc, cliente) => {
+        acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
+        return acc;
+      }, {});
+    
+      setActiveClientsByDiscipline(Object.entries(counts).map(([disciplinaActive, clienteActivo]) => ({
+        disciplinaActive, clienteActivo
+      })))
+    };
+    
+    fetchActiveClientsByDiscipline();
+  }, [data]);
+
+  //2
+  useEffect(() => {
+    const fetchActiveClientsByDispGen = async () => {
+    
+      const counts = data.reduce((acc, cliente) => {
+        if (!acc[cliente.disciplina]) {
+          acc[cliente.disciplina] = { h: 0, m: 0 };
+        }
+    
+        if (cliente.genero === "H") {
+          acc[cliente.disciplina].h++;
+        } else if (cliente.genero === "M") {
+          acc[cliente.disciplina].m++;
+        }
+        return(acc);
+      }, {});
+    
+      setActiveClientsByDispGen(Object.entries(counts).map(([disciplina, { h, m }]) => ({
+        disciplina, h, m
+      })));
+    };
+    
+    fetchActiveClientsByDispGen();
+  }, [data]);
+
+  //3
+  useEffect(() => {
+    const fetchClientsByDiscipline = async () => {
+    
+      const counts = data.reduce((acc, cliente) => {
+        acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
+        return acc;
+      }, {});
+    
+      setClientsByDiscipline(Object.entries(counts).map(([disciplina, cliente]) => ({
+        disciplina,
+        cliente,
+      })));
+    };
+    
+    fetchClientsByDiscipline();
+  }, [data]);
+
   return (
     <StyledSalesChart>
       <Heading as="h2">Graficas</Heading>
-      <StyledSubHeading as="h3">Genero & Clientes activos</StyledSubHeading>
+      <StyledSubHeading as="h3">Género y Clientes Activos</StyledSubHeading>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <ResponsiveContainer width="90%" height={400}>
-          <PieChart width={400} height={400}>
+        <ResponsiveContainer  height={400} width="91%">
+          <PieChart width={400} height={400} >
             <Pie
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
@@ -343,7 +284,7 @@ function DefaultGraphs() {
             <Pie
               activeIndex={activeIndex1}
               activeShape={renderActiveShape}
-              data={data}
+              data={datas}
               cx="50%"
               cy="50%"
               innerRadius={60}
@@ -356,9 +297,7 @@ function DefaultGraphs() {
         </ResponsiveContainer>
       </div>
 
-      <StyledSubHeading as="h3">
-        Diplomados inscritos y terminados por mes
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Diplomados Inscritos y Terminados por Mes</StyledSubHeading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={dataArea}>
           <XAxis
@@ -390,7 +329,7 @@ function DefaultGraphs() {
         </AreaChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">Diplomados inscritos por edad</StyledSubHeading>
+      <StyledSubHeading as="h3">Diplomados Inscritos por Edad</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <ScatterChart
           width={400}
@@ -418,9 +357,7 @@ function DefaultGraphs() {
         </ScatterChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">
-        Numero de clientes por disciplina
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Número de Clientes por Disciplina</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -437,9 +374,7 @@ function DefaultGraphs() {
         </BarChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">
-        Numero de clientes activos por disciplina
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Número de Clientes Activos por Disciplina</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -456,9 +391,7 @@ function DefaultGraphs() {
         </BarChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">
-        Numero de clientes por genero y disciplina
-      </StyledSubHeading>
+      <StyledSubHeading as="h3">Número de Clientes por Género y Disciplina</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
@@ -475,9 +408,8 @@ function DefaultGraphs() {
           <Bar dataKey="m" fill="#28d4b7" name="Mujeres" />
         </BarChart>
       </ResponsiveContainer>
-
     </StyledSalesChart>
   );
 }
 
-export default DefaultGraphs;
+export default DinamicGraphs;
