@@ -12,7 +12,7 @@ const StyledTable = styled.table`
 
 const StyledTableWrapper = styled.div`
   width: calc(100% + 1px); 
-  height: 50rem ; 
+  max-height: 50rem ; 
   top: 0;
   left: 0;
 
