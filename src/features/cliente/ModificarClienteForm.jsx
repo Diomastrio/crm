@@ -5,7 +5,7 @@ import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import { FormRow,FormRowDiplomado } from "../../ui/FormRow";
-import { StyledSelect, StyledSelectDiplomado } from "../../ui/SelectTwo";
+import { StyledSelect, StyledSelectDiplomado,StyledSelectCuenta } from "../../ui/SelectTwo";
 import { CheckboxWrapper, CheckboxInput, CheckboxBox,CheckboxLabel } from "../../ui/Checkboxes";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
@@ -349,14 +349,19 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       </FormRow>
 
       <FormRow label="Cuenta de Banco" error={errors?.cuentaBanco?.message}>
-        <Input
-          type="text"
+        <StyledSelectCuenta
+          Style={{ width: "20rem" }}
           id="cuentaBanco"
-          disabled={isEditing}
+          defaultValue=""
+          isDisabled={isEditing}
           {...register("cuentaBanco", {
             required: "Este campo es requerido",
           })}
-        />
+        >
+          <option value="Santander">Santander</option>
+          <option value="Paypal">Paypal</option>
+          <option value="Oxxo">Oxxo</option>
+        </StyledSelectCuenta>
       </FormRow>
       
       <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message} >
