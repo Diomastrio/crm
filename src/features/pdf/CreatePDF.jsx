@@ -1,47 +1,16 @@
-import { useForm } from "react-hook-form";
 import React from 'react';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { useCliente } from "../cliente/useSelectCliente";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
-import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import Input from "../../ui/Input";
 import emailjs from 'emailjs-com';
-import { useCreatePromocion } from "../promociones/useCreatePromocion";
-import { useState,useEffect } from 'react';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const ReportButton = () => {
-  const { register, handleSubmit } = useForm({});
-
-  function onSubmit(data) {
-    createPromocion(
-      { ...data },
-      {
-        onSuccess: () => {
-        },
-      }
-    );
-}
-
-const { isCreating, createPromocion } = useCreatePromocion();
-
   const { isLoading, cliente } = useCliente();
-  
-  const [filteredProducto, setfilteredProducto] = useState([]);
-
-  useEffect(() => {
-    const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-    if(cliente)
-      setfilteredProducto(cliente.filter(      
-        (cliente) => (new Date(cliente.fecha_limite) < oneWeekFromNow )&& new Date(cliente.fecha_limite)> oneWeekThen
-      ));   
-
-  }, [cliente]);
 
   const generatePDF = () => {
     if (isLoading) return <Spinner />;
@@ -113,15 +82,8 @@ const { isCreating, createPromocion } = useCreatePromocion();
       });
   };
 
-
-
   return (
-    <>
     <Button  variation={"swapii"} onClick={generatePDF}>Generar Reporte PDF</Button>
-    <Form onSubmit={handleSubmit(onSubmit)} >
-    <Input value={filteredProducto}  disabled={isCreating} {...register("edad")}/>
-    </Form>
-  </>
   );
 };
 

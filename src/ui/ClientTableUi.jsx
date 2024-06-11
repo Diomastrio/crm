@@ -8,13 +8,11 @@ const StyledTable = styled.table`
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   position: relative;
-  overflow: hidden;
 `;
-
 
 const StyledTableWrapper = styled.div`
   width: calc(100% + 1px); 
-  height: calc(100% + 1px); 
+  max-height: 50rem ; 
   top: 0;
   left: 0;
 
@@ -73,6 +71,9 @@ const StyledTableHead = styled.thead`
   letter-spacing: 0.4px;
   background-color: var(--color-grey-50);
   color: var(--color-grey-600);
+    position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 const StyledTableHeadCell = styled.th`

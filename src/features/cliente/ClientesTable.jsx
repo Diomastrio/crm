@@ -144,9 +144,9 @@ function ClienteTable() {
   };
 
   return (
-    <Menus>
-      <StyledTableWrapper>
-      <StyledTable>
+    <Menus> <StyledTableWrapper>
+      <StyledTable>     
+
         <StyledTableHeader>
           <tr>
             <StyledTableHeaderCell>Busqueda Nombre</StyledTableHeaderCell>
@@ -183,10 +183,10 @@ function ClienteTable() {
             <StyledTableHeadCell>Cliente</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
             <StyledTableHeadCell>Telefono</StyledTableHeadCell>
-            <StyledTableHeadCell>CURP</StyledTableHeadCell>
-            <StyledTableHeadCell>Edad</StyledTableHeadCell>
             <StyledTableHeadCell>Genero</StyledTableHeadCell>
+            <StyledTableHeadCell>CURP</StyledTableHeadCell>
             <StyledTableHeadCell>RFC</StyledTableHeadCell>
+            <StyledTableHeadCell>Edad</StyledTableHeadCell>
             <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
             <StyledTableHeadCell>No. Diplomados</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
@@ -213,7 +213,8 @@ function ClienteTable() {
           </div>
         )}
       </StyledTable>
-</StyledTableWrapper>
+      </StyledTableWrapper>
+
       {filteredClientes.length ? (
          <DinamicGraphs data={filteredClientes}/>
         ) : (

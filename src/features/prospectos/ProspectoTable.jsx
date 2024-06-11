@@ -84,8 +84,8 @@ const filteredProspectos = handleFilter(prospecto);
 
   return (
     <Menus>
-      <StyledTableWrapper>
-      <StyledTable >
+      <StyledTable >      <StyledTableWrapper>
+
         <StyledTableHeader> 
       <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
       <StyledTableHeaderCell><Input type="text" value={searchTerm} onChange={ (e) => setSearchTerm(e.target.value) } id="telefono"/></StyledTableHeaderCell>
@@ -116,9 +116,9 @@ const filteredProspectos = handleFilter(prospecto);
       <CenteredText>No se encontraron prospectos</CenteredText>
     </div>
       )}
+      </StyledTableWrapper>
 
       </StyledTable>
-      </StyledTableWrapper>
     </Menus>
   );
 }
