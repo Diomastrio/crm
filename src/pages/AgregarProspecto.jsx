@@ -6,9 +6,14 @@ import ProspectoHeader from "../features/agregarProspecto/ProspectoHeader";
 function Prospecto() {
   return (
     <>
-    <ProspectoHeader/>
-      <Row type="horizontal" style={{ backgroundColor: 'var(--color-grey-50)'}}>
-        <Heading as="h1">¡Empecemos con el proceso! </Heading>
+      <ProspectoHeader />
+      <Row
+        type="horizontal"
+        style={{ backgroundColor: "var(--color-grey-100)" }}
+      >
+        <Heading as="h1" style={{ paddingLeft: "15.3rem" }}>
+          ¡Empecemos con el proceso!{" "}
+        </Heading>
         <CreateProspecto />
       </Row>
     </>
