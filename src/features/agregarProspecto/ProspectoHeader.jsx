@@ -28,14 +28,23 @@ const Img = styled.img`
   }
 `;
 
+const Img2 = styled.img`
+  height: 6rem;
+  width: auto;
+  position: absolute;
+  left: 12rem;
+`;
+
 function Logo() {
   const { isDarkMode } = useDarkMode();
 
   const src = isDarkMode ? "/bluelogo.png" : "/tealogo.png";
+  const src2 =  "/Midiplomado.png";
 
   return (
     <StyledLogo>
       <Img src={src} alt="Logo" />
+      <Img2 src={src2} alt="Logo2" />
     </StyledLogo>
   );
 }
@@ -59,7 +68,7 @@ function HeaderMenu() {
 }
 
 const StyledHeader = styled.header`
-  background-color: var(--color-grey-50);
+  background-color: #ffffff;
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
 

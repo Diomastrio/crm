@@ -33,7 +33,12 @@ background-color: var(--color-grey-200);
 const Label = styled.label`
   font-weight: 500; 
   margin-left: 0.9rem;
+`;
 
+const LabelProspecto = styled.label`
+  font-weight: 500; 
+  margin-left: 0.9rem;
+  color: #24242c;
 `;
 
 const Error = styled.span`
@@ -60,6 +65,15 @@ function FormRow({ label, error, children }) {
   );
 }
 
+function FormRowProspectos({ label, error, children }) {
+  return (
+    <StyledFormRow>
+      {label && <LabelProspecto htmlFor={children.props.id}>{label}</LabelProspecto>}
+      {children}
+      {error && <Error>{error}</Error>}
+    </StyledFormRow>
+  );
+}
 function FormRowDiplomado({ label, error, children }) {
   return (
     <StyledFormRowDiplomado>
@@ -73,11 +87,11 @@ function FormRowDiplomado({ label, error, children }) {
 function FormRowTerminos({ label, error, children }) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && <LabelProspecto htmlFor={children.props.id}>{label}</LabelProspecto>}
       {children}
       {error && <ErrorTerminos>{error}</ErrorTerminos>}
     </StyledFormRow>
   );
 }
 
-export { FormRow, FormRowDiplomado,FormRowTerminos };
+export { FormRow, FormRowDiplomado, FormRowTerminos, FormRowProspectos };

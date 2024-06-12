@@ -7,7 +7,7 @@ function Prospecto() {
   return (
     <>
     <ProspectoHeader/>
-      <Row type="horizontal" style={{ backgroundColor: 'var(--color-grey-50)'}}>
+      <Row type="horizontal" style={{ backgroundColor: '#24242c'}}>
         <Heading as="h1">¡Empecemos con el proceso! </Heading>
         <CreateProspecto />
       </Row>

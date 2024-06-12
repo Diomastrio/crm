@@ -83,7 +83,9 @@ const ReportButton = () => {
   };
 
   return (
+    <div>
     <Button  variation={"swapii"} onClick={generatePDF}>Generar Reporte PDF</Button>
+    </div>
   );
 };
 

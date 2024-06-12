@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import { useState,useEffect } from 'react';
 
 import Heading from "../../ui/Heading";
-import Input from "../../ui/Input";
+import {Inputi} from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
-import { FormRow, FormRowDiplomado, FormRowTerminos } from "../../ui/FormRow";
-import {StyledSelectDiplomado} from "../../ui/SelectTwo";
+import { FormRowProspectos, FormRowDiplomado, FormRowTerminos } from "../../ui/FormRow";
+import {StyledSelectDiplomad} from "../../ui/SelectTwo";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 import TerminosCondiciones from "../../ui/Terminos_Condiciones";
@@ -143,9 +143,9 @@ function CreateProspectoForm({ onCloseModal }) {
       type={onCloseModal ? "modal" : "prospecto"}
     >
 
-    <Heading as="h1">¡Llena todos los campos! </Heading>
-      <FormRow label="Tu Nombre Completo" style={{}}error={errors?.nombre?.message}>
-        <Input
+    <Heading as="h1" style={{ color: '#24242c'}}>¡Llena todos los campos! </Heading>
+      <FormRowProspectos label="Tu Nombre Completo" style={{ color:' #24242c'}} error={errors?.nombre?.message}>
+        <Inputi
           type="text"
           id="nombre"
           disabled={isCreating}
@@ -153,10 +153,10 @@ function CreateProspectoForm({ onCloseModal }) {
             required: "Este campo es requerido",
           })}
         />
-      </FormRow>
+      </FormRowProspectos>
 
-      <FormRow label="Tu Correo" error={errors?.email?.message}>
-        <Input
+      <FormRowProspectos label="Tu Correo" error={errors?.email?.message}>
+        <Inputi
           type="mail"
           id="email"
           disabled={isCreating}
@@ -164,10 +164,10 @@ function CreateProspectoForm({ onCloseModal }) {
             required: "Este campo es requerido",
           })}
         />
-      </FormRow>
+      </FormRowProspectos>
 
-      <FormRow label="Tu Teléfono" error={errors?.telefono?.message}>
-          <Input
+      <FormRowProspectos label="Tu Teléfono" error={errors?.telefono?.message}>
+          <Inputi
             type="number"
             id="telefono"
             disabled={isCreating}
@@ -178,10 +178,10 @@ function CreateProspectoForm({ onCloseModal }) {
               }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
             })}
           />
-      </FormRow>
+      </FormRowProspectos>
 
-      <FormRow label="Tu Ocupación" error={errors?.ocupacion?.message}>
-        <Input
+      <FormRowProspectos label="Tu Ocupación" error={errors?.ocupacion?.message}>
+        <Inputi
           type="text"
           id="ocupacion"
           disabled={isCreating}
@@ -189,9 +189,9 @@ function CreateProspectoForm({ onCloseModal }) {
             required: "Este campo es requerido",
           })}
         />
-      </FormRow>
+      </FormRowProspectos>
 
-      <FormRow label="¿Cursaras más de un diplomado?">
+      <FormRowProspectos label="¿Cursaras más de un diplomado?">
         <>
         <CheckboxWrapper>
           <CheckboxInput
@@ -200,7 +200,7 @@ function CreateProspectoForm({ onCloseModal }) {
             {...register("MasDe1Diploma", {})}
           />
           <CheckboxBox/>
-          <CheckboxLabel>Si </CheckboxLabel>
+          <CheckboxLabel style={{ color: '#24242c'}}>Si </CheckboxLabel>
           
         </CheckboxWrapper>
 
@@ -210,13 +210,13 @@ function CreateProspectoForm({ onCloseModal }) {
           <CheckboxLabel>No </CheckboxLabel>
         </CheckboxWrapper> */}
         </>
-      </FormRow>
+      </FormRowProspectos>
 
-      <FormRow
+      <FormRowProspectos
         label={"Disciplina"}
         error={errors?.disciplina?.message}
       >
-        <StyledSelectDiplomado
+        <StyledSelectDiplomad
           Style={{ width: '20rem'}}
           id="disciplina"
           defaultValue="" 
@@ -233,15 +233,15 @@ function CreateProspectoForm({ onCloseModal }) {
           <option value="OnLive">OnLive</option>
           <option value="Psicología">Psicología</option>
           <option value="Salud">Salud</option>
-        </StyledSelectDiplomado>
-      </FormRow>
+        </StyledSelectDiplomad>
+      </FormRowProspectos>
 
       {primerDiplomado && (
-      <FormRow
+      <FormRowProspectos
         label={"Diplomados"}
         error={errors?.diplomado?.message}
       >
-        <StyledSelectDiplomado
+        <StyledSelectDiplomad
           Style={{ width: '20rem'}}
           id="diplomado"
           defaultValue="" 
@@ -255,14 +255,14 @@ function CreateProspectoForm({ onCloseModal }) {
           {diplomadosEspecificos.map((diplomado, index) => (
             <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
-        </StyledSelectDiplomado>
-      </FormRow>
+        </StyledSelectDiplomad>
+      </FormRowProspectos>
       )}
 
       {watchDiplomados && (
           <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}
           style={{ borde: '20px', borderTopRigthRadius: '20px'}}>
-            <StyledSelectDiplomado
+            <StyledSelectDiplomad
             Style={{ width: '20rem'}}
             id="disciplina2"
             isDisabled={isCreating}
@@ -278,7 +278,7 @@ function CreateProspectoForm({ onCloseModal }) {
             <option value="OnLive">OnLive</option>
             <option value="Psicología">Psicología</option>
             <option value="Salud">Salud</option>
-          </StyledSelectDiplomado>
+          </StyledSelectDiplomad>
         </FormRowDiplomado>
       )}
 
@@ -287,8 +287,8 @@ function CreateProspectoForm({ onCloseModal }) {
         label={"Segundo Diplomado"}
         error={errors?.diplomado2?.message}
         >
-        <StyledSelectDiplomado
-          Style={{ width: '20rem'}}
+        <StyledSelectDiplomad
+          Style={{ width: '20rem' , backgroundColor: '#e6e5e6'}}
           id="diplomado2"
           defaultValue="" 
           isDisabled={isCreating}
@@ -300,7 +300,7 @@ function CreateProspectoForm({ onCloseModal }) {
           {diplomadosEspecificos2.map((diplomado, index) => (
             <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
-        </StyledSelectDiplomado>
+        </StyledSelectDiplomad>
         </FormRowDiplomado>
       )}
 
@@ -312,7 +312,7 @@ function CreateProspectoForm({ onCloseModal }) {
             {...register("terminosCondiciones", { required: "Necesitas Aceptar los términos y condiciones",})}
           />
           <CheckboxBox/>
-          <CheckboxLabel htmlFor="terminosCondiciones">Acepto los términos y condiciones</CheckboxLabel>          
+          <CheckboxLabel htmlFor="terminosCondiciones" style={{ color: '#24242c'}}>Acepto los términos y condiciones</CheckboxLabel>          
         </CheckboxWrapper>
 
         <Button onClick={handleOpenModal} variation="danger">Términos y condiciones</Button>
@@ -328,22 +328,22 @@ function CreateProspectoForm({ onCloseModal }) {
             >
             <h2  style={{color: 'var(--color-grey-500)'}}>Términos y condiciones</h2>
             <TerminosCondiciones/>
-            <Button onClick={handleCloseModal} >Aceptar</Button>
+            <Button onClick={handleCloseModal} style={{backgroundColor: '#13b5e7'}}>Aceptar</Button>
           </div>
         </div>
       )}</>
       </FormRowTerminos>
 
-      <FormRow>
-        <Button
+      <FormRowProspectos>
+        <Button 
           variation="secondary"
           type="reset"
           onClick={() => onCloseModal?.()}
         >
           Cancelar
         </Button>
-        <Button disabled={isCreating}>Registrar</Button>
-      </FormRow>
+        <Button disabled={isCreating} variation="midiplomado2">Registrar</Button>
+      </FormRowProspectos>
     </Form>
   );
 }

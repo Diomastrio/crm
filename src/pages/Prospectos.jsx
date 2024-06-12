@@ -14,8 +14,10 @@ function Prospectos() {
 
   return (
     <>
-      <Row type="horizontal">
+      <Row type="vertical">
+        <Row type="horizontal">
         <Heading as="h1">Prospectos</Heading>
+        </Row>
         <ProspectoTableFilter />
       </Row>
       <ProspectoTable />

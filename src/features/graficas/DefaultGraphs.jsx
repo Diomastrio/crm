@@ -319,7 +319,7 @@ function DefaultGraphs() {
 
   return (
     <StyledSalesChart>
-      <Heading as="h2">Graficas</Heading>
+      <Heading as="h1">Graficas</Heading>
       <StyledSubHeading as="h3">Genero & Clientes activos</StyledSubHeading>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <ResponsiveContainer width="90%" height={400}>

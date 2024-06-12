@@ -8,4 +8,9 @@ const Input = styled.input`
   box-shadow: var(--shadow-sm);
 `;
 
-export default Input;
+
+const Inputi = styled(Input)`
+  background-color: #24242c;
+`;
+
+export {Input,Inputi};
