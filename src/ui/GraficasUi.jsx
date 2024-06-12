@@ -30,4 +30,4 @@ const StyledSubHeading = styled.p`
   text-align: center;
 `;
 
-export { DashboardBox, StyledSubHeading,StyledSalesChart };
+export { DashboardBox, StyledSubHeading, StyledSalesChart };

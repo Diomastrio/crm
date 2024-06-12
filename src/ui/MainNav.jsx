@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import { BsFillPersonLinesFill,BsPersonBadge ,BsFillPersonPlusFill   } from "react-icons/bs";
-import { FaChartPie,FaShippingFast  } from "react-icons/fa";
-import { MdAssignmentAdd,MdAssignmentTurnedIn   } from "react-icons/md";
+import {
+  BsFillPersonLinesFill,
+  BsPersonBadge,
+  BsFillPersonPlusFill,
+} from "react-icons/bs";
+import { FaChartPie, FaShippingFast } from "react-icons/fa";
+import { MdAssignmentAdd, MdAssignmentTurnedIn } from "react-icons/md";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
+import { GrPieChart } from "react-icons/gr";
 
 const NavList = styled.ul`
   display: flex;
@@ -65,7 +70,7 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/QuickAddCliente">
-            <FaShippingFast  />
+            <FaShippingFast />
           </StyledNavLink>
         </li>
         <li>
@@ -75,7 +80,7 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/Prospectos">
-            <BsPersonBadge   />
+            <BsPersonBadge />
           </StyledNavLink>
         </li>
         <li>
@@ -89,8 +94,13 @@ function MainNav() {
           </StyledNavLink>
         </li>
         <li>
+          <StyledNavLink to="/DynamicGraphs">
+            <GrPieChart />
+          </StyledNavLink>
+        </li>
+        <li>
           <StyledNavLink to="/Diplomados">
-            <MdAssignmentTurnedIn   />
+            <MdAssignmentTurnedIn />
           </StyledNavLink>
         </li>
         <li>
