@@ -9,7 +9,7 @@ import {
 import { FaChartPie, FaShippingFast } from "react-icons/fa";
 import { MdAssignmentAdd, MdAssignmentTurnedIn } from "react-icons/md";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
-import { GrPieChart } from "react-icons/gr";
+import { FcPieChart } from "react-icons/fc";
 
 const NavList = styled.ul`
   display: flex;
@@ -95,7 +95,7 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/DynamicGraphs">
-            <GrPieChart />
+            <FcPieChart />
           </StyledNavLink>
         </li>
         <li>
