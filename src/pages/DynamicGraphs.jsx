@@ -29,12 +29,13 @@ function DinamicGraphs() {
           <option value="X"></option>
           <option value="Genero">Genero</option>
           <option value="Actividad">Actividad</option>
+          <option value="ActividadH">Actividad Hombres</option>
+          <option value="ActividadM">Actividad Mujeres</option>
           <option value="DiplMes">Diplomas X Mes</option>
           <option value="DiplEdad">Diplomas X Edad</option>
           <option value="ClientesD">N. Clientes X Disciplina</option>
           <option value="ActivosD">N. Activos X Disciplina</option>
           <option value="ClientesGD">N. Clientes Género y Disciplina</option>
-
         </StyledSelect>
       </FormRowGraphic>
       </Row>

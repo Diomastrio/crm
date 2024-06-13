@@ -68,6 +68,9 @@ function DynamicGraphs(data,n) {
   const [dataArea, setDataArea] = useState([]);
   const [scatterData, setScatterData] = useState([]);
   const [activeClientsByDiscipline, setActiveClientsByDiscipline] = useState([]);
+  const [activeMen, setActiveMen] = useState([]);
+  const [activeWomen, setActiveWomen] = useState([]);
+
   const [clientsByDiscipline, setClientsByDiscipline] = useState([]);
   const [activeClientsByDispGen, setActiveClientsByDispGen] = useState([]);
 
@@ -136,6 +139,53 @@ function DynamicGraphs(data,n) {
 
     fetchClienteActive();
   }, [data]);
+
+  //active segun genero
+  useEffect(() => {
+    const fetchActiveMenGender = async () => {
+      let countH = 0;
+      let countM = 0;
+
+      data.forEach((cliente) => {
+        if (cliente.genero === "H" && cliente.cursa_actualmente === true) {
+            countH++;
+        }
+        else if (cliente.genero === "H" && cliente.cursa_actualmente === false) {
+            countM++;
+        }
+      });
+
+      setActiveMen([
+        { name: "Activos", value: countH },
+        { name: "Inactivos", value: countM },
+      ]);
+    };
+    
+    fetchActiveMenGender();
+  }, [activeMen]);
+
+  useEffect(() => {
+    const fetchActiveWomenGender = async () => {
+      let countH = 0;
+      let countM = 0;
+
+      data.forEach((cliente) => {
+        if (cliente.genero === "M" && cliente.cursa_actualmente === true) {
+            countH++;
+        }
+        else if (cliente.genero === "M" && cliente.cursa_actualmente === false) {
+            countM++;
+        }
+      });
+
+      setActiveWomen([
+        { name: "Activas", value: countH },
+        { name: "Inactivas", value: countM },
+      ]);
+    };
+    
+    fetchActiveWomenGender();
+  }, [activeWomen]);
 
   useEffect(() => {
     const fetchClienteDater = async () => {
@@ -237,6 +287,8 @@ function DynamicGraphs(data,n) {
   let isVisible = false
   let isGeneroVisible = false
   let isClientesActivosVisible = false
+  let isMenActivosVisible = false
+  let isWomenActivosVisible = false
   let isDiplMesVisible = false
   let isDiplEdadVisible = false
   let isClientesDVisible = false
@@ -253,6 +305,12 @@ function DynamicGraphs(data,n) {
       break;
     case "Actividad":
       isClientesActivosVisible = true
+      break;
+    case "ActividadH":
+      isMenActivosVisible = true
+      break;
+    case "ActividadM":
+      isWomenActivosVisible = true
       break;
     case "DiplMes":
       isDiplMesVisible = true
@@ -271,6 +329,7 @@ function DynamicGraphs(data,n) {
       break;
     default:
   }
+
   return (
     <StyledDynamicChart style={{
       height: isVisible ? '10rem' : (isGeneroVisible || isClientesActivosVisible ? '45rem' : '60rem'),
@@ -322,6 +381,49 @@ function DynamicGraphs(data,n) {
       </>
       )}
        
+       
+      {isMenActivosVisible && (
+      <>
+        <StyledSubHeading as="h3" >Hombres Activos</StyledSubHeading>
+        <ResponsiveContainer width="160%" height={400} >
+          <PieChart >
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={activeMen}
+              cx="25%"
+              cy="30%"
+              innerRadius={60}
+              outerRadius={80}
+              fill= {isDarkMode? "#eeeee4": "#4b42d4"}
+              dataKey="value"
+              onMouseEnter={onPieEnter}
+            />
+          </PieChart>
+        </ResponsiveContainer> </>
+      )}
+
+      
+    {isWomenActivosVisible && (
+      <>
+        <StyledSubHeading as="h3" >Mujeres Activas</StyledSubHeading>
+        <ResponsiveContainer width="160%" height={400} >
+          <PieChart >
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={activeWomen}
+              cx="25%"
+              cy="30%"
+              innerRadius={60}
+              outerRadius={80}
+              fill= {isDarkMode? "#eeeee4": "#4b42d4"}
+              dataKey="value"
+              onMouseEnter={onPieEnter}
+            />
+          </PieChart>
+        </ResponsiveContainer> </>
+      )}
 
        {isDiplMesVisible && (
       <>

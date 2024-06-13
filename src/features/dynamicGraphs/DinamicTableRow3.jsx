@@ -62,6 +62,11 @@ function DinamicRow(cliente) {
           anio = anio.getFullYear();  
           passesFilterValue = (anio===cliente_inicio);        
           break;
+        case "2024":
+            anio = ( new Date('Mon Jan 01 2024'))
+            anio = anio.getFullYear();  
+            passesFilterValue = (anio===cliente_inicio);        
+            break;
         default:
           passesFilterValue = true;
       }
