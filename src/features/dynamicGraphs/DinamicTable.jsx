@@ -6,10 +6,16 @@ import Empty from "../../ui/Empty";
 import DinamicTableRow from "./DinamicTableRow";
 import DinamicTableRow2 from "./DinamicTableRow2";
 import DinamicTableRow3 from "./DinamicTableRow3";
+import styled from 'styled-components';
 
 import { useSearchParams } from "react-router-dom";
 
 import { Container, Section } from "../../ui/dynamicGraphs";
+
+const CenteredText = styled.p`
+text-align: center;
+color:#F8A964;
+`;
 
 function ClienteTable(grafico) {
   grafico = grafico.grafico
@@ -104,7 +110,7 @@ function ClienteTable(grafico) {
          <Section> <DinamicTableRow3 cliente={filteredClientes} grafico={grafico}/></Section>
        </Container>
         ) : (
-          null
+          <CenteredText>No se encontraron clientes con estas caracteristicas</CenteredText>
         )}
     </Menus>
   );

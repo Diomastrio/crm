@@ -2,8 +2,14 @@
 import Menus from "../../ui/Menus";
 import DinamicGraphs from "./DynamicGraphs";
 import GraphFilterRow2 from "./GraphFilterRow2";
+import styled from 'styled-components';
 
 import { useSearchParams } from "react-router-dom";
+
+const CenteredText = styled.p`
+text-align: center;
+color:#F8A964;
+`;
 
 function DinamicRow(cliente) {
   const grafico= cliente.grafico
@@ -20,6 +26,11 @@ function DinamicRow(cliente) {
       let cliente_inicio = algo.getFullYear()
       let anio 
       switch (filterValue) {
+        case "2017":
+          anio = ( new Date('Mon Jan 01 2017'))
+          anio = anio.getFullYear();  
+          passesFilterValue = (anio===cliente_inicio);            
+          break;
         case "2018":
            anio = ( new Date('Mon Jan 01 2018'))
           anio = anio.getFullYear();  
@@ -65,7 +76,7 @@ function DinamicRow(cliente) {
       {filteredClientes.length ? (
          <><GraphFilterRow2/> <DinamicGraphs data={filteredClientes} n={Numero} grafico={grafico}/></>
         ) : (
-          null
+          <CenteredText>No se encontraron clientes con estas caracteristicas</CenteredText>
         )}
     </Menus>
   );
