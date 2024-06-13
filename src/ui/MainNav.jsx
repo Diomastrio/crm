@@ -2,8 +2,9 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import { BsFillPersonLinesFill,BsPersonBadge   } from "react-icons/bs";
-import { FaChartPie,FaShippingFast  } from "react-icons/fa";
+import { FaChartPie, FaShippingFast  } from "react-icons/fa";
 import { MdAssignmentTurnedIn   } from "react-icons/md";
+import { FcPieChart } from "react-icons/fc";
 
 const NavList = styled.ul`
   display: flex;
@@ -75,6 +76,11 @@ function MainNav() {
         <li>
           <StyledNavLink to="/Graphs">
             <FaChartPie />
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/DynamicGraphs">
+            <FcPieChart />
           </StyledNavLink>
         </li>
         <li>

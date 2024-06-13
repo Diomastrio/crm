@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultGraphs from "../features/cliente/../graficas/DefaultGraphs";
+import DefaultGraphs from "../features/graficas/DefaultGraphs";
 
 function NewGraphs() {
   return (

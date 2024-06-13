@@ -17,11 +17,12 @@ import Cliente from "./pages/Clientes";
 import Prospectos from "./pages/Prospectos";
 import AgregarCliente from "./pages/AgregarCliente";
 import AgregarProspecto from "./pages/AgregarProspecto";
-import Graphs from "./pages/Graphs";
+import DefaultGraphs  from "./pages/DefaultGraphs ";
 import PDF from "./pages/PDF";
 import AgregarDiplomado from "./pages/AgregarDiplomado";
 import Diplomados from "./pages/Diplomado";
 import QuickAddCliente from "./pages/QuickAddCliente";
+import DynamicGraphs  from "./pages/DynamicGraphs";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,7 +53,8 @@ function App() {
               <Route path="Cliente" element={<Cliente />} />
               <Route path="Prospectos" element={<Prospectos />} />
               <Route path="AgregarCliente" element={<AgregarCliente />} />
-              <Route path="Graphs" element={<Graphs />} />
+              <Route path="Graphs" element={<DefaultGraphs  />} />
+              <Route path="DynamicGraphs" element={<DynamicGraphs  />} />
               <Route path="PDF" element={<PDF />} />
               <Route path="AgregarDiplomado" element={<AgregarDiplomado />} />
               <Route path="Diplomados" element={<Diplomados />} />

@@ -249,7 +249,7 @@ const renderActiveShape = (props) => {
         textAnchor={textAnchor}
         fill="#32C9FF"
       >
-        {`(${(percent * 100).toFixed(2)}% Clientes )`}
+        {`(${(percent * 100).toFixed(2)}% Clientes)`}
       </text>
     </g>
   );
@@ -322,13 +322,13 @@ function DefaultGraphs() {
       <Heading as="h1">Graficas</Heading>
       <StyledSubHeading as="h3">Genero & Clientes activos</StyledSubHeading>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <ResponsiveContainer width="90%" height={400}>
+        <ResponsiveContainer width="90%" style={{padding:' 0.2rem'}} height={400}>
           <PieChart width={400} height={400}>
             <Pie
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
               data={datagen}
-              cx="50%"
+              cx="55%"
               cy="50%"
               innerRadius={60}
               outerRadius={80}

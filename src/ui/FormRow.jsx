@@ -30,6 +30,10 @@ const StyledFormRowDiplomado = styled(StyledFormRow)`
 background-color: var(--color-grey-200);
 `;
 
+const StyledFormRowGraphic = styled(StyledFormRow)`
+  grid-template-columns: 5rem 60rem;
+`;
+
 const Label = styled.label`
   font-weight: 500; 
   margin-left: 0.9rem;
@@ -74,6 +78,7 @@ function FormRowProspectos({ label, error, children }) {
     </StyledFormRow>
   );
 }
+
 function FormRowDiplomado({ label, error, children }) {
   return (
     <StyledFormRowDiplomado>
@@ -94,4 +99,13 @@ function FormRowTerminos({ label, error, children }) {
   );
 }
 
-export { FormRow, FormRowDiplomado, FormRowTerminos, FormRowProspectos };
+function FormRowGraphic({ label, error, children }) {
+  return (
+    <StyledFormRowGraphic>
+      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {children}
+      {error && <Error>{error}</Error>}
+    </StyledFormRowGraphic>
+  );
+}
+export { FormRow, FormRowDiplomado, FormRowTerminos, FormRowProspectos, FormRowGraphic };
