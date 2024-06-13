@@ -31,7 +31,7 @@ background-color: var(--color-grey-200);
 `;
 
 const StyledFormRowGraphic = styled(StyledFormRow)`
-  grid-template-columns: 5rem 60rem;
+  grid-template-columns: 5rem 115rem;
 `;
 
 const Label = styled.label`
