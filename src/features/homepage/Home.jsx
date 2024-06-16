@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomeSection = styled.section`
 position: relative;
-background-color: #f7f7f7;
+background-color: #ffffff;
 height: 80vh;
 display: flex;
 justify-content: center;
@@ -15,7 +15,7 @@ background-size: cover;
 background-position: center;
 z-index: 0; 
 
-&::before {
+/*&::before {
   content: "";
   position: absolute;
   top: 0;
@@ -24,7 +24,7 @@ z-index: 0;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: -1; /* add negative z-index to ::before pseudo-element */
-}
+}*/
   
 `;
 
@@ -32,6 +32,8 @@ const HomeMain= styled.h1`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
+  color: #ffffff;
+
 `;
 
 
@@ -42,7 +44,7 @@ function Home() {
     <HomeSection>
     <div>
       <HomeMain>Bienvenidos a Midiplomado.com</HomeMain>
-      <Button variation="secondary"  size="large" onClick={() => navigate("/AgregarProspecto")}>Iniciar Registro</Button>
+      <Button variation="midiplomado" size="large" onClick={() => navigate("/AgregarProspecto")}>Iniciar Registro</Button>
     </div>
   </HomeSection>
   );

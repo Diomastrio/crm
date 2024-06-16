@@ -38,6 +38,22 @@ const variations = {
       background-color: var(--color-grey-50);
     }
   `,
+  midiplomado: css`
+  color: #ffffff;
+  background: #222529;
+
+  &:hover {
+    background-color: var(--color-grey-0);
+  }
+`,
+midiplomado2: css`
+color: #ffffff;
+background: #13b5e7;
+
+&:hover {
+  background-color: var(--color-grey-0);
+}
+`,
   swapii: css`
     color: "#37979b";
     background-color: #64c49f;

@@ -17,12 +17,12 @@ import Cliente from "./pages/Clientes";
 import Prospectos from "./pages/Prospectos";
 import AgregarCliente from "./pages/AgregarCliente";
 import AgregarProspecto from "./pages/AgregarProspecto";
-import DefaultGraphs from "./pages/DefaultGraphs";
+import DefaultGraphs  from "./pages/DefaultGraphs ";
 import PDF from "./pages/PDF";
 import AgregarDiplomado from "./pages/AgregarDiplomado";
 import Diplomados from "./pages/Diplomado";
 import QuickAddCliente from "./pages/QuickAddCliente";
-import DynamicGraphs from "./pages/DynamicGraphs";
+import DynamicGraphs  from "./pages/DynamicGraphs";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,13 +47,14 @@ function App() {
                 </ProtectedRoute>
               }
             >
+        
               <Route index element={<Navigate replace to="Home" />} />
               <Route path="account" element={<Account />} />
               <Route path="Cliente" element={<Cliente />} />
               <Route path="Prospectos" element={<Prospectos />} />
               <Route path="AgregarCliente" element={<AgregarCliente />} />
-              <Route path="Graphs" element={<DefaultGraphs />} />
-              <Route path="DynamicGraphs" element={<DynamicGraphs />} />
+              <Route path="Graphs" element={<DefaultGraphs  />} />
+              <Route path="DynamicGraphs" element={<DynamicGraphs  />} />
               <Route path="PDF" element={<PDF />} />
               <Route path="AgregarDiplomado" element={<AgregarDiplomado />} />
               <Route path="Diplomados" element={<Diplomados />} />

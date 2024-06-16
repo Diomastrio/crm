@@ -1,14 +1,13 @@
 import React from "react";
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+// import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { useCliente } from "../cliente/useSelectCliente";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
 import Button from "../../ui/Button";
 import emailjs from "emailjs-com";
-// import pdfMake  from "pdfmake/build/vfs_fonts";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const ReportButton = () => {
   const { isLoading, cliente } = useCliente();
@@ -104,9 +103,11 @@ const ReportButton = () => {
   };
 
   return (
-    <Button variation={"swapii"} onClick={generatePDF}>
-      Generar Reporte PDF
-    </Button>
+    <div>
+      <Button variation={"swapii"} onClick={generatePDF}>
+        Generar Reporte PDF
+      </Button>
+    </div>
   );
 };
 

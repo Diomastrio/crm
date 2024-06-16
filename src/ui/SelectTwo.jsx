@@ -32,6 +32,9 @@ const StyledSelectDiplomado = styled.select`
   }
 `;
 
+const StyledSelectDiplomad = styled(StyledSelectDiplomado)`
+  background-color: #24242c;
+`;
 const StyledSelectCuenta = styled.select`
   width: 100%;
   padding: 0.5rem 1rem;
@@ -47,4 +50,4 @@ const StyledSelectCuenta = styled.select`
     border-color: #90caf9;
   }
 `;
-export {StyledSelect, StyledSelectDiplomado,StyledSelectCuenta}
+export {StyledSelect, StyledSelectDiplomado,StyledSelectCuenta, StyledSelectDiplomad}

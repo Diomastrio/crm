@@ -1,14 +1,9 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import {
-  BsFillPersonLinesFill,
-  BsPersonBadge,
-  BsFillPersonPlusFill,
-} from "react-icons/bs";
-import { FaChartPie, FaShippingFast } from "react-icons/fa";
-import { MdAssignmentAdd, MdAssignmentTurnedIn } from "react-icons/md";
-import { BsFileEarmarkPdfFill } from "react-icons/bs";
+import { BsFillPersonLinesFill,BsPersonBadge   } from "react-icons/bs";
+import { FaChartPie, FaShippingFast  } from "react-icons/fa";
+import { MdAssignmentTurnedIn   } from "react-icons/md";
 import { FcPieChart } from "react-icons/fc";
 
 const NavList = styled.ul`
@@ -70,22 +65,12 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/QuickAddCliente">
-            <FaShippingFast />
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/AgregarCliente">
-            <BsFillPersonPlusFill />
+            <FaShippingFast  />
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Prospectos">
-            <BsPersonBadge />
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/PDF">
-            <BsFileEarmarkPdfFill />
+            <BsPersonBadge   />
           </StyledNavLink>
         </li>
         <li>
@@ -100,12 +85,7 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/Diplomados">
-            <MdAssignmentTurnedIn />
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/AgregarDiplomado">
-            <MdAssignmentAdd />
+            <MdAssignmentTurnedIn   />
           </StyledNavLink>
         </li>
       </NavList>

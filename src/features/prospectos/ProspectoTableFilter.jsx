@@ -27,8 +27,8 @@ function ProspectoTableFilter() {
         options={[
           { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
           { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
-          { value: "diplomados_terminados-asc", label: "Diplomados Terminados Mas",},
-          { value: "diplomados_terminados-desc", label: "Diplomados Terminados Menos",},
+          { value: "diplomados_terminados-asc", label: "Diplomados Terminados Ascendente",},
+          { value: "diplomados_terminados-desc", label: "Diplomados Terminados Descendente",},
         ]}
       />
     </TableOperations>

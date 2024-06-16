@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState,useEffect } from 'react';
 
-import Input from "../../ui/Input";
+import {Input} from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import { FormRow, FormRowDiplomado } from "../../ui/FormRow";

@@ -94,10 +94,10 @@ function ClienteRow({ cliente }) {
         <StyledTableCell>{curp}</StyledTableCell>
         <StyledTableCell>{rfc}</StyledTableCell>
         <StyledTableCell>{edad}</StyledTableCell>
+        <StyledTableCell>{ocupacion}</StyledTableCell>
         <StyledTableCell>{numero_diplomados}</StyledTableCell>
         <StyledTableCell>{diplomados_terminados}</StyledTableCell>
         <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
-        <StyledTableCell>{ocupacion}</StyledTableCell>
         <StyledTableCell>{nuevoInicio}</StyledTableCell>
         <StyledTableCell>{nuevoFin}</StyledTableCell>
         <StyledTableCell>{nuevoLimite}</StyledTableCell>

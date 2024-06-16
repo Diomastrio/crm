@@ -9,12 +9,15 @@ const StyledFilter = styled.div `
   padding: 0.8rem;
   display: flex;
   gap: 0.4rem;
-
-
   position: relative;
 `;
 
 const SecondStyledFilter = styled(StyledFilter)`
+`;
+
+const GraphicStyledFilter = styled(StyledFilter)`
+  gap: 0rem;
+  padding: 0.5rem;
 
 `;
 
@@ -62,6 +65,7 @@ const SecondFilterButton = styled(FilterButton)`
       color: var(--color-brand-50);
     }
 `;
+
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams.get(filterField) || options.at(0).value;
@@ -116,4 +120,31 @@ function SecondFilter({ filterField, options }) {
   );
 }
 
-export { Filter,SecondFilter,FiltersWrapper};
+function GraphicFilter({ filterField, options }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+
+  function handleClick(value) {
+    searchParams.set(filterField, value);
+    if (searchParams.get("page")) searchParams.set("page", 1);
+
+    setSearchParams(searchParams);
+  }
+
+  return (
+    <GraphicStyledFilter>
+      {options.map((option) => (
+        <FilterButton
+          key={option.value}
+          onClick={() => handleClick(option.value)}
+          active={option.value === currentFilter}
+          disabled={option.value === currentFilter}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
+    </GraphicStyledFilter>
+  );
+}
+
+export { Filter,SecondFilter,GraphicFilter,FiltersWrapper};

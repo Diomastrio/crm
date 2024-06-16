@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
-import Button from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
+//import Button from "../../ui/Button";
+//import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "../../ui/DarkModeToggle";
 import { useDarkMode } from "../../context/DarkModeContext";
 
@@ -30,14 +30,24 @@ const Img = styled.img`
   }
 `;
 
+const Img2 = styled.img`
+  height: 6rem;
+  width: auto;
+  position: absolute;
+  left: 12rem;
+`;
+
 function Logo() {
   const { isDarkMode } = useDarkMode();
 
   const src = isDarkMode ? "/bluelogo.png" : "/tealogo.png";
-
+  const src2 =  "/Midiplomado.png";
+  
   return (
     <StyledLogo>
       <Img src={src} alt="Logo" />
+      <Img2 src={src2} alt="Logo2" />
+
     </StyledLogo>
   );
 }
@@ -49,7 +59,7 @@ const StyledHeaderMenu = styled.ul`
 `;
 
 function HeaderMenu() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   return (
     <StyledHeaderMenu>
@@ -58,9 +68,6 @@ function HeaderMenu() {
         <Button variation="swapii" onClick={() => navigate("/Registro")}>Crear cuenta</Button>
       </li> */}
       <li>
-        <Button onClick={() => navigate("/Login")}>Iniciar sesion</Button>
-      </li>
-      <li>
         <DarkModeToggle />
       </li>
     </StyledHeaderMenu>
@@ -68,7 +75,7 @@ function HeaderMenu() {
 }
 
 const StyledHeader = styled.header`
-  background-color: var(--color-grey-0);
+  background-color: #ffffff;
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
 

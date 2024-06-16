@@ -1,6 +1,5 @@
 import TableOperations from "../../ui/TableOperations";
 import { Filter, SecondFilter, FiltersWrapper } from "../../ui/Filter";
-import SortBy from "../../ui/SortBy";
 
 function GraphFilter() {
   return (
@@ -24,11 +23,7 @@ function GraphFilter() {
           filterField="disciplina"
           options={[
             { value: "all", label: "Todas" },
-            {
-              value: "desarrollo",
-              label: "Desarrollo Humano",
-              disciplina: "true",
-            },
+            { value: "desarrollo", label: "Desarrollo Humano", disciplina: "true",},
             { value: "descuentos", label: "Descuentos", disciplina: "true" },
             { value: "educacion", label: "Educación", disciplina: "true" },
             { value: "ingenieria", label: "Ingeniería", disciplina: "true" },
@@ -39,22 +34,6 @@ function GraphFilter() {
           ]}
         />
       </FiltersWrapper>
-
-      <SortBy
-        id="s"
-        options={[
-          { value: "nombre-asc", label: "Ordenar por nombre (A-Z)" },
-          { value: "nombre-desc", label: "Ordenar por nombre (Z-A)" },
-          {
-            value: "diplomados_terminados-asc",
-            label: "Diplomados Terminados (- > +)",
-          },
-          {
-            value: "diplomados_terminados-desc",
-            label: "Diplomados Terminados (+ > -)",
-          },
-        ]}
-      />
     </TableOperations>
   );
 }
