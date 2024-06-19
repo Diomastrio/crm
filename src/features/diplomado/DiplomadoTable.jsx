@@ -49,8 +49,8 @@ function ProspectoTable() {
   //FILTRO PROSPECTO
   const filterValue = searchParams.get("nombre") || "all";
   
-  console.log((filterValue))
-  if (filterValue === "Todos") {
+  console.log(filterValue.value);
+    if (filterValue === "Todos") {
     filteredProductos = filteredProductos.filter((diplomado) => diplomado);
   }
   else if (filterValue) {
