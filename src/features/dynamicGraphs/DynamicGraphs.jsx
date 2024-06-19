@@ -162,7 +162,7 @@ function DynamicGraphs(data,n) {
     };
     
     fetchActiveMenGender();
-  }, [activeMen]);
+  }, [data]);
 
   useEffect(() => {
     const fetchActiveWomenGender = async () => {
@@ -185,7 +185,7 @@ function DynamicGraphs(data,n) {
     };
     
     fetchActiveWomenGender();
-  }, [activeWomen]);
+  }, [data]);
 
   useEffect(() => {
     const fetchClienteDater = async () => {

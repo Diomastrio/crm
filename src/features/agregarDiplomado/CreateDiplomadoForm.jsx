@@ -6,8 +6,11 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import { FormRow } from "../../ui/FormRow";
 import {StyledSelectDiplomado} from "../../ui/SelectTwo";
+import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
 
 import {useCreateDiplomado} from "./useCreateDiplomado";
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 
 function CreateDiplomadoForm({ onCloseModal }) {
   
@@ -29,11 +32,16 @@ function CreateDiplomadoForm({ onCloseModal }) {
     );
   }
 
+  const { isLoading, disciplina } = useDisciplina();
+
+  if (isLoading) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
+
   return (
     <Form
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
-      style={{height: '60vh'}}
+      style={{height: '40vh'}}
     >
 
       <Heading as="h1">Añadir diplomado </Heading>
@@ -50,27 +58,21 @@ function CreateDiplomadoForm({ onCloseModal }) {
       </FormRow>
 
       <FormRow
-        label={"Disciplina"}
-        error={errors?.disciplina?.message}
+        label={"Diplomados"}
+        error={errors?.cursa_actualmente?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
-          id="disciplina"
+          id="diplomado"
           defaultValue="" 
           isDisabled={isWorking}
           {...register("disciplina", {
             required: "Este campo es requerido",
           })}
         >
-          <option value=""></option>
-          <option value="Desarrollo Humano">Desarrollo Humano</option>
-          <option value="Descuentos">Descuentos</option>
-          <option value="Educación">Educación</option>
-          <option value="Ingeniería">Ingeniería</option>
-          <option value="Negocios">Negocios</option>
-          <option value="OnLive">OnLive</option>
-          <option value="Psicología">Psicología</option>
-          <option value="Salud">Salud</option>
+          {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
         </StyledSelectDiplomado>
       </FormRow>
 
