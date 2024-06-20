@@ -23,6 +23,7 @@ import AgregarDiplomado from "./pages/AgregarDiplomado";
 import Diplomados from "./pages/Diplomado";
 import QuickAddCliente from "./pages/QuickAddCliente";
 import DynamicGraphs  from "./pages/DynamicGraphs";
+import Disciplinas  from "./pages/Disciplinas";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,6 +61,7 @@ function App() {
               <Route path="Diplomados" element={<Diplomados />} />
               <Route path="QuickAddCliente" element={<QuickAddCliente />} />
               <Route path="Registro" element={<Registro />} />
+              <Route path="Disciplinas" element={<Disciplinas />} />
             </Route>
 
             <Route path="Login" element={<Login />} />

@@ -2,9 +2,8 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import { BsFillPersonLinesFill,BsPersonBadge   } from "react-icons/bs";
-import { FaChartPie, FaShippingFast  } from "react-icons/fa";
-import { MdAssignmentTurnedIn   } from "react-icons/md";
-import { FcPieChart } from "react-icons/fc";
+import { FaChartPie, FaShippingFast, FaChartBar  } from "react-icons/fa";
+import { MdAssignmentTurnedIn,MdAssignment    } from "react-icons/md";
 
 const NavList = styled.ul`
   display: flex;
@@ -47,7 +46,7 @@ const StyledNavLink = styled(NavLink)`
   &:active svg,
   &.active:link svg,
   &.active:visited svg {
-    color: var(--color-brand-600);
+    color:  #13b5e7;
   }
 `;
 const StyledNav = styled.nav`
@@ -80,12 +79,17 @@ function MainNav() {
         </li>
         <li>
           <StyledNavLink to="/DynamicGraphs">
-            <FcPieChart />
+            <FaChartBar />
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/Diplomados">
             <MdAssignmentTurnedIn   />
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/Disciplinas">
+            <MdAssignment/>
           </StyledNavLink>
         </li>
       </NavList>

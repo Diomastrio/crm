@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import home from "../../img/home.jpg";
+// import home from "../../img/Midiplomado.jpg";
 import Button from "../../ui/Button";
+import Midiplomado from "/Midiplomado.png";
 import { useNavigate } from "react-router-dom";
 
 const HomeSection = styled.section`
@@ -10,7 +11,7 @@ height: 80vh;
 display: flex;
 justify-content: center;
 align-items: center;
-background-image: url(${home});
+background-image: url(${Midiplomado});
 background-size: cover;
 background-position: center;
 z-index: 0; 
@@ -28,25 +29,29 @@ z-index: 0;
   
 `;
 
-const HomeMain= styled.h1`
+const HomeMain = styled.h1`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
-  color: #ffffff;
-
+  color: #000;
 `;
-
 
 function Home() {
   const navigate = useNavigate();
 
   return (
     <HomeSection>
-    <div>
-      <HomeMain>Bienvenidos a Midiplomado.com</HomeMain>
-      <Button variation="midiplomado" size="large" onClick={() => navigate("/AgregarProspecto")}>Iniciar Registro</Button>
-    </div>
-  </HomeSection>
+      <div>
+        <HomeMain>Bienvenidos a Midiplomado.com</HomeMain>
+        <Button
+          variation="midiplomado"
+          size="large"
+          onClick={() => navigate("/AgregarProspecto")}
+        >
+          Iniciar Registro
+        </Button>
+      </div>
+    </HomeSection>
   );
 }
 

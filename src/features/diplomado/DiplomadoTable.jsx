@@ -48,34 +48,15 @@ function ProspectoTable() {
 
   //FILTRO PROSPECTO
   const filterValue = searchParams.get("nombre") || "all";
-
-  if (filterValue === "Todos") {
+  
+  console.log(filterValue.value);
+    if (filterValue === "Todos") {
     filteredProductos = filteredProductos.filter((diplomado) => diplomado);
   }
-  else if (filterValue === "Desarrollo Humano") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Desarrollo Humano');
+  else if (filterValue) {
+    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === filterValue);
   }
-  else if (filterValue === "Descuentos") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Descuentos');
-  }
-  else if (filterValue === "Educación") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Educación');
-  }
-  else if (filterValue === "Ingeniería") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Ingeniería');
-  }
-  else if (filterValue === "Negocios") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Negocios');
-  }
-  else if (filterValue === "OnLive") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'OnLive');
-  }
-  else if (filterValue === "Psicología") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Psicología');
-  }
-  else if (filterValue === "Salud") {
-    filteredProductos = filteredProductos.filter((diplomado) => diplomado.disciplina === 'Salud');
-  }
+
 
 return filteredProductos;
 };
@@ -105,7 +86,7 @@ const filteredProspectos = handleFilter(diplomado);
       ))
       ) : (
         <div style={{padding: '4rem'}}>
-      <CenteredText>No se encontraron prospectos</CenteredText>
+      <CenteredText>No se encontraron Diplomados</CenteredText>
     </div>
       )}
 

@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 //import Button from "../../ui/Button";
 //import { useNavigate } from "react-router-dom";
-import DarkModeToggle from "../../ui/DarkModeToggle";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 const StyledLogo = styled.div`
@@ -40,14 +39,13 @@ const Img2 = styled.img`
 function Logo() {
   const { isDarkMode } = useDarkMode();
 
-  const src = isDarkMode ? "/bluelogo.png" : "/tealogo.png";
-  const src2 =  "/Midiplomado.png";
-  
+  const src = isDarkMode ? "/bluelogo.png" : "/ bluelogo.png";
+  const src2 = "/Midiplomado.png";
+
   return (
     <StyledLogo>
       <Img src={src} alt="Logo" />
       <Img2 src={src2} alt="Logo2" />
-
     </StyledLogo>
   );
 }
@@ -64,12 +62,6 @@ function HeaderMenu() {
   return (
     <StyledHeaderMenu>
       <Logo />
-      {/* <li>
-        <Button variation="swapii" onClick={() => navigate("/Registro")}>Crear cuenta</Button>
-      </li> */}
-      <li>
-        <DarkModeToggle />
-      </li>
     </StyledHeaderMenu>
   );
 }
