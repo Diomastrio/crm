@@ -12,6 +12,7 @@ import Empty from "../../ui/Empty";
 
 import { useCreateCliente } from "./useCreateClient";
 import { useDiplomado } from "../diplomado/useSelectDiplomado";
+import { useCuenta } from "../cuentas/useSelectCuenta";
 
 function CreateClientForm({ onCloseModal }) {
   const { isCreating, createCliente } = useCreateCliente();
@@ -21,16 +22,15 @@ function CreateClientForm({ onCloseModal }) {
   
  
   const fechaInicio = watch("fecha_inicio"); 
-
   const validateFechaFin = (value) => {
-    if (value <= fechaInicio) {
+    if (fechaInicio && value <= fechaInicio) {
       return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
     }
     return true;
   };
   
   const validateFechaLimite = (value) => {
-    if (value <= fechaInicio) {
+    if (fechaInicio && value <= fechaInicio) {
       return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
     }
     return true;
@@ -49,8 +49,10 @@ function CreateClientForm({ onCloseModal }) {
   }
   
   const watchDiplomados = watch("MasDe1Diploma", false);
-  const primerDiplomado = watch("disciplina", false);
-  const segundoDiplomado = watch("disciplina2", false);
+  const primerDisciplina = watch("disciplina", false);
+  const primerDiplomado = watch("diplomado", false);
+  const segundoDisciplina = watch("disciplina2", false);
+  const segundoDiplomado = watch("diplomado2", false);
 
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
@@ -136,6 +138,11 @@ function CreateClientForm({ onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+  const { isLoading :loading, cuenta } = useCuenta();
+
+  if (loading) return <Spinner />;
+  if (!cuenta.length) return <Empty resourceName="cuenta" />;
+
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
@@ -145,16 +152,26 @@ function CreateClientForm({ onCloseModal }) {
       type={onCloseModal ? "modal" : "regular"}
     >
 
-      <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
-        <Input
-          type="text"
-          id="nombre"
-          disabled={isCreating}
-          {...register("nombre", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
+<FormRow label="Nombre" error={errors?.nombre?.message}>
+      <Input
+        type="text"
+        id="nombre"
+        disabled={isCreating}
+        {...register("nombre", {
+          required: "Este campo es requerido",
+        })}
+      />
+    </FormRow>
+    <FormRow label="Apellidos" error={errors?.apellido?.message}>
+      <Input
+        type="text"
+        id="apellido"
+        disabled={isCreating}
+        {...register("apellido", {
+          required: "Este campo es requerido",
+        })}
+      />
+    </FormRow>
 
       <FormRow label="Correo" error={errors?.email?.message}>
         <Input
@@ -162,7 +179,7 @@ function CreateClientForm({ onCloseModal }) {
           id="email"
           disabled={isCreating}
           {...register("email", {
-            required: "Este campo es requerido",
+            
             pattern: {
               value: /\S+@\S+\.\S+/,
               message: "Por favor ingresa un correo electrónico valido",
@@ -177,24 +194,25 @@ function CreateClientForm({ onCloseModal }) {
           id="telefono"
           disabled={isCreating}
           {...register("telefono", {
-            required: "Este campo es requerido",
+            
             minLength: {
               value: 10,
               message: "El numero de telefono debe ser de 10 digitos",
-            }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
+            }, MaxLength: { value: 12, message: "El numero de telefono debe ser menor de 10 digitos" }
           })}
         />
       </FormRow>
 
       <FormRow label="Curp" error={errors?.curp?.message}>
         <Input
+        style={{textTransform:'uppercase'}}
           type="text"
           id="curp"
           disabled={isCreating}
           {...register("curp", {
-            required: "Este campo es requerido",
+            
             pattern: {
-              value: /^[A-Z]{4}\d{5,6}[HM][A-Z]{5,6}\d{1}$/,
+              value: /^[a-zA-Z]{4}\d{6}[HM][a-zA-Z]{5,6}\d{1}$/,
               message: "Por favor ingresa un CURP valido",
             },
           })}
@@ -207,7 +225,7 @@ function CreateClientForm({ onCloseModal }) {
           id="rfc"
           disabled={isCreating}
           {...register("rfc", {
-            required: "Este campo es requerido",
+            
             pattern: {
               value:  /^[A-Z&]{3,4}(\d{6})((\D|\d){3})?$/,
               message: "Por favor ingresa un RFC electrónico valido",
@@ -222,21 +240,7 @@ function CreateClientForm({ onCloseModal }) {
           id="ocupacion"
           disabled={isCreating}
           {...register("ocupacion", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
-      <FormRow label="Edad" error={errors?.edad?.message}>
-        <Input
-          type="number"
-          id="edad"
-          disabled={isCreating}
-          {...register("edad", {
-            required: "Este campo es requerido",
-            min: {
-              value: 18,
-              message: "Edad mayor de 18",
-            },
+            
           })}
         />
       </FormRow>
@@ -247,41 +251,7 @@ function CreateClientForm({ onCloseModal }) {
           id="lugar_residencia"
           disabled={isCreating}
           {...register("lugar_residencia", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
-      <FormRow label="Fecha de Inicio" error={errors?.fecha_inicio?.message}>
-        <Input
-          type="date"
-          id="fecha_inicio"
-          disabled={isCreating}
-          {...register("fecha_inicio", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
-
-      <FormRow label="Fecha de Fin" error={errors?.fecha_fin?.message}>
-        <Input
-          type="date"
-          id="fecha_fin"
-          disabled={isCreating}
-          {...register("fecha_fin", {
-            required: "Este campo es requerido",
-            validate: validateFechaFin,
-          })}
-        />
-      </FormRow>
-
-      <FormRow label="Fecha Limite" error={errors?.fecha_limite?.message}>
-        <Input
-          type="date"
-          id="fecha_limite"
-          disabled={isCreating}
-          {...register("fecha_limite", {
-            required: "Este campo es requerido",
-            validate: validateFechaLimite,
+            
           })}
         />
       </FormRow>
@@ -292,7 +262,7 @@ function CreateClientForm({ onCloseModal }) {
           id="numero_diplomados"
           disabled={isCreating}
           {...register("numero_diplomados", {
-            required: "Este campo es requerido",
+            
             min: {
               value: 1,
               message: "Debe ser mínimo 1",
@@ -307,7 +277,7 @@ function CreateClientForm({ onCloseModal }) {
           id="diplomados_terminados"
           disabled={isCreating}
           {...register("diplomados_terminados", {
-            required: "Este campo es requerido",
+            
             min: {
               value: 0,
               message: "debería ser mínimo 0+",
@@ -322,7 +292,7 @@ function CreateClientForm({ onCloseModal }) {
           id="dipl_sent"
           disabled={isCreating}
           {...register("dipl_sent", {
-            required: "Este campo es requerido",
+            
             min: { value: 0, message: "debería ser mínimo +0",},
           })}
         />
@@ -335,48 +305,14 @@ function CreateClientForm({ onCloseModal }) {
           defaultValue=""
           isDisabled={isCreating}
           {...register("cuentaBanco", {
-            required: "Este campo es requerido",
+            
           })}
         >
-          <option value="Santander">Santander</option>
-          <option value="Paypal">Paypal</option>
-          <option value="Oxxo">Oxxo</option>
+          <option value="" ></option>
+          {cuenta.map((cuenta, index) => (
+            <option key={index} value={cuenta.cuenta_bancaria}>{cuenta.cuenta_bancaria}</option>
+          ))}
         </StyledSelectCuenta>
-      </FormRow>
-
-      <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message}>
-        <StyledSelect
-          id="cursa_actualmente"
-          isDisabled={isCreating}
-          {...register("cursa_actualmente", {
-            required: "Este campo es requerido",
-          })}
-        >
-          <option value=""></option>
-          <option value="true">Si</option>
-          <option value="false">No</option>
-        </StyledSelect>
-      </FormRow>
-      
-      <FormRow label="Más de un diplomado?">
-        <>
-        <CheckboxWrapper>
-          <CheckboxInput
-            type="checkbox"
-            id="MasDe1Diploma"
-            {...register("MasDe1Diploma", {})}
-          />
-          <CheckboxBox/>
-          <CheckboxLabel>Si </CheckboxLabel>
-          
-        </CheckboxWrapper>
-
-        {/* <CheckboxWrapper>
-          <CheckboxInput type="checkbox"/>
-          <CheckboxBox/>
-          <CheckboxLabel>No </CheckboxLabel>
-        </CheckboxWrapper> */}
-        </>
       </FormRow>
 
       <FormRow
@@ -403,7 +339,7 @@ function CreateClientForm({ onCloseModal }) {
         </StyledSelectDiplomado>
       </FormRow>
 
-      {primerDiplomado && (
+      {primerDisciplina && (
       <FormRow
         label={"Diplomados"}
         error={errors?.diplomado?.message}
@@ -417,14 +353,85 @@ function CreateClientForm({ onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-                    <option value=""></option>
-
+          <option value=""></option>
           {diplomadosEspecificos.map((diplomado, index) => (
             <option key={index} value={diplomado.nombre}>{diplomado.nombre}</option>
           ))}
         </StyledSelectDiplomado>
       </FormRow>
       )}
+
+{primerDiplomado && (
+<>
+
+    <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message}>
+        <StyledSelect
+          id="cursa_actualmente"
+          isDisabled={isCreating}
+          {...register("cursa_actualmente", {
+            
+          })}
+        >
+          <option value="true">Si</option>
+          <option value="false">No</option>
+        </StyledSelect>
+      </FormRow>
+
+    <FormRow label="Fecha de Inicio" error={errors?.fecha_inicio?.message}>
+        <Input
+          type="date"
+          id="fecha_inicio"
+          disabled={isCreating}
+          {...register("fecha_inicio", {
+            
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha de Fin" error={errors?.fecha_fin?.message}>
+        <Input
+          type="date"
+          id="fecha_fin"
+          disabled={isCreating}
+          {...register("fecha_fin", {
+            validate: validateFechaFin,
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha Limite" error={errors?.fecha_limite?.message}>
+        <Input
+          type="date"
+          id="fecha_limite"
+          disabled={isCreating}
+          {...register("fecha_limite", {
+            validate: validateFechaLimite,
+          })}
+        />
+      </FormRow>
+      </>
+            )}
+
+      <FormRow label="Más de un diplomado?">
+        <>
+        <CheckboxWrapper>
+          <CheckboxInput
+            type="checkbox"
+            id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {})}
+          />
+          <CheckboxBox/>
+          <CheckboxLabel>Si </CheckboxLabel>
+          
+        </CheckboxWrapper>
+
+        {/* <CheckboxWrapper>
+          <CheckboxInput type="checkbox"/>
+          <CheckboxBox/>
+          <CheckboxLabel>No </CheckboxLabel>
+        </CheckboxWrapper> */}
+        </>
+      </FormRow>
 
       {watchDiplomados && (
           <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
@@ -447,8 +454,8 @@ function CreateClientForm({ onCloseModal }) {
           </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}
-
-      {watchDiplomados && segundoDiplomado && (
+      
+      {watchDiplomados && segundoDisciplina && (
         <FormRowDiplomado
         label={"Segundo Diplomado"}
         error={errors?.diplomado2?.message}
@@ -469,6 +476,55 @@ function CreateClientForm({ onCloseModal }) {
         </FormRowDiplomado>
       )}
       
+      {watchDiplomados && segundoDiplomado && (
+        <>
+        <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message} >
+        <StyledSelect
+          id="cursa_actualmente2"
+          isDisabled={isCreating}
+          {...register("cursa_actualmente", {})}
+        >
+          <option value="true" selected>Si</option>
+          <option value="false">No</option>
+        </StyledSelect>
+      </FormRow>
+      
+        <FormRow label="Fecha de Inicio" error={errors?.fecha_inicio?.message}>
+        <Input
+          type="date"
+          id="fecha_inicio2"
+          disabled={isCreating}
+          {...register("fecha_inicio2", {
+            
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha de Fin" error={errors?.fecha_fin?.message}>
+        <Input
+          type="date"
+          id="fecha_fin2"
+          disabled={isCreating}
+          {...register("fecha_fin2", {
+            
+            validate: validateFechaFin,
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha Limite" error={errors?.fecha_limite?.message}>
+        <Input
+          type="date"
+          id="fecha_limite2"
+          disabled={isCreating}
+          {...register("fecha_limite2", {
+            validate: validateFechaLimite,
+          })}
+        />
+      </FormRow>
+      </>
+    )}
+
       <FormRow>
         <Button
           variation="secondary"

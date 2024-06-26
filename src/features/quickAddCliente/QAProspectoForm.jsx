@@ -1,32 +1,29 @@
+import { useDiplomado } from "../diplomado/useSelectDiplomado";
+
 import { useForm } from "react-hook-form";
 import { useState,useEffect } from 'react';
 
 import {Input} from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
+import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
 import { FormRow, FormRowDiplomado } from "../../ui/FormRow";
 import {StyledSelectDiplomado} from "../../ui/SelectTwo";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
-import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
 
-import { useEditProspecto } from "./useEditProspecto";
-import { useDiplomado } from "../diplomado/useSelectDiplomado";
+import {useCreateProspecto} from "./useCreateProspecto";
 
-function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
-  const { isEditing, editProspecto } = useEditProspecto();
-
-  const { id: editId, ...editValues } = prospectoToEdit;
-  const isEditSession = Boolean(editId);
-
-  const { register, watch, handleSubmit, reset, formState } = useForm({
-    defaultValues: isEditSession? editValues : {},
-  });
-  const { errors } = formState;
+function CreateProspectoForm({ onCloseModal }) {
   
+  const { isCreating, createProspecto } = useCreateProspecto();
+
+  const { register, watch, handleSubmit, reset, formState } = useForm({});
+  const { errors } = formState;
+
   function onSubmit(data) {
-    editProspecto(
-        { newProspecto: { ...data }, id: editId },
+    createProspecto(
+        { ...data },
         {
           onSuccess: () => {
             reset();
@@ -48,8 +45,8 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
   const { isLoading, diplomado } = useDiplomado();
 
   useEffect(() => {
-    if (diplomado) setfilteredProductos(diplomado);
-      }, [diplomado]);
+    setfilteredProductos(diplomado);
+  }, [diplomado]);
 
   useEffect(() => {
     if (watchDisciplinasMas===undefined||watchDisciplinasMas===''){
@@ -124,66 +121,49 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
   return (
     <Form
-    onSubmit={handleSubmit(onSubmit)}
-    type={onCloseModal ? "modal" : "regular"}
-  >
-    <FormRow label="Nombre" error={errors?.nombre?.message}>
-      <Input
-        type="text"
-        id="nombre"
-        disabled={isEditing}
-        {...register("nombre", {
-          required: "Este campo es requerido",
-        })}
-      />
-    </FormRow>
-    <FormRow label="Apellidos" error={errors?.apellido?.message}>
-      <Input
-        type="text"
-        id="apellido"
-        disabled={isEditing}
-        {...register("apellido", {
-          required: "Este campo es requerido",
-        })}
-      />
-    </FormRow>
-    <FormRow label="Correo" error={errors?.email?.message}>
-      <Input
-        type="email"
-        id="email"
-        disabled={isEditing}
-        {...register("email", {
-          
-        })}
-      />
-    </FormRow>
-    <FormRow label="Telefono" error={errors?.telefono?.message}>
-      <Input
-        type="number"
-        id="telefono"
-        disabled={isEditing}
-        {...register("telefono", {
-          
-        })}
-      />
-    </FormRow>
-    <FormRow label="Ocupacion" error={errors?.ocupacion?.message}>
-      <Input
-        type="text"
-        id="ocupacion"
-        disabled={isEditing}
-        {...register("ocupacion", {
-          
-        })}
-      />
-    </FormRow>
+      onSubmit={handleSubmit(onSubmit)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
 
-    <FormRow label="¿Cursaras más de un diplomado?">
+      <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
+        <Input
+          type="text"
+          id="nombre"
+          disabled={isCreating}
+          {...register("nombre")}
+        />
+      </FormRow>
+
+      <FormRow label="Correo" error={errors?.email?.message}>
+        <Input
+          type="mail"
+          id="email"
+          disabled={isCreating}
+          {...register("email")}
+        />
+      </FormRow>
+
+      <FormRow label="Teléfono" error={errors?.telefono?.message}>
+          <Input
+            type="number"
+            id="telefono"
+            disabled={isCreating}
+            {...register("telefono", {
+               minLength: {
+                value: 10,
+                message: "El numero de telefono debe ser de 10 digitos",
+              }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
+            })}
+          />
+      </FormRow>
+
+      <FormRow label="¿Más de un diplomado?">
         <>
         <CheckboxWrapper>
           <CheckboxInput
@@ -192,7 +172,7 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
             {...register("MasDe1Diploma", {})}
           />
           <CheckboxBox/>
-          <CheckboxLabel>Si </CheckboxLabel>
+          <CheckboxLabel >Si </CheckboxLabel>
           
         </CheckboxWrapper>
 
@@ -206,17 +186,18 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
 
       <FormRow
         label={"Disciplina"}
-        error={errors?.cursa_actualmente?.message}
+        error={errors?.disciplina?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
           id="disciplina"
           defaultValue="" 
-          isDisabled={isEditing}
+          isDisabled={isCreating}
           {...register("disciplina", {
             required: "Este campo es requerido",
           })}
         >
+          <option value=""></option>
           <option value="Desarrollo Humano">Desarrollo Humano</option>
           <option value="Descuentos">Descuentos</option>
           <option value="Ingeniería">Ingeniería</option>
@@ -230,17 +211,19 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
       {primerDiplomado && (
       <FormRow
         label={"Diplomados"}
-        error={errors?.cursa_actualmente?.message}
+        error={errors?.diplomado?.message}
       >
         <StyledSelectDiplomado
           Style={{ width: '20rem'}}
           id="diplomado"
           defaultValue="" 
-          isDisabled={isEditing}
+          isDisabled={isCreating}
           {...register("diplomado", {
             required: "Este campo es requerido",
           })}
         >
+                    <option value=""></option>
+
           {diplomadosEspecificos.map((diplomado, index) => (
             <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
@@ -249,15 +232,17 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
       )}
 
       {watchDiplomados && (
-          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
+          <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}
+          style={{ borde: '20px', borderTopRigthRadius: '20px'}}>
             <StyledSelectDiplomado
             Style={{ width: '20rem'}}
             id="disciplina2"
-            isDisabled={isEditing}
+            isDisabled={isCreating}
             {...register("disciplina2", {
               required: "Este campo es requerido",
             })}
           >
+            <option value=""></option>
             <option value="Desarrollo Humano">Desarrollo Humano</option>
             <option value="Descuentos">Descuentos</option>
             <option value="Ingeniería">Ingeniería</option>
@@ -275,14 +260,15 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
         error={errors?.diplomado2?.message}
         >
         <StyledSelectDiplomado
-          Style={{ width: '20rem'}}
+          Style={{ width: '20rem' , backgroundColor: '#e6e5e6'}}
           id="diplomado2"
           defaultValue="" 
-          isDisabled={isEditing}
+          isDisabled={isCreating}
           {...register("diplomado2", {
             required: "Este campo es requerido",
           })}
         >
+          <option value=""></option>
           {diplomadosEspecificos2.map((diplomado, index) => (
             <option key={index} value={diplomado.id}>{diplomado.nombre}</option>
           ))}
@@ -290,18 +276,18 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
         </FormRowDiplomado>
       )}
 
-    <FormRow>
-      <Button
-        variation="secondary"
-        type="reset"
-        onClick={() => onCloseModal?.()}
-      >
-        Cancelar
-      </Button>
-      <Button disabled={isEditing}>Modificar Prospecto</Button>
-    </FormRow>
-  </Form>
+      <FormRow>
+        <Button 
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
+          Cancelar
+        </Button>
+        <Button disabled={isCreating} variation="midiplomado2">Registrar</Button>
+      </FormRow>
+    </Form>
   );
 }
 
-export default ModificarProspectoForm;
+export default CreateProspectoForm;

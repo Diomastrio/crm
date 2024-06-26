@@ -144,7 +144,7 @@ function CreateProspectoForm({ onCloseModal }) {
     >
 
     <Heading as="h1" style={{ color: '#24242c'}}>¡Llena todos los campos! </Heading>
-      <FormRowProspectos label="Tu Nombre Completo" style={{ color:' #24242c'}} error={errors?.nombre?.message}>
+      <FormRowProspectos label="Tu Nombre" style={{ color:' #24242c'}} error={errors?.nombre?.message}>
         <Inputi
           type="text"
           id="nombre"
@@ -154,6 +154,17 @@ function CreateProspectoForm({ onCloseModal }) {
           })}
         />
       </FormRowProspectos>
+
+    <FormRowProspectos label="Tus Apellidos" error={errors?.apellido?.message}>
+      <Inputi
+        type="text"
+        id="apellido"
+        disabled={isCreating}
+        {...register("apellido", {
+          required: "Este campo es requerido",
+        })}
+      />
+    </FormRowProspectos>
 
       <FormRowProspectos label="Tu Correo" error={errors?.email?.message}>
         <Inputi
@@ -166,13 +177,14 @@ function CreateProspectoForm({ onCloseModal }) {
         />
       </FormRowProspectos>
 
-      <FormRowProspectos label="Tu Teléfono" error={errors?.telefono?.message}>
+      <FormRowProspectos label="Tu Teléfono Movil (WhatsApp)" error={errors?.telefono?.message}>
           <Inputi
             type="number"
             id="telefono"
             disabled={isCreating}
             {...register("telefono", {
-              required: "Este campo es requerido", minLength: {
+              required: "Este campo es requerido",
+               minLength: {
                 value: 10,
                 message: "El numero de telefono debe ser de 10 digitos",
               }, MaxLength: { value: 11, message: "El numero de telefono debe ser menor de 10 digitos" }
@@ -199,7 +211,7 @@ function CreateProspectoForm({ onCloseModal }) {
             id="MasDe1Diploma"
             {...register("MasDe1Diploma", {})}
           />
-          <CheckboxBox/>
+          <CheckboxBox style={{backgroundColor: '#24242c'}}/>
           <CheckboxLabel style={{ color: '#24242c'}}>Si </CheckboxLabel>
           
         </CheckboxWrapper>
@@ -311,7 +323,7 @@ function CreateProspectoForm({ onCloseModal }) {
           id="terminosCondiciones"
             {...register("terminosCondiciones", { required: "Necesitas Aceptar los términos y condiciones",})}
           />
-          <CheckboxBox/>
+          <CheckboxBox style={{backgroundColor: '#24242c'}}/>
           <CheckboxLabel htmlFor="terminosCondiciones" style={{ color: '#24242c'}}>Acepto los términos y condiciones</CheckboxLabel>          
         </CheckboxWrapper>
 
@@ -335,11 +347,7 @@ function CreateProspectoForm({ onCloseModal }) {
       </FormRowTerminos>
 
       <FormRowProspectos>
-        <Button 
-          variation="secondary"
-          type="reset"
-          onClick={() => onCloseModal?.()}
-        >
+        <Button type="reset"  onClick={() => onCloseModal?.()} style={{backgroundColor: '#24242c'}} >
           Cancelar
         </Button>
         <Button disabled={isCreating} variation="midiplomado2">Registrar</Button>

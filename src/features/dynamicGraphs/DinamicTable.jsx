@@ -61,29 +61,11 @@ function ClienteTable(grafico) {
       let secondFilterValue = searchParams.get("disciplina") || "all";
       let passesSecondFilterValue;
       switch (secondFilterValue) {
-        case "desarrollo":
-          passesSecondFilterValue = cliente.disciplina === "Desarrollo Humano" || cliente.disciplina2 === "Desarrollo Humano";
+        case 'all':
+          passesSecondFilterValue = cliente.disciplina  || cliente.disciplina2 ;
           break;
-        case "descuentos":
-          passesSecondFilterValue = cliente.disciplina === "Descuentos" || cliente.disciplina2 === "Descuentos";
-          break;
-        case "educacion":
-          passesSecondFilterValue = cliente.disciplina === "Educación" || cliente.disciplina2 === "Educación";
-          break;
-        case "ingenieria":
-          passesSecondFilterValue = cliente.disciplina === "Ingeniería" || cliente.disciplina2 === "Ingeniería";
-          break;
-        case "negocios":
-          passesSecondFilterValue = cliente.disciplina === "Negocios" || cliente.disciplina2 === "Negocios";
-          break;
-        case "onLive":
-          passesSecondFilterValue = cliente.disciplina === "OnLive" || cliente.disciplina2 === "OnLive";
-          break;
-        case "psicologia":
-          passesSecondFilterValue = cliente.disciplina === "Psicología" || cliente.disciplina2 === "Psicología";
-          break;
-        case "salud":
-          passesSecondFilterValue = cliente.disciplina === "Salud" || cliente.disciplina2 === "Salud";
+        case secondFilterValue:
+          passesSecondFilterValue = cliente.disciplina === secondFilterValue || cliente.disciplina2 === secondFilterValue;
           break;
         default:
           passesSecondFilterValue = true;

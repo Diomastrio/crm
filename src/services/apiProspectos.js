@@ -40,7 +40,6 @@ export async function createEditProspecto(newProspecto, id) {
   const { data, error } = await query.select().single();
 
   if (error) {
-    console.error(error);
     throw new Error("Prospecto no pudo ser modificado");
   }
 
@@ -50,7 +49,6 @@ export async function createEditProspecto(newProspecto, id) {
 export async function getProspectos() {
   const { data, error } = await supabase.from("prospecto").select("*");
   if (error) {
-    console.error(error);
     throw new Error("Prospectos no pudieron ser cargados");
   }
 
@@ -64,7 +62,6 @@ export async function deleteProspecto(id) {
     .eq("id", id);
 
   if (error) {
-    console.error(error);
     throw new Error("Prospecto no pudo ser borrado");
   }
 

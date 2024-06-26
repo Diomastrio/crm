@@ -10,7 +10,7 @@ export function useCreateCliente() {
     onSuccess: () => {
       toast.success("Nuevo Cliente exitosamente creado");
 
-      queryClient.invalidateQueries({ queryKey: ["cliente"] });
+      queryClient.invalidateQueries({ queryKey: ["clientes"] });
     },
     onError: (err) => toast.error(err.message),
   });

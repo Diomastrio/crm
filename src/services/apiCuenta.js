@@ -2,7 +2,7 @@ import supabase from "./supabase";
 
 export async function createEditDisciplinas(newDisciplinas, id ) {
 
-  let query = supabase.from("disciplinas");
+  let query = supabase.from("cuenta");
   // A) CREAR
   if (!id) query = query.insert([{ ...newDisciplinas }]);
   // B) EDITAR
@@ -11,23 +11,18 @@ export async function createEditDisciplinas(newDisciplinas, id ) {
 
   const { data, error } = await query.select().single();
 
-  if (error)
-  if (error.message === "duplicate key value violates unique constraint \"disciplinas_Nombre_key\"") {
-    throw new Error("¡Solo una disciplina con ese nombre es posible!");
-  }
-  
   if (error) {
-    throw new Error("Disciplina no pudo ser modificada");
+    throw new Error("cuenta no pudo ser modificada");
   }
 
   return data;
 }
 
 export async function getDisciplinas() {
-  const { data, error } = await supabase.from("disciplinas").select("*");
+  const { data, error } = await supabase.from("cuenta").select("*");
 
   if (error) {
-    throw new Error("disciplinas no pudieron ser cargadas");
+    throw new Error("cuenta no pudieron ser cargadas");
   }
 
   return data;
@@ -35,12 +30,12 @@ export async function getDisciplinas() {
 
 export async function deleteDisciplinas(id) {
   const { data, error } = await supabase
-    .from("disciplinas")
+    .from("cuenta")
     .delete()
     .eq("id", id);
 
   if (error) {
-    throw new Error("disciplina no pudo ser borrada");
+    throw new Error("cuenta no pudo ser borrada");
   }
 
   return data;

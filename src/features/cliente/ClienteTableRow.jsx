@@ -17,6 +17,7 @@ function ClienteRow({ cliente }) {
   const {
     id: clienteId,
     nombre,
+    apellido,
     email,
     curp,
     numero_diplomados,
@@ -35,6 +36,10 @@ function ClienteRow({ cliente }) {
     disciplina2,
     diplomado,
     diplomado2,
+    fecha_inicio2,
+    fecha_fin2,
+    fecha_limite2,
+    status, status2,cursa_actualmente2
   } = cliente;
 
   const months = [
@@ -69,6 +74,10 @@ function ClienteRow({ cliente }) {
   const nuevoFin = formatDate(fecha_fin);
   const nuevoLimite = formatDate(fecha_limite);
 
+  const nuevoInicio2 = formatDate(fecha_inicio2);
+  const nuevoFin2 = formatDate(fecha_fin2);
+  const nuevoLimite2 = formatDate(fecha_limite2);
+
   const formatGenero = (genero) => {
     if (!genero || genero === "0") {
       return "N/A";
@@ -80,6 +89,9 @@ function ClienteRow({ cliente }) {
     if (genero==='M'){
       genero='Mujer'
     }
+    if (genero==='X'){
+      genero='Otro'
+    }
     return genero;
   };
   const nuevoGenero = formatGenero(genero);
@@ -88,6 +100,7 @@ function ClienteRow({ cliente }) {
     <StyledTableBody>
       <StyledTableRow>
         <StyledTableCell>{nombre}</StyledTableCell>
+        <StyledTableCell>{apellido}</StyledTableCell>
         <StyledTableCell>{email}</StyledTableCell>
         <StyledTableCell>{telefono}</StyledTableCell>
         <StyledTableCell>{nuevoGenero}</StyledTableCell>
@@ -95,17 +108,23 @@ function ClienteRow({ cliente }) {
         <StyledTableCell>{rfc}</StyledTableCell>
         <StyledTableCell>{edad}</StyledTableCell>
         <StyledTableCell>{ocupacion}</StyledTableCell>
+        <StyledTableCell>{lugar_residencia}</StyledTableCell>
         <StyledTableCell>{numero_diplomados}</StyledTableCell>
         <StyledTableCell>{diplomados_terminados}</StyledTableCell>
+        <StyledTableCell>{disciplina}</StyledTableCell>
+        <StyledTableCell>{diplomado}</StyledTableCell>
         <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
         <StyledTableCell>{nuevoInicio}</StyledTableCell>
         <StyledTableCell>{nuevoFin}</StyledTableCell>
         <StyledTableCell>{nuevoLimite}</StyledTableCell>
-        <StyledTableCell>{lugar_residencia}</StyledTableCell>
-        <StyledTableCell>{disciplina}</StyledTableCell>
-        <StyledTableCell>{diplomado}</StyledTableCell>
+        <StyledTableCell>{status}</StyledTableCell>
         <StyledTableCell>{disciplina2}</StyledTableCell>
         <StyledTableCell>{diplomado2}</StyledTableCell>
+        <StyledTableCell>{cursa_actualmente2 ? "SI" : "NO"}</StyledTableCell>
+        <StyledTableCell>{nuevoInicio2}</StyledTableCell>
+        <StyledTableCell>{nuevoFin2}</StyledTableCell>
+        <StyledTableCell>{nuevoLimite2}</StyledTableCell>
+        <StyledTableCell>{status2}</StyledTableCell>
         <StyledTableCell>
           <Modal>
             <Modal.Open opens="edit">

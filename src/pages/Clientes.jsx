@@ -8,7 +8,8 @@ import Row from "../ui/Row";
 import Empty from "../ui/Empty";
 
 import CreateClient from "../features/agregarCliente/CreateClient";
-import CreatePDF from "../features/pdf/CreatePDF";
+import CreateReportPDF from "../features/pdf/CreatePDF";
+import CreateBD from "../features/pdf/CreateBD";
 
 function Clientes() {
   const { isLoading, cliente } = useCliente();
@@ -22,7 +23,8 @@ function Clientes() {
 
       <Row type="horizontal" style={{ justifyContent: 'start', gap: '10px'}}>
         <CreateClient/>       
-        <CreatePDF  />
+        <CreateReportPDF  />
+        <CreateBD  />
         </Row>
         <ClientTableFilter />
       </Row>

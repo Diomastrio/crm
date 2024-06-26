@@ -1,7 +1,21 @@
 import TableOperations from "../../ui/TableOperations";
 import { Filter, SecondFilter, FiltersWrapper } from "../../ui/Filter";
 
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
+import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
+
 function GraphFilter() {
+  const { isLoading, disciplina } = useDisciplina();
+  
+  if (isLoading) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
+
+  const filterOptions = disciplina.map((disciplinaItem) => ({
+    value: disciplinaItem.Nombre,
+    label: disciplinaItem.Nombre,
+  }));
+
   return (
     <TableOperations>
       <FiltersWrapper>
@@ -23,14 +37,7 @@ function GraphFilter() {
           filterField="disciplina"
           options={[
             { value: "all", label: "Todas" },
-            { value: "desarrollo", label: "Desarrollo Humano", disciplina: "true",},
-            { value: "descuentos", label: "Descuentos", disciplina: "true" },
-            { value: "educacion", label: "Educación", disciplina: "true" },
-            { value: "ingenieria", label: "Ingeniería", disciplina: "true" },
-            { value: "negocios", label: "Negocios", disciplina: "true" },
-            { value: "onLive", label: "OnLive", disciplina: "true" },
-            { value: "psicologia", label: "Psicología", disciplina: "true" },
-            { value: "salud", label: "Salud", disciplina: "true" },
+            ...filterOptions, 
           ]}
         />
       </FiltersWrapper>

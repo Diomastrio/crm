@@ -82,6 +82,7 @@ function CreateClientForm({ onCloseModal }) {
 
       <FormRow label="Curp" error={errors?.curp?.message}>
         <Input
+          style={{textTransform:'uppercase'}}
           type="text"
           id="curp"
           disabled={isCreating}

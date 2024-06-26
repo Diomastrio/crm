@@ -1,23 +1,8 @@
 import { StyledSubHeading, StyledSalesChart } from "../../ui/GraficasUi";
 import Heading from "../../ui/Heading";
 import React, { useState, useEffect } from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-  Pie,
-  PieChart,
-  Cell,
-  Sector,
-  ScatterChart,
-  Scatter,
-  Legend,
-  Bar,
-  BarChart,
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer,Tooltip,
+  XAxis, YAxis, Pie, PieChart,  Cell, Sector, ScatterChart, Scatter, Legend, Bar, BarChart,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
 
@@ -25,33 +10,22 @@ const COLORSS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
-  const {
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    startAngle,
-    endAngle,
-    fill,
-    payload,
-    percent,
-    value,
-  } = props;
+  const { cx,cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,fill, payload,percent,value,} = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
   const sy = cy + (outerRadius + 10) * sin;
   const mx = cx + (outerRadius + 30) * cos;
   const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 20;
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
 
-
   return (
-    <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+    <>
+      <text x={cx} y={cy} dy={5} textAnchor="middle" fill={fill}>
+        {payload.name}
+      </text>
       <Sector
         cx={cx}
         cy={cy}
@@ -71,42 +45,44 @@ const renderActiveShape = (props) => {
         outerRadius={outerRadius + 10}
         fill="#32C9FF"
       />
-      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke="#32C9FF" fill="none"/>
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}stroke="#32C9FF" fill="none"/>
       <circle cx={ex} cy={ey} r={2} fill="#32C9FF" stroke="#32C9FF" />
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill="#4b42d4"
-      >{`${value} usuarios`}</text>
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        dy={18}
-        textAnchor={textAnchor}
-        fill="#32C9FF"
-      >
-        {`(${(percent * 100).toFixed(2)}% Clientes )`}
+
+      <text x={ex + (cos >= 0 ? 1 : -1) * 5} y={ey} textAnchor={textAnchor} fill="#4b42d4">
+        {`${value} usuarios`}
       </text>
-    </g>
+      <text x={ex + (cos >= 0 ? -20 : 50) * 1} y={ey} dy={25} textAnchor={textAnchor} fill="#32C9FF">
+        {`(${(percent * 100).toFixed(2)}% Clientes)`}
+      </text>
+    </>
   );
 };
 
+function DynamicGraphs(data) {
 
-function DinamicGraphs(data) {
-  data= data.data
+  data = data.data;
   const [datagen, setDatagen] = useState([]);
   const [datas, setData] = useState([]);
   const [dataArea, setDataArea] = useState([]);
   const [scatterData, setScatterData] = useState([]);
   const [activeClientsByDiscipline, setActiveClientsByDiscipline] = useState([]);
+  const [activeMen, setActiveMen] = useState([]);
+  const [activeWomen, setActiveWomen] = useState([]);
+
   const [clientsByDiscipline, setClientsByDiscipline] = useState([]);
   const [activeClientsByDispGen, setActiveClientsByDispGen] = useState([]);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const onPieEnter = (data, index) => { setActiveIndex(index); };
+  const onPieEnter = (data, index) => { setActiveIndex(index);};
+
   const [activeIndex1, setActiveIndex1] = useState(0);
-  const onPieEnter1 = (data, index) => { setActiveIndex1(index); };
+  const onPieEnter1 = (data, index) => {setActiveIndex1(index);};
+
+  const [activeIndex2, setActiveIndex2] = useState(0);
+  const onPieEnter2 = (data, index) => {setActiveIndex2(index);};
+
+  const [activeIndex3, setActiveIndex3] = useState(0);
+  const onPieEnter3 = (data, index) => {setActiveIndex3(index);};
 
   const { isDarkMode } = useDarkMode();
 
@@ -128,6 +104,7 @@ function DinamicGraphs(data) {
     const fetchClienteGender = async () => {
       let countH = 0;
       let countM = 0;
+      let countO = 0;
 
       data.forEach((cliente) => {
         if (cliente.genero === "H") {
@@ -135,11 +112,15 @@ function DinamicGraphs(data) {
         } else if (cliente.genero === "M") {
           countM++;
         }
+        else if (cliente.genero === "O") {
+          countO++;
+        }
       });
 
       setDatagen([
         { name: "Hombres", value: countH },
         { name: "Mujeres", value: countM },
+        { name: "Otro", value: countO },
       ]);
     };
 
@@ -165,18 +146,64 @@ function DinamicGraphs(data) {
     fetchClienteActive();
   }, [data]);
 
+  //active segun genero
+  useEffect(() => {
+    const fetchActiveMenGender = async () => {
+      let countH = 0;
+      let countM = 0;
+
+      data.forEach((cliente) => {
+        if (cliente.genero === "H" && cliente.cursa_actualmente === true) {
+            countH++;
+        }
+        else if (cliente.genero === "H" && cliente.cursa_actualmente === false) {
+            countM++;
+        }
+      });
+
+      setActiveMen([
+        { name: "Activos", value: countH },
+        { name: "Inactivos", value: countM },
+      ]);
+    };
+    
+    fetchActiveMenGender();
+  }, [data]);
+
+  useEffect(() => {
+    const fetchActiveWomenGender = async () => {
+      let countH = 0;
+      let countM = 0;
+
+      data.forEach((cliente) => {
+        if (cliente.genero === "M" && cliente.cursa_actualmente === true) {
+            countH++;
+        }
+        else if (cliente.genero === "M" && cliente.cursa_actualmente === false) {
+            countM++;
+        }
+      });
+
+      setActiveWomen([
+        { name: "Activas", value: countH },
+        { name: "Inactivas", value: countM },
+      ]);
+    };
+    
+    fetchActiveWomenGender();
+  }, [data]);
+
   useEffect(() => {
     const fetchClienteDater = async () => {
-    
-      const labels = ["Jan","Feb", "Mar","Apr","May", "Jun", "Jul", "Aug", "Sep","Oct","Nov","Dec", ];
-    
+      const labels = [ "Jan","Feb","Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
+
       const areaData = data.map((item, index) => ({
         label: labels[index % 12], // Use the month labels, repeating every 12 months
         num_clientes: data.length, // The total number of clients is the length of the data array
         numero_diplomados: item.numero_diplomados,
         diplomados_terminados: item.diplomados_terminados,
       }));
-    
+
       setDataArea(areaData);
     };
 
@@ -185,84 +212,90 @@ function DinamicGraphs(data) {
 
   useEffect(() => {
     const fetchClienteDate = async () => {
-
       const scatterData = data.map((item, index) => ({
         x: item.edad,
         y: item.numero_diplomados,
         z: index + 1,
       }));
-    
+
       setScatterData(scatterData);
     };
-    
+
     fetchClienteDate();
   }, [data]);
 
   //faefadfafsfsafafafdafdsffdsfds
   useEffect(() => {
     const fetchActiveClientsByDiscipline = async () => {
-    
       const counts = data.reduce((acc, cliente) => {
         acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
         return acc;
       }, {});
-    
-      setActiveClientsByDiscipline(Object.entries(counts).map(([disciplinaActive, clienteActivo]) => ({
-        disciplinaActive, clienteActivo
-      })))
+
+      setActiveClientsByDiscipline(
+        Object.entries(counts).map(([disciplinaActive, clienteActivo]) => ({
+          disciplinaActive,
+          clienteActivo,
+        }))
+      );
     };
-    
+
     fetchActiveClientsByDiscipline();
   }, [data]);
 
   //2
   useEffect(() => {
     const fetchActiveClientsByDispGen = async () => {
-    
       const counts = data.reduce((acc, cliente) => {
         if (!acc[cliente.disciplina]) {
           acc[cliente.disciplina] = { h: 0, m: 0 };
         }
-    
+
         if (cliente.genero === "H") {
           acc[cliente.disciplina].h++;
         } else if (cliente.genero === "M") {
           acc[cliente.disciplina].m++;
         }
-        return(acc);
+        return acc;
       }, {});
-    
-      setActiveClientsByDispGen(Object.entries(counts).map(([disciplina, { h, m }]) => ({
-        disciplina, h, m
-      })));
+
+      setActiveClientsByDispGen(
+        Object.entries(counts).map(([disciplina, { h, m }]) => ({
+          disciplina,
+          h,
+          m,
+        }))
+      );
     };
-    
+
     fetchActiveClientsByDispGen();
   }, [data]);
 
   //3
   useEffect(() => {
     const fetchClientsByDiscipline = async () => {
-    
       const counts = data.reduce((acc, cliente) => {
         acc[cliente.disciplina] = (acc[cliente.disciplina] || 0) + 1;
         return acc;
       }, {});
-    
-      setClientsByDiscipline(Object.entries(counts).map(([disciplina, cliente]) => ({
-        disciplina,
-        cliente,
-      })));
+
+      setClientsByDiscipline(
+        Object.entries(counts).map(([disciplina, cliente]) => ({
+          disciplina,
+          cliente,
+        }))
+      );
     };
-    
+
     fetchClientsByDiscipline();
   }, [data]);
 
   return (
     <StyledSalesChart>
       <Heading as="h2">Graficas</Heading>
-      <StyledSubHeading as="h3">Género y Clientes Activos</StyledSubHeading>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+     
+        <StyledSubHeading as="h3" >Género y Clientes Activos</StyledSubHeading>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
         <ResponsiveContainer  height={400} width="91%">
           <PieChart width={400} height={400} >
             <Pie
@@ -297,7 +330,45 @@ function DinamicGraphs(data) {
         </ResponsiveContainer>
       </div>
 
-      <StyledSubHeading as="h3">Diplomados Inscritos y Terminados por Mes</StyledSubHeading>
+      <StyledSubHeading as="h3" >Hombres/Mujeres Activos</StyledSubHeading>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <ResponsiveContainer  height={400} width="91%">
+          <PieChart width={400} height={400} >
+            <Pie
+              activeIndex={activeIndex2}
+              activeShape={renderActiveShape}
+              data={activeMen}
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              fill= {isDarkMode? "#eeeee4": "#4b42d4"}
+              dataKey="value"
+              onMouseEnter={onPieEnter2}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={400}>
+          <PieChart width={400} height={400}>
+            <Pie
+              activeIndex={activeIndex3}
+              activeShape={renderActiveShape}
+              data={activeWomen}
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              fill= {isDarkMode? "#eeeee4": "#4b42d4"}
+              dataKey="value"
+              onMouseEnter={onPieEnter3}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+
+          <StyledSubHeading as="h3">
+        Diplomados Inscritos y Terminados por Mes
+      </StyledSubHeading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={dataArea}>
           <XAxis
@@ -328,8 +399,8 @@ function DinamicGraphs(data) {
           />
         </AreaChart>
       </ResponsiveContainer>
-
-      <StyledSubHeading as="h3">Diplomados Inscritos por Edad</StyledSubHeading>
+     
+            <StyledSubHeading as="h3">Diplomados Inscritos por Edad</StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <ScatterChart
           width={400}
@@ -343,7 +414,11 @@ function DinamicGraphs(data) {
         >
           <CartesianGrid />
           <XAxis type="number" dataKey="x" name="Edad" unit="años" />
-          <YAxis type="number" dataKey="y" name="Diplomados Inscritos" unit="Dipl."
+          <YAxis
+            type="number"
+            dataKey="y"
+            name="Diplomados Inscritos"
+            unit="Dipl."
           />
           <Tooltip cursor={{ strokeDasharray: "3 3" }} />
           <Scatter name="A school" data={scatterData} fill="#8884d8">
@@ -357,29 +432,32 @@ function DinamicGraphs(data) {
         </ScatterChart>
       </ResponsiveContainer>
 
-      <StyledSubHeading as="h3">Número de Clientes por Disciplina</StyledSubHeading>
-      <ResponsiveContainer height={400} width="100%">
-        <BarChart
-          height={300}
-          data={clientsByDiscipline}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5, }}
-          barSize={20}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="disciplina" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="cliente" fill="#299DC6" name="Clientes"/>
-        </BarChart>
+  
+        <StyledSubHeading as="h3"> Número de Clientes por Disciplina</StyledSubHeading>
+        <ResponsiveContainer height={400} width="100%">
+          <BarChart
+            height={300}
+            data={clientsByDiscipline}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            barSize={20}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="disciplina" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="cliente" fill="#299DC6" name="Clientes" />
+          </BarChart>
       </ResponsiveContainer>
-
-      <StyledSubHeading as="h3">Número de Clientes Activos por Disciplina</StyledSubHeading>
+   
+         <StyledSubHeading as="h3">
+        Número de Clientes Activos por Disciplina
+      </StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
           data={activeClientsByDiscipline}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5}}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           barSize={25}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -387,16 +465,18 @@ function DinamicGraphs(data) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="clienteActivo" fill="#4b42d4"  name="Clientes activos" />
+          <Bar dataKey="clienteActivo" fill="#4b42d4" name="Clientes activos" />
         </BarChart>
       </ResponsiveContainer>
-
-      <StyledSubHeading as="h3">Número de Clientes por Género y Disciplina</StyledSubHeading>
+     
+        <StyledSubHeading as="h3">
+        Número de Clientes por Género y Disciplina
+      </StyledSubHeading>
       <ResponsiveContainer height={400} width="100%">
         <BarChart
           height={300}
           data={activeClientsByDispGen}
-          margin={{ top: 5, right: 30, left: 20,  bottom: 5,}}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           barSize={20}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -408,8 +488,9 @@ function DinamicGraphs(data) {
           <Bar dataKey="m" fill="#28d4b7" name="Mujeres" />
         </BarChart>
       </ResponsiveContainer>
+
     </StyledSalesChart>
   );
 }
 
-export default DinamicGraphs;
+export default DynamicGraphs;

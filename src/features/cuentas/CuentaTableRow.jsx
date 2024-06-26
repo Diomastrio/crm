@@ -1,5 +1,5 @@
-import ModificarDiplomadoForm from "./ModificarDiplomadoForm";
-import { useDeleteDiplomado } from "./useDeleteDiplomado";
+import ModificarDiplomadoForm from "./ModificarCuentaForm";
+import { useDeleteDisciplinna } from "./useDeleteCuenta";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -12,19 +12,19 @@ import {
 } from "../../ui/ClientTableUi";
 
 function DiplomadoRow({ diplomados }) {
-  const { isDeleting, deleteDiplomado } = useDeleteDiplomado();
+  const { isDeleting, deleteDisciplina } = useDeleteDisciplinna();
 
   const {
-    id: clienteId,
-    nombre,disciplina, Acronimo
+    id: clienteId,banco,
+    cuenta_bancaria
   } = diplomados;
 
   return (
     <StyledTableBody>
       <StyledTableRow>
-        <StyledTableCell>{nombre}</StyledTableCell> 
-        <StyledTableCell>{Acronimo}</StyledTableCell> 
-        <StyledTableCell>{disciplina}</StyledTableCell> 
+        <StyledTableCell>{banco}</StyledTableCell> 
+        <StyledTableCell>{cuenta_bancaria}</StyledTableCell> 
+
         <StyledTableCell>
           <Modal>
             <Modal.Open opens="edit">
@@ -41,9 +41,9 @@ function DiplomadoRow({ diplomados }) {
 
             <Modal.Window name="delete">
               <ConfirmDelete
-                resourceName="diplomado"
+                resourceName="cuenta"
                 disabled={isDeleting}
-                onConfirm={() => deleteDiplomado(clienteId)}
+                onConfirm={() => deleteDisciplina(clienteId)}
               />
             </Modal.Window>
           </Modal>

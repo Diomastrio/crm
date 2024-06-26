@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import DarkModeToggle from "../../ui/DarkModeToggle";
-import { useDarkMode } from "../../context/DarkModeContext";
+import { Link } from "react-router-dom";
 
 const StyledLogo = styled.div`
   text-align: center;
@@ -19,6 +18,10 @@ const Img = styled.img`
   height: 6rem;
   width: auto;
   position: absolute;
+  left: 12rem;
+`;
+
+const Img2 = styled(Img)`
   left: 2rem;
 
   animation: ${spin} infinite 10s linear; /* Animation properties */
@@ -28,23 +31,17 @@ const Img = styled.img`
   }
 `;
 
-const Img2 = styled.img`
-  height: 6rem;
-  width: auto;
-  position: absolute;
-  left: 12rem;
-`;
+
 
 function Logo() {
-  const { isDarkMode } = useDarkMode();
 
-  const src = isDarkMode ? "/bluelogo.png" : "/tealogo.png";
+  const src =  "/bluelogo.png";
   const src2 =  "/Midiplomado.png";
 
   return (
     <StyledLogo>
-      <Img src={src} alt="Logo" />
-      <Img2 src={src2} alt="Logo2" />
+      <Img src={src2} alt="Logo2" />
+      <Img2 src={src} alt="Logo" />
     </StyledLogo>
   );
 }
@@ -59,10 +56,9 @@ function HeaderMenu() {
 
   return (
     <StyledHeaderMenu>
-      <Logo />
-      <li>
-        <DarkModeToggle />
-      </li>
+       <Link to="https://midiplomado.com.mx">
+        <Logo />
+        </Link>
     </StyledHeaderMenu>
   );
 }

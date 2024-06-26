@@ -26,20 +26,13 @@ const ReportButton = () => {
 
     const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-    let filteredLimite = cliente.filter(      
+    let filteredClientes = cliente.filter(      
       (cliente) => 
-        ((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
-      && (cliente.status1 !== 'Enviado')
+        (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
+      || ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen)))
+      && (cliente.status1 !== 'Enviado' && cliente.status2 !== 'Enviado')
     );
 
-    let filteredLimite2 = cliente.filter(      
-      (cliente) => 
-      ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen))
-      && (cliente.status2 !== 'Enviado')
-    );
-
-    const filteredClientes = filteredLimite.concat(filteredLimite2);
-    console.log(filteredClientes)
     let filteredDisciplinas = filteredClientes.filter(      
       (cliente) => 
         (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))

@@ -103,6 +103,7 @@ function DynamicGraphs(data,n) {
     const fetchClienteGender = async () => {
       let countH = 0;
       let countM = 0;
+      let countO = 0;
 
       data.forEach((cliente) => {
         if (cliente.genero === "H") {
@@ -110,11 +111,15 @@ function DynamicGraphs(data,n) {
         } else if (cliente.genero === "M") {
           countM++;
         }
+        else if (cliente.genero === "O") {
+          countO++;
+        }
       });
 
       setDatagen([
         { name: "Hombres", value: countH },
         { name: "Mujeres", value: countM },
+        { name: "Otro", value: countO },
       ]);
     };
 

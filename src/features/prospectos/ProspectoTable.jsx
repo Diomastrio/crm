@@ -43,17 +43,18 @@ function ProspectoTable() {
   if (searchTerm.length > 0) {
     filteredProductos = filteredProductos.filter((cliente) =>
       cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    ||
+    cliente.apellido.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
   //2)FILTRO PROSPECTO
   const filterValue = searchParams.get("nombre") || "all";
-
-  if (filterValue === "Desarrollo Humano" || filterValue === "Descuentos"
-   || filterValue === "Educación" || filterValue === "Ingeniería"
-   || filterValue === "Negocios" || filterValue === "OnLive"
-   || filterValue === "Psicología" || filterValue === "Salud"
-  ) {
+ if (filterValue==='all'){
+  filteredProductos = filteredProductos.filter((cliente) => 
+    cliente.disciplina || cliente.disciplina2);
+ }
+ else if (filterValue) {
     filteredProductos = filteredProductos.filter((cliente) => 
       cliente.disciplina === filterValue || cliente.disciplina2 === filterValue);
   }
@@ -83,11 +84,11 @@ return filteredProductos;
 const filteredProspectos = handleFilter(prospecto);
 
   return (
-    <Menus>
-      <StyledTable >      <StyledTableWrapper>
+    <Menus> <StyledTableWrapper>
+      <StyledTable >     
 
         <StyledTableHeader> 
-      <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
+      <StyledTableHeaderCell>Busqueda Nombre/Apellido</StyledTableHeaderCell>
       <StyledTableHeaderCell><Input type="text" value={searchTerm} onChange={ (e) => setSearchTerm(e.target.value) } id="telefono"/></StyledTableHeaderCell>
         <StyledTableHeaderCell><FaSearch style={{ margin: '0 10px 0 10px',  fontSize: '26px' }} /></StyledTableHeaderCell>
         </StyledTableHeader> 
@@ -95,7 +96,8 @@ const filteredProspectos = handleFilter(prospecto);
             <StyledTableHead>
               
               <StyledTableRow>
-                <StyledTableHeadCell>Prospecto</StyledTableHeadCell>
+                <StyledTableHeadCell>Nombre</StyledTableHeadCell>
+                <StyledTableHeadCell>Apellido</StyledTableHeadCell>
                 <StyledTableHeadCell>Email</StyledTableHeadCell>
                 <StyledTableHeadCell>Telefono</StyledTableHeadCell>
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
@@ -115,10 +117,10 @@ const filteredProspectos = handleFilter(prospecto);
         <div style={{padding: '4rem'}}>
       <CenteredText>No se encontraron prospectos</CenteredText>
     </div>
-      )}
+      )} </StyledTable>
       </StyledTableWrapper>
 
-      </StyledTable>
+     
     </Menus>
   );
 }

@@ -26,21 +26,7 @@ const ReportButton = () => {
 
     const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-    let filteredLimite = cliente.filter(      
-      (cliente) => 
-        ((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
-      && (cliente.status1 !== 'Enviado')
-    );
-
-    let filteredLimite2 = cliente.filter(      
-      (cliente) => 
-      ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen))
-      && (cliente.status2 !== 'Enviado')
-    );
-
-    const filteredClientes = filteredLimite.concat(filteredLimite2);
-    console.log(filteredClientes)
-    let filteredDisciplinas = filteredClientes.filter(      
+    let filteredClientes = cliente.filter(      
       (cliente) => 
         (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
       || ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen)))
@@ -58,7 +44,7 @@ const ReportButton = () => {
             body: [ 
               [{ text: 'Email', style: 'tableHeader' }, { text: 'Nombre', style: 'tableHeader' }, 
               { text: 'Teléfono', style: 'tableHeader' }, { text: 'Disciplina', style: 'tableHeader' }],
-              ...filteredClientes.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.diplomado])
+              ...filteredClientes.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.telefono])
             ]
           }
         },
@@ -87,14 +73,17 @@ const ReportButton = () => {
     };
 
     var pdfDoc = pdfMake.createPdf(docDefinition);
-    pdfDoc.download('Clientes con VENCIMIENTO.pdf');
-    
+    pdfDoc.download('Clientes CUMPLEAÑO.pdf');
+
+    var month = new Date();
+    var mes = mes.getMonth();
 
       // Generate the PDF and send the email
       pdfDoc.getBase64(() => {
         emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, {
           to_name: 'CES Centro de Estudios Superiores en Negocios y Humanidades',
           from_name: 'Storm Chasers',
+          month: mes,
           to_email: import.meta.env.VITE_EMAILJS_TO,
           message: filteredClientes,
           email: filteredClientes.map(cliente => [cliente.email]),
@@ -109,7 +98,7 @@ const ReportButton = () => {
 
   return (
     <div>
-    <Button  variation={"swapii"} onClick={generatePDF}>Generar Reporte PDF</Button>
+    <Button  variation={"midiplomado"} onClick={generatePDF}>Generar Cumpleaños Reporte</Button>
     </div>
   );
 };

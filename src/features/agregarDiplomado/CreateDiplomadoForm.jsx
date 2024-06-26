@@ -41,7 +41,7 @@ function CreateDiplomadoForm({ onCloseModal }) {
     <Form
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? "modal" : "regular"}
-      style={{height: '40vh'}}
+      style={{height: '60vh'}}
     >
 
       <Heading as="h1">Añadir diplomado </Heading>
@@ -52,6 +52,18 @@ function CreateDiplomadoForm({ onCloseModal }) {
           id="nombre"
           disabled={isWorking}
           {...register("nombre", {
+            required: "Este campo es requerido",
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Acronimo" style={{}}error={errors?.Acronimo?.message}>
+      <Input
+       style={{width: '20vh'}}
+          type="text"
+          id="Acronimo"
+          disabled={isWorking}
+          {...register("Acronimo", {
             required: "Este campo es requerido",
           })}
         />

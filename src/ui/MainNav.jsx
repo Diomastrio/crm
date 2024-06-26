@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-import { BsFillPersonLinesFill,BsPersonBadge   } from "react-icons/bs";
+import { BsFillPersonLinesFill,BsPersonBadge,BsBank2  } from "react-icons/bs";
 import { FaChartPie, FaShippingFast, FaChartBar  } from "react-icons/fa";
 import { MdAssignmentTurnedIn,MdAssignment    } from "react-icons/md";
 
@@ -50,7 +50,7 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 const StyledNav = styled.nav`
-  width: 200px; /* Adjust the width as needed */
+  width: 200px; 
 `;
 
 function MainNav() {
@@ -90,6 +90,11 @@ function MainNav() {
         <li>
           <StyledNavLink to="/Disciplinas">
             <MdAssignment/>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/Cuenta">
+            <BsBank2/>
           </StyledNavLink>
         </li>
       </NavList>

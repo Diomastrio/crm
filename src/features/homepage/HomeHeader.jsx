@@ -1,8 +1,5 @@
 import styled, { keyframes } from "styled-components";
-//import Button from "../../ui/Button";
-//import { useNavigate } from "react-router-dom";
-import DarkModeToggle from "../../ui/DarkModeToggle";
-import { useDarkMode } from "../../context/DarkModeContext";
+import { Link } from "react-router-dom";
 
 const StyledLogo = styled.div`
   text-align: center;
@@ -38,9 +35,8 @@ const Img2 = styled.img`
 `;
 
 function Logo() {
-  const { isDarkMode } = useDarkMode();
 
-  const src = isDarkMode ? "/bluelogo.png" : "/tealogo.png";
+  const src = "/bluelogo.png";
   const src2 =  "/Midiplomado.png";
   
   return (
@@ -59,17 +55,11 @@ const StyledHeaderMenu = styled.ul`
 `;
 
 function HeaderMenu() {
-  //const navigate = useNavigate();
-
   return (
     <StyledHeaderMenu>
-      <Logo />
-      {/* <li>
-        <Button variation="swapii" onClick={() => navigate("/Registro")}>Crear cuenta</Button>
-      </li> */}
-      <li>
-        <DarkModeToggle />
-      </li>
+      <Link to="https://midiplomado.com.mx">
+        <Logo />
+        </Link>
     </StyledHeaderMenu>
   );
 }

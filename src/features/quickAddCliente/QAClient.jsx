@@ -1,4 +1,4 @@
-import QuickaddForm from "./QuickAddForm";
+import QuickaddForm from "./QAClienteForm";
 
 function AddClient() {
   return (

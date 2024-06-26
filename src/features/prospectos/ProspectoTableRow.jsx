@@ -17,7 +17,7 @@ function ProductoRow({ prospecto }) {
 
   const {
     id: prospectoId,
-    nombre,
+    nombre,apellido,
     email, 
     ocupacion, telefono,disciplina,disciplina2,diplomado,diplomado2
   } = prospecto;
@@ -26,6 +26,7 @@ function ProductoRow({ prospecto }) {
           <StyledTableBody >
                 <StyledTableRow>
                   <StyledTableCell>{nombre}</StyledTableCell>
+                  <StyledTableCell>{apellido}</StyledTableCell>
                   <StyledTableCell>{email}</StyledTableCell>
                   <StyledTableCell>{telefono}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>

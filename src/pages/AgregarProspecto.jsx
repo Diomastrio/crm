@@ -8,7 +8,7 @@ function Prospecto() {
     <>
     <ProspectoHeader/>
       <Row type="horizontal" style={{ backgroundColor: '#24242c'}}>
-        <Heading as="h1">¡Empecemos con el proceso! </Heading>
+        <Heading as="prospecto" style={{ color: '#fff'}}>¡Empecemos con el proceso! </Heading>
         <CreateProspecto />
       </Row>
     </>

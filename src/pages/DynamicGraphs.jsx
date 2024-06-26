@@ -15,7 +15,7 @@ function DinamicGraphs() {
     <>
      
        <Row type="vertical">
-      <Heading as="h1">Graficas Dinamicas</Heading>
+      <Heading as="h1">Comparar Datos</Heading>
       </Row>
       <Row type="horizontal" style={{ gap: '3rem'}}>
         <GraphFilter/>

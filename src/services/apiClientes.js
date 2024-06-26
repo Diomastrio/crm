@@ -18,28 +18,47 @@ export async function createEditCliente(newCliente, id) {
   newCliente.id_user = userId;
   newCliente.nombre_modifico = userName;
 
-  let curpInput = newCliente.curp
-
-   const getCurp = (curpInput) => {  
-    const genderRegex = /[HM]/;
-    const genderMatch = curpInput.match(genderRegex);
-    const gender = genderMatch ? genderMatch[0] : "Gender not found";
-
-    return gender;
+  const getCurp = (curpInput) => {
+    const genderPosition = 10; 
+    const gender = curpInput.charAt(genderPosition);
+    if (gender === 'H') return 'H'
+    else if (gender === 'M') return 'M';
+    else if (gender === 'X') return 'X'; 
+    else  return 'Gender not found';
   };
-      let nuevoGenero = getCurp(curpInput);
+  
+  let nuevoGenero;
+
+  if (newCliente.curp) nuevoGenero = getCurp(newCliente.curp);
+
+if(!newCliente.edad) newCliente.edad=null
+if(!newCliente.numero_diplomados) newCliente.numero_diplomados=null
+if(!newCliente.diplomados_terminados) newCliente.diplomados_terminados=null
+if(!newCliente.dipl_sent) newCliente.dipl_sent=null
+if(!newCliente.fecha_inicio) newCliente.fecha_inicio=null
+if(!newCliente.fecha_fin) newCliente.fecha_fin=null
+if(!newCliente.fecha_limite) newCliente.fecha_limite=null
+if(!newCliente.fecha_inicio2) newCliente.fecha_inicio2=null
+if(!newCliente.fecha_fin2) newCliente.fecha_fin2=null
+if(!newCliente.fecha_limite2) newCliente.fecha_limite2=null
+
+let status
+let status2
+if(!newCliente.status1){status=true}
+if(!newCliente.status2){status2=true}
+if(newCliente.status1){status=false}
+if(newCliente.status2){status2=false}
 
   let query = supabase.from("cliente");
   // A) CREAR
   if (!id) query = query.insert([{ genero: nuevoGenero, ...newCliente }]);
   // B) EDITAR
-  if (id) query = query.update({ genero: nuevoGenero, ...newCliente }).eq("id", id);
+  if (id) query = query.update({ ...newCliente, genero: nuevoGenero, cursa_actualmente: status, cursa_actualmente2: status2}).eq("id", id);
 
 
   const { data, error } = await query.select().single();
 
   if (error) {
-    console.error(error);
     throw new Error("Cliente no pudo ser modificado");
   }
 
@@ -50,7 +69,6 @@ export async function getClientes() {
   const { data, error } = await supabase.from("cliente").select("*");
 
   if (error) {
-    console.error(error);
     throw new Error("Clientes no pudieron ser cargados");
   }
 
@@ -64,7 +82,6 @@ export async function deleteCliente(id) {
     .eq("id", id);
 
   if (error) {
-    console.error(error);
     throw new Error("Clientes no pudo ser borrado");
   }
 

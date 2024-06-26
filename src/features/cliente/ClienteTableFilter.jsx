@@ -1,8 +1,23 @@
 import TableOperations from "../../ui/TableOperations";
-import { Filter, SecondFilter, FiltersWrapper } from "../../ui/Filter";
+import { Filter, SecondFilter,ThirdFilter, FiltersWrapper } from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
+import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
+
 function ArticuloTableFilter() {
+  const { isLoading, disciplina } = useDisciplina();
+  
+  if (isLoading) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
+
+  const filterOptions = disciplina.map((disciplinaItem, index) => ({
+    value: disciplinaItem.Nombre,
+    label: disciplinaItem.Nombre,
+    key: `disciplina_${index}` 
+  }));
+  
   return (
     <TableOperations>
       <FiltersWrapper>
@@ -23,15 +38,24 @@ function ArticuloTableFilter() {
           id=""
           filterField="disciplina"
           options={[
-            { value: "all", label: "Todas" },
-            { value: "desarrollo", label: "Desarrollo Humano", disciplina: "true",},
-            { value: "descuentos", label: "Descuentos", disciplina: "true" },
-            { value: "educacion", label: "Educación", disciplina: "true" },
-            { value: "ingenieria", label: "Ingeniería", disciplina: "true" },
-            { value: "negocios", label: "Negocios", disciplina: "true" },
-            { value: "onLive", label: "OnLive", disciplina: "true" },
-            { value: "psicologia", label: "Psicología", disciplina: "true" },
-            { value: "salud", label: "Salud", disciplina: "true" },
+            { value: "all", label: "Todos"},
+            ...filterOptions, 
+          ]}
+        />
+        <ThirdFilter
+          id=""
+          filterField="anio"
+          options={[
+            { value: "all", label: "Todos" },
+            { value: "nuevos", label: "Nuevos" },
+            { value: "2017", label: "2017" },
+            { value: "2018", label: "2018" },
+            { value: "2019", label: "2019" },
+            { value: "2020", label: "2020" },
+            { value: "2021", label: "2021" },
+            { value: "2022", label: "2022" },
+            { value: "2023", label: "2023" },
+            { value: "2024", label: "2024" },
           ]}
         />
       </FiltersWrapper>

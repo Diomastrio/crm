@@ -2,7 +2,7 @@ import HomeHeader from "../features/homepage/HomeHeader";
 import HomeMain from "../features/homepage/HomeMain";
 import Homefooter from "../features/homepage/HomeFooter";
 
-function Login() {
+function Home() {
   return (
     <>
       <HomeHeader></HomeHeader>
@@ -12,4 +12,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Home;

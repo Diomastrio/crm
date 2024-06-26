@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import home from "../../img/home.jpg";
+import home from "/Midiplomado.png";
 import Button from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const HomeMain= styled.h1`
   font-size: 4rem;
   margin-bottom: 2rem;
   text-align: center;
-  color: #ffffff;
+  color: #24242c;
 
 `;
 

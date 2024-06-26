@@ -42,6 +42,14 @@ const Heading = styled.h1`
         text-align: center;
       `}
 
+       ${(props) =>
+      props.as === "prospecto" &&
+      css`
+         font-size: 3rem;
+      font-weight: 600;
+      color: '#fff';
+      `}
+
   line-height: 1.4;
 `;
 

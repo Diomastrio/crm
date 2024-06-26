@@ -4,7 +4,7 @@ import Home from "./Home";
 const Main = styled.main`
   background-color: #24242c;
   padding: 2rem 2.8rem 4.4rem;
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 function HomeMain() {

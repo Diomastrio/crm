@@ -21,52 +21,17 @@ function DinamicRow(cliente) {
     return clientes.filter((cliente) => {
 
       //FILTROS
-      let filterValue = searchParams.get("grafica3") || "all";
+      let filterValue = searchParams.get("grafica3") || "2017";
       let passesFilterValue;
       let algo = (new Date(cliente.fecha_inicio))
       let cliente_inicio = algo.getFullYear()
       let anio 
       switch (filterValue) {
-        case "2017":
-          anio = ( new Date('Mon Jan 01 2017'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);            
-          break;
-        case "2018":
-           anio = ( new Date('Mon Jan 01 2018'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);            
-          break;
-        case "2019":
-          anio = ( new Date('Mon Jan 01 2019'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);        
-          break;
-        case "2020":
-          anio = ( new Date('Mon Jan 01 2020'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);        
-          break;
-        case "2021":
-          anio = ( new Date('Mon Jan 01 2021'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);        
-          break;
-        case "2022":
-          anio = ( new Date('Mon Jan 01 2022'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);        
-          break;
-        case "2023":
-          anio = ( new Date('Mon Jan 01 2023'))
-          anio = anio.getFullYear();  
-          passesFilterValue = (anio===cliente_inicio);        
-          break;
-        case "2024":
-            anio = ( new Date('Mon Jan 01 2024'))
-            anio = anio.getFullYear();  
-            passesFilterValue = (anio===cliente_inicio);        
-            break;
+        case filterValue:
+         anio = ( new Date(`Mon Jan 01 ${filterValue}`))
+         anio = anio.getFullYear();  
+         passesFilterValue = (anio===cliente_inicio);            
+         break;
         default:
           passesFilterValue = true;
       }

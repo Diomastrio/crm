@@ -137,11 +137,11 @@ const StyledTableCell = styled.td`
     border-bottom: 0px solid #000;
   }
 
-  &:nth-child(15) {
+  &:nth-child(13) {
     background-color: var(--color-grey-200);
   }
 
-  &:nth-child(17) {
+  &:nth-child(20) {
     background-color: var(--color-grey-200);
   }
 `;

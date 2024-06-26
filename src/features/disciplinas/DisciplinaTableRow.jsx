@@ -1,4 +1,4 @@
-import ModificarDiplomadoForm from "./ModificarDiplomadoForm";
+import ModificarDisciplinaForm from "./ModificarDisciplinaForm";
 import { useDeleteDisciplinna } from "./useDeleteDisciplina";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
@@ -34,7 +34,7 @@ function DiplomadoRow({ diplomados }) {
             </Modal.Open>
 
             <Modal.Window name="edit">
-              <ModificarDiplomadoForm diplomadoToEdit={diplomados} />
+              <ModificarDisciplinaForm diplomadoToEdit={diplomados} />
             </Modal.Window>
 
             <Modal.Window name="delete">

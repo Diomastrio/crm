@@ -12,6 +12,7 @@ import Empty from "../../ui/Empty";
 
 import { useEditCliente } from "./useEditCliente";
 import { useDiplomado } from "../diplomado/useSelectDiplomado";
+import { useCuenta } from "../cuentas/useSelectCuenta";
 
 function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   const { isEditing, editCliente } = useEditCliente();
@@ -27,14 +28,14 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   const fechaInicio = watch("fecha_inicio");
 
   const validateFechaFin = (value) => {
-    if (value <= fechaInicio) {
+    if (fechaInicio && value <= fechaInicio) {
       return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
     }
     return true;
   };
 
   const validateFechaLimite = (value) => {
-    if (value <= fechaInicio) {
+    if (fechaInicio && value <= fechaInicio) {
       return "La Fecha de Fin debe ser posterior a la Fecha de Inicio";
     }
     return true;
@@ -53,8 +54,10 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   }
 
   const watchDiplomados = watch("MasDe1Diploma", false);
-  const primerDiplomado = watch("disciplina", false);
-  const segundoDiplomado = watch("disciplina2", false);
+  const primerDisciplina = watch("disciplina", false);
+  const primerDiplomado = watch("diplomado", false);
+  const segundoDisciplina = watch("disciplina2", false);
+  const segundoDiplomado = watch("diplomado2", false);
 
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
@@ -140,6 +143,11 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+  const { isLoading :loading, cuenta } = useCuenta();
+
+  if (loading) return <Spinner />;
+  if (!cuenta.length) return <Empty resourceName="cuenta" />;
+
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
@@ -149,16 +157,26 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       type={onCloseModal ? "modal" : "regular"}
     >
 
-      <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
-        <Input
-          type="text"
-          id="nombre"
-          disabled={isEditing}
-          {...register("nombre", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
+<FormRow label="Nombre" error={errors?.nombre?.message}>
+      <Input
+        type="text"
+        id="nombre"
+        disabled={isEditing}
+        {...register("nombre", {
+          required: "Este campo es requerido",
+        })}
+      />
+    </FormRow>
+    <FormRow label="Apellidos" error={errors?.apellido?.message}>
+      <Input
+        type="text"
+        id="apellido"
+        disabled={isEditing}
+        {...register("apellido", {
+          required: "Este campo es requerido",
+        })}
+      />
+    </FormRow>
 
       <FormRow label="Correo" error={errors?.email?.message}>
         <Input
@@ -166,7 +184,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="email"
           disabled={isEditing}
           {...register("email", {
-            required: "Este campo es requerido",
+            
             pattern: {
               value: /\S+@\S+\.\S+/,
               message: "Por favor ingresa un correo electrónico valido",
@@ -181,7 +199,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="telefono"
           disabled={isEditing}
           {...register("telefono", {
-            required: "Este campo es requerido",
+            
             minLength: {
               value: 10,
               message: "El numero de telefono debe ser de 10 digitos",
@@ -192,13 +210,14 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
 
       <FormRow label="Curp" error={errors?.curp?.message}>
         <Input
+          style={{textTransform:'uppercase'}}
           type="text"
           id="curp"
           disabled={isEditing}
           {...register("curp", {
-            required: "Este campo es requerido",
+            
             pattern: {
-              value: /^[A-Z]{4}\d{5,6}[HM][A-Z]{5,6}\d{1}$/,
+              value: /^[a-zA-Z]{4}\d{6}[HM][a-zA-Z]{5,6}\d{1}$/,
               message: "Por favor ingresa un CURP valido",
             },
           })}
@@ -211,7 +230,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="rfc"
           disabled={isEditing}
           {...register("rfc", {
-            required: "Este campo es requerido",
+            
             pattern: {
               value:  /^[A-Z&]{3,4}(\d{6})((\D|\d){3})?$/,
               message: "Por favor ingresa un RFC electrónico valido",
@@ -226,7 +245,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="ocupacion"
           disabled={isEditing}
           {...register("ocupacion", {
-            required: "Este campo es requerido",
+            
           })}
         />
       </FormRow>
@@ -239,6 +258,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         >
           <option value="H" selected>Hombre</option>
           <option value="M">Mujer</option>
+          <option value="O">Otro</option>
         </StyledSelect>
       </FormRow>
       <FormRow label="Edad" error={errors?.edad?.message}>
@@ -247,7 +267,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="edad"
           disabled={isEditing}
           {...register("edad", {
-            required: "Este campo es requerido",
+            
             min: {
               value: 18,
               message: "Edad mayor de 18",
@@ -264,39 +284,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="lugar_residencia"
           disabled={isEditing}
           {...register("lugar_residencia", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
-      <FormRow label="Fecha de Inicio" error={errors?.fecha_inicio?.message}>
-        <Input
-          type="date"
-          id="fecha_inicio"
-          disabled={isEditing}
-          {...register("fecha_inicio", {
-            required: "Este campo es requerido",
-          })}
-        />
-      </FormRow>
-      <FormRow label="Fecha de Fin" error={errors?.fecha_fin?.message}>
-        <Input
-          type="date"
-          id="fecha_fin"
-          disabled={isEditing}
-          {...register("fecha_fin", {
-            required: "Este campo es requerido",
-            validate: validateFechaFin,
-          })}
-        />
-      </FormRow>
-      <FormRow label="Fecha Limite" error={errors?.fecha_limite?.message}>
-        <Input
-          type="date"
-          id="fecha_limite"
-          disabled={isEditing}
-          {...register("fecha_limite", {
-            required: "Este campo es requerido",
-            validate: validateFechaLimite,
+            
           })}
         />
       </FormRow>
@@ -309,7 +297,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="numero_diplomados"
           disabled={isEditing}
           {...register("numero_diplomados", {
-            required: "Este campo es requerido",
             min: {
               value: 1,
               message: "Debe ser mínimo 1",
@@ -327,7 +314,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="diplomados_terminados"
           disabled={isEditing}
           {...register("diplomados_terminados", {
-            required: "Este campo es requerido",
             min: {
               value: 0,
               message: "debería ser mínimo +0",
@@ -342,7 +328,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           id="dipl_sent"
           disabled={isEditing}
           {...register("dipl_sent", {
-            required: "Este campo es requerido",
             min: { value: 0, message: "debería ser mínimo +0",},
           })}
         />
@@ -355,25 +340,15 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
           defaultValue=""
           isDisabled={isEditing}
           {...register("cuentaBanco", {
-            required: "Este campo es requerido",
           })}
         >
-          <option value="Santander">Santander</option>
-          <option value="Paypal">Paypal</option>
-          <option value="Oxxo">Oxxo</option>
+          {cuenta.map((cuenta, index) => (
+            <option key={index} value={cuenta.cuenta_bancaria}>{cuenta.cuenta_bancaria}</option>
+          ))}
         </StyledSelectCuenta>
       </FormRow>
       
-      <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message} >
-        <StyledSelect
-          id="cursa_actualmente"
-          isDisabled={isEditing}
-          {...register("cursa_actualmente", {})}
-        >
-          <option value="true" selected>Si</option>
-          <option value="false">No</option>
-        </StyledSelect>
-      </FormRow>
+     
       
       <FormRow label="Más de un diplomado?">
         <>
@@ -438,6 +413,72 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       </FormRow>
       )}
 
+
+{primerDiplomado && (
+<>
+    <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message} >
+        <StyledSelect
+          id="cursa_actualmente"
+          isDisabled={isEditing}
+          {...register("cursa_actualmente", {})}
+        >
+          <option value="true" selected>Si</option>
+          <option value="false">No</option>
+        </StyledSelect>
+      </FormRow>
+
+    <FormRow label="Fecha de Inicio" error={errors?.fecha_inicio?.message}>
+        <Input
+          type="date"
+          id="fecha_inicio"
+          disabled={isEditing}
+          {...register("fecha_inicio", {
+            
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha de Fin" error={errors?.fecha_fin?.message}>
+        <Input
+          type="date"
+          id="fecha_fin"
+          disabled={isEditing}
+          {...register("fecha_fin", {
+            validate: validateFechaFin,
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha Limite" error={errors?.fecha_limite?.message}>
+        <Input
+          type="date"
+          id="fecha_limite"
+          disabled={isEditing}
+          {...register("fecha_limite", {
+            validate: validateFechaLimite,
+          })}
+        />
+      </FormRow>
+   
+      <FormRow
+        label={"Estatus (Fin Curso)"}
+        error={errors?.status1?.message}
+      >
+        <StyledSelectDiplomado
+          Style={{ width: '20rem'}}
+          id="status1"
+          defaultValue="" 
+          isDisabled={isEditing}
+          {...register("status1")}
+        >
+          <option value="Acabo">Acabo</option>
+          <option value="No Acabo">No acabo</option>
+          <option value="Enviado">Dipl. Enviado</option>
+        </StyledSelectDiplomado>
+      </FormRow>
+      </>
+            )}
+
       {watchDiplomados && (
           <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
             <StyledSelectDiplomado
@@ -479,6 +520,71 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}
+
+{watchDiplomados && segundoDiplomado && (
+        <>
+         <FormRow label={"Cursa actualmente(activo)"} error={errors?.cursa_actualmente?.message} >
+        <StyledSelect
+          id="cursa_actualmente2"
+          isDisabled={isEditing}
+          {...register("cursa_actualmente", {})}
+        >
+          <option value="true" selected>Si</option>
+          <option value="false">No</option>
+        </StyledSelect>
+      </FormRow>
+
+        <FormRow label="Fecha de Inicio" error={errors?.fecha_inicio2?.message}>
+        <Input
+          type="date"
+          id="fecha_inicio2"
+          disabled={isEditing}
+          {...register("fecha_inicio2", {
+            
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha de Fin" error={errors?.fecha_fin2?.message}>
+        <Input
+          type="date"
+          id="fecha_fin2"
+          disabled={isEditing}
+          {...register("fecha_fin2", {
+            
+            validate: validateFechaFin,
+          })}
+        />
+      </FormRow>
+
+      <FormRow label="Fecha Limite" error={errors?.fecha_limite2?.message}>
+        <Input
+          type="date"
+          id="fecha_limite2"
+          disabled={isEditing}
+          {...register("fecha_limite2", {
+            validate: validateFechaLimite,
+          })}
+        />
+      </FormRow>
+      <FormRow
+        label={"Estatus (Fin Curso)"}
+        error={errors?.status2?.message}
+      >
+        <StyledSelectDiplomado
+          Style={{ width: '20rem'}}
+          id="status2"
+          defaultValue="" 
+          isDisabled={isEditing}
+          {...register("status2")}
+        >
+          <option value="Acabo">Acabo</option>
+          <option value="No Acabo">No acabo</option>
+          <option value="Enviado">Dipl. Enviado</option>
+        </StyledSelectDiplomado>
+      </FormRow>
+      </>
+            )}
 
       <FormRow>
         <Button

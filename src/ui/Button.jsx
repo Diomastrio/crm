@@ -48,7 +48,7 @@ const variations = {
 `,
 midiplomado2: css`
 color: #ffffff;
-background: #13b5e7;
+background: #155a66;
 
 &:hover {
   background-color: var(--color-grey-0);

@@ -42,14 +42,15 @@ function ProspectoTable() {
   //BUSQUEDA
   if (searchTerm.length > 0) {
     filteredProductos = filteredProductos.filter((diplomado) =>
-      diplomado.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      diplomado.nombre.toLowerCase().includes(searchTerm.toLowerCase())||
+    diplomado.Acronimo.toLowerCase().includes(searchTerm.toLowerCase())
+
     );
   }
 
   //FILTRO PROSPECTO
-  const filterValue = searchParams.get("nombre") || "all";
+  const filterValue = searchParams.get("nombre") || "Todos";
   
-  console.log(filterValue.value);
     if (filterValue === "Todos") {
     filteredProductos = filteredProductos.filter((diplomado) => diplomado);
   }
@@ -66,7 +67,7 @@ const filteredProspectos = handleFilter(diplomado);
     <Menus>
       <StyledTable >
         <StyledTableHeader> 
-      <StyledTableHeaderCell>Busqueda</StyledTableHeaderCell>
+      <StyledTableHeaderCell>Busqueda Nombre/Acronimo</StyledTableHeaderCell>
       <StyledTableHeaderCell><Input type="text" value={searchTerm} onChange={ (e) => setSearchTerm(e.target.value) } id="telefono"/></StyledTableHeaderCell>
         <StyledTableHeaderCell><FaSearch style={{ margin: '0 10px 0 10px',  fontSize: '26px' }} /></StyledTableHeaderCell>
         </StyledTableHeader> 
@@ -75,6 +76,7 @@ const filteredProspectos = handleFilter(diplomado);
        
               <StyledTableRow>
                 <StyledTableHeadCell>Diplomado</StyledTableHeadCell>
+                <StyledTableHeadCell>Acronimo</StyledTableHeadCell>
                 <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
               </StyledTableRow>

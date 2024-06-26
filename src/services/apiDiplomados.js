@@ -28,7 +28,6 @@ export async function createEditDiplomados(newDiplomado, id ) {
   const { data, error } = await query.select().single();
 
   if (error) {
-    console.error(error);
     throw new Error("diplomados no pudo ser modificado");
   }
 
@@ -39,7 +38,6 @@ export async function getDiplomados() {
   const { data, error } = await supabase.from("diplomados").select("*");
 
   if (error) {
-    console.error(error);
     throw new Error("diplomados no pudieron ser cargados");
   }
 
@@ -53,7 +51,6 @@ export async function deleteDiplomados(id) {
     .eq("id", id);
 
   if (error) {
-    console.error(error);
     throw new Error("diplomados no pudo ser borrado");
   }
 
