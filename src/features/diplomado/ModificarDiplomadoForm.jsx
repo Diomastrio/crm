@@ -4,9 +4,11 @@ import {Input} from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import { FormRow } from "../../ui/FormRow";
-import { StyledSelectDiplomado } from "../../ui/SelectTwo";
-
+import {StyledSelectDiplomado} from "../../ui/SelectTwo";
+import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
 import { useEditDiplomado } from "./useEditDiplomado";
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 
 function ModificarClientForm({ diplomadoToEdit = {}, onCloseModal }) {
   const { isEditing, editDiplomado } = useEditDiplomado();
@@ -31,6 +33,11 @@ function ModificarClientForm({ diplomadoToEdit = {}, onCloseModal }) {
       }
     );
   }
+
+  const { isLoading, disciplina } = useDisciplina();
+
+  if (isLoading) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
 
   return (
     <Form
@@ -73,13 +80,9 @@ function ModificarClientForm({ diplomadoToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value="Desarrollo Humano">Desarrollo Humano</option>
-          <option value="Descuentos">Descuentos</option>
-          <option value="Ingeniería">Ingeniería</option>
-          <option value="Negocios">Negocios</option>
-          <option value="OnLive">OnLive</option>
-          <option value="Psicología">Psicología</option>
-          <option value="Salud">Salud</option>
+            {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
         </StyledSelectDiplomado>
       </FormRow>
 

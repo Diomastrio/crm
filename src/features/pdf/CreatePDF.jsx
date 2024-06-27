@@ -42,12 +42,6 @@ const ReportButton = () => {
 
     const filteredClientes = filteredLimite.concat(filteredLimite2);
     const uniqueEmails = [...new Set(filteredClientes.map(cliente => cliente.email))];
-    /*let filteredDisciplinas = filteredClientes.filter(      
-      (cliente) => 
-        (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
-      || ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen)))
-      && (cliente.status1 !== 'Enviado' && cliente.status2 !== 'Enviado')
-    );*/
 
     var docDefinition = {
       content: [

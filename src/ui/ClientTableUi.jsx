@@ -141,7 +141,7 @@ const StyledTableCell = styled.td`
     background-color: var(--color-grey-200);
   }
 
-  &:nth-child(21) {
+  &:nth-child(22) {
     background-color: var(--color-grey-200);
   }
 `;

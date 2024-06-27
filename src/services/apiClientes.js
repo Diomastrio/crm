@@ -12,12 +12,25 @@ async function insertUserId() {
 
 export async function createEditCliente(newCliente, id) {
   
+  //abreviacion
+  const { data: diplomado } = await supabase.from("diplomados").select("*").eq('nombre',newCliente.diplomado)
+
+  const { data: diplomado2 } = await supabase.from("diplomados").select("*").eq('nombre',newCliente.diplomado2)
+
+  let diplomadoabrev = diplomado[0].Acronimo
+  let diplomadoabrev2
+  if (diplomado2.length){ ;diplomadoabrev2 = diplomado2[0].Acronimo;}
+  newCliente.abrev = diplomadoabrev;  
+  newCliente.abrev2 = diplomadoabrev2;
+
+  console.log(newCliente.diplomado2)
+  //modified etc
   const userName = await insertUserName();
   const userId = await insertUserId();
-
   newCliente.id_user = userId;
   newCliente.nombre_modifico = userName;
 
+  //curp sacar genero
   const getCurp = (curpInput) => {
     const genderPosition = 10; 
     const gender = curpInput.charAt(genderPosition);
@@ -26,11 +39,10 @@ export async function createEditCliente(newCliente, id) {
     else if (gender === 'X') return 'X'; 
     else  return 'Gender not found';
   };
-  
   let nuevoGenero;
-
   if (newCliente.curp) nuevoGenero = getCurp(newCliente.curp);
 
+  //error cuando NO sea envia null
 if(!newCliente.edad) newCliente.edad=null
 if(!newCliente.numero_diplomados) newCliente.numero_diplomados=null
 if(!newCliente.diplomados_terminados) newCliente.diplomados_terminados=null
@@ -42,6 +54,7 @@ if(!newCliente.fecha_inicio2) newCliente.fecha_inicio2=null
 if(!newCliente.fecha_fin2) newCliente.fecha_fin2=null
 if(!newCliente.fecha_limite2) newCliente.fecha_limite2=null
 
+//relacion curso acabado-activo
 let status
 let status2
 if(!newCliente.status1){status=true}

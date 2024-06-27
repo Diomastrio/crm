@@ -103,8 +103,10 @@ const filteredProspectos = handleFilter(prospecto);
                 <StyledTableHeadCell>Ocupacion</StyledTableHeadCell>
                 <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+                <StyledTableHeadCell>Abrev </StyledTableHeadCell>
                 <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
                 <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
+                <StyledTableHeadCell>Abrev </StyledTableHeadCell>
                 <StyledTableHeadCell>Editar/Eliminar</StyledTableHeadCell>
               </StyledTableRow>
             </StyledTableHead>

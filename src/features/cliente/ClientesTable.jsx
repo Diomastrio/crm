@@ -251,6 +251,7 @@ function ClienteTable() {
             <StyledTableHeadCell>Diplomados Terminados</StyledTableHeadCell>
             <StyledTableHeadCell>Disciplina</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado </StyledTableHeadCell>
+            <StyledTableHeadCell>Abrev </StyledTableHeadCell>
             <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>
@@ -258,6 +259,7 @@ function ClienteTable() {
             <StyledTableHeadCell>Estatus</StyledTableHeadCell>
             <StyledTableHeadCell>Disciplina Segunda</StyledTableHeadCell>
             <StyledTableHeadCell>Diplomado Segundo</StyledTableHeadCell>
+            <StyledTableHeadCell>Abrev </StyledTableHeadCell>
             <StyledTableHeadCell>Cursando Actualmente</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Inicio</StyledTableHeadCell>
             <StyledTableHeadCell>Fecha de Fin</StyledTableHeadCell>

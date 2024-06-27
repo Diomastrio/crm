@@ -40,11 +40,12 @@ const ReportButton = () => {
           style: 'tableExample',
           table: {
             headerRows: 1,
-            widths: ['*', '*', '*', '*'],
+            widths: ['*', '*', '*'],
             body: [ 
               [{ text: 'Email', style: 'tableHeader' }, { text: 'Nombre', style: 'tableHeader' }, 
-              { text: 'Teléfono', style: 'tableHeader' }, { text: 'Disciplina', style: 'tableHeader' }],
-              ...filteredClientes.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.telefono])
+              { text: 'Teléfono', style: 'tableHeader' }],
+              ...filteredLimite.map(cliente => [cliente.email, cliente.nombre, cliente.telefono]),
+              ...filteredLimite2.map(cliente => [cliente.email, cliente.nombre, cliente.telefono])
             ]
           }
         },
@@ -73,17 +74,14 @@ const ReportButton = () => {
     };
 
     var pdfDoc = pdfMake.createPdf(docDefinition);
-    pdfDoc.download('Clientes CUMPLEAÑO.pdf');
-
-    var month = new Date();
-    var mes = mes.getMonth();
+    pdfDoc.download('Clientes con VENCIMIENTO.pdf');
+    
 
       // Generate the PDF and send the email
       pdfDoc.getBase64(() => {
         emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, {
           to_name: 'CES Centro de Estudios Superiores en Negocios y Humanidades',
           from_name: 'Storm Chasers',
-          month: mes,
           to_email: import.meta.env.VITE_EMAILJS_TO,
           message: filteredClientes,
           email: filteredClientes.map(cliente => [cliente.email]),
@@ -98,7 +96,7 @@ const ReportButton = () => {
 
   return (
     <div>
-    <Button  variation={"midiplomado"} onClick={generatePDF}>Generar Cumpleaños Reporte</Button>
+    <Button  variation={"swapii"} onClick={generatePDF}>Generar Reporte PDF</Button>
     </div>
   );
 };

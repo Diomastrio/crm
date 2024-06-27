@@ -18,10 +18,10 @@ export async function createEditProspecto(newProspecto, id) {
 
   let diplomadoid = diplomado[0].id
 
-  let diplomadoabrev = diplomado[0].abrev
+  let diplomadoabrev = diplomado[0].Acronimo
   let diplomadoid2
   let diplomadoabrev2
-  if (diplomado2.length){ diplomadoid2 = diplomado2[0].id ;diplomadoabrev2 = diplomado2[0].abrev;}
+  if (diplomado2.length){ diplomadoid2 = diplomado2[0].id ;diplomadoabrev2 = diplomado2[0].Acronimo;}
 
   const userName = await insertUserName();
   const userId = await insertUserId();
@@ -76,6 +76,8 @@ export async function deleteProspecto(prospecto) {
       'diplomado' : prospecto.diplomado,
       'disciplina2' : prospecto.disciplina2,
       'diplomado2' : prospecto.diplomado2,
+      'abrev' : prospecto.abrev,
+      'abrev2' : prospecto.abrev2,
      };  
      
     let query = supabase.from("cliente");

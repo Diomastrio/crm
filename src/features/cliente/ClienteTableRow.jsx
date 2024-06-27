@@ -38,7 +38,8 @@ function ClienteRow({ cliente,numero }) {
     fecha_inicio2,
     fecha_fin2,
     fecha_limite2,
-    status, status2,cursa_actualmente2
+    status, status2,cursa_actualmente2,
+    abrev,abrev2
   } = cliente;
 
   const months = [
@@ -113,6 +114,7 @@ function ClienteRow({ cliente,numero }) {
         <StyledTableCell>{diplomados_terminados}</StyledTableCell>
         <StyledTableCell>{disciplina}</StyledTableCell>
         <StyledTableCell>{diplomado}</StyledTableCell>
+        <StyledTableCell>{abrev}</StyledTableCell> 
         <StyledTableCell>{cursa_actualmente ? "SI" : "NO"}</StyledTableCell>
         <StyledTableCell>{nuevoInicio}</StyledTableCell>
         <StyledTableCell>{nuevoFin}</StyledTableCell>
@@ -120,6 +122,7 @@ function ClienteRow({ cliente,numero }) {
         <StyledTableCell>{status}</StyledTableCell>
         <StyledTableCell>{disciplina2}</StyledTableCell>
         <StyledTableCell>{diplomado2}</StyledTableCell>
+         <StyledTableCell>{abrev2}</StyledTableCell> 
         <StyledTableCell>{cursa_actualmente2 ? "SI" : "NO"}</StyledTableCell>
         <StyledTableCell>{nuevoInicio2}</StyledTableCell>
         <StyledTableCell>{nuevoFin2}</StyledTableCell>

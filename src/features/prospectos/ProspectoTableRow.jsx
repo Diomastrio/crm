@@ -25,7 +25,8 @@ function ProductoRow({ prospecto }) {
     id: prospectoId,
     nombre,apellido,
     email, 
-    ocupacion, telefono,disciplina,disciplina2,diplomado,diplomado2
+    ocupacion, telefono,disciplina,disciplina2,diplomado,diplomado2,
+    abrev,abrev2
   } = prospecto;
 
  let add=true;
@@ -39,11 +40,11 @@ function ProductoRow({ prospecto }) {
                   <StyledTableCell>{telefono}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
                   <StyledTableCell>{disciplina}</StyledTableCell>
-                  {/* <StyledTableCell>{abrev}</StyledTableCell> */}
+                  <StyledTableCell>{abrev}</StyledTableCell> 
                   <StyledTableCell>{diplomado}</StyledTableCell>
                   <StyledTableCell>{disciplina2}</StyledTableCell>
                   <StyledTableCell>{diplomado2}</StyledTableCell>
-                  {/* <StyledTableCell>{abrev3}</StyledTableCell> */}
+                  <StyledTableCell>{abrev2}</StyledTableCell> 
       <StyledTableCell>
         <Modal>
               <Modal.Open opens="edit">
