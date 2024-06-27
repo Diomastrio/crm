@@ -131,7 +131,7 @@ function CreateProspectoForm({ onCloseModal }) {
       type={onCloseModal ? "modal" : "regular"}
     >
 
-      <FormRow label="Nombre Completo" error={errors?.nombre?.message}>
+      <FormRow label="Nombre" error={errors?.nombre?.message}>
         <Input
           type="text"
           id="nombre"
@@ -139,6 +139,16 @@ function CreateProspectoForm({ onCloseModal }) {
           {...register("nombre")}
         />
       </FormRow>
+
+      <FormRow label="Apellidos" error={errors?.apellido?.message}>
+      <Input
+        type="text"
+        id="apellido"
+        disabled={isCreating}
+        {...register("apellido", {
+        })}
+      />
+    </FormRow>
 
       <FormRow label="Correo" error={errors?.email?.message}>
         <Input
@@ -284,7 +294,7 @@ function CreateProspectoForm({ onCloseModal }) {
         >
           Cancelar
         </Button>
-        <Button disabled={isCreating} variation="midiplomado2">Registrar</Button>
+        <Button disabled={isCreating} variation="midiplomado2">Crear Prospecto</Button>
       </FormRow>
     </Form>
   );

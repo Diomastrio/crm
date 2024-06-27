@@ -34,6 +34,7 @@ function ClienteTable() {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchTermDiplomado, setSearchTermDiplomado] = useState("");
+  const [searchTermResidencia, setSearchTermResidencia] = useState("");
 
   if (isLoading) return <Spinner />;
   if (!cliente.length) return <Empty resourceName="clientes" />;
@@ -42,18 +43,16 @@ function ClienteTable() {
   const handleFilter = (clientes) => {
     return clientes.filter((cliente) => {
       //BUSQUEDA
-      let passesSearchTerm =
-        searchTerm.length === 0 ||
-        cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-        ||
+      let passesSearchTerm = searchTerm.length === 0 ||
+        cliente.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         cliente.apellido.toLowerCase().includes(searchTerm.toLowerCase());
-      let passesSearchTermDiplomado =
-        searchTermDiplomado.length === 0 ||
-        (cliente.numero_diplomados &&
-          cliente.numero_diplomados
-            .toString()
-            .includes(searchTermDiplomado.toString()));
 
+      let passesSearchTermDiplomado = searchTermDiplomado.length === 0 ||
+        (cliente.numero_diplomados && cliente.numero_diplomados
+            .toString().includes(searchTermDiplomado.toString()));
+
+      let passesSearchTermLugar = searchTermResidencia.length === 0 ||
+        cliente.lugar_residencia.toLowerCase().includes(searchTermResidencia.toLowerCase());
       //FILTROS
       let filterValue = searchParams.get("nombre") || "all";
       let passesFilterValue;
@@ -70,7 +69,9 @@ function ClienteTable() {
         case "vence":
           const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
           const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-          passesFilterValue = (new Date(cliente.fecha_limite) < oneWeekFromNow ) && (new Date(cliente.fecha_limite)> oneWeekThen);
+          passesFilterValue = 
+          ((new Date(cliente.fecha_limite) < oneWeekFromNow ) && (new Date(cliente.fecha_limite)> oneWeekThen))
+          || ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen))
           break;
         case "Hombres":
           passesFilterValue = cliente.genero === 'H';
@@ -119,12 +120,39 @@ function ClienteTable() {
         default:
           passesThirdFilterValue = true;
       }
+
+      //anios 
+      let forthFilterValue = searchParams.get("mes") || "all";
+      let passesForthFilterValue;
+      let smth = (new Date(cliente.fecha_inicio))
+      let smth2 = (new Date(cliente.fecha_inicio2))
+      let cliente_mes = smth.getUTCMonth()
+      let cliente_mes2 = smth2.getUTCMonth()
+      let mes 
+      switch (forthFilterValue) {
+        case 'all': 
+        passesForthFilterValue = (cliente);            
+         break;
+        case 'nuevos': 
+        passesForthFilterValue = (!cliente.fecha_inicio);            
+        break;
+        case forthFilterValue:
+         mes = ( new Date(`Mon ${forthFilterValue} 01 2000`))
+         mes = mes.getUTCMonth();  
+         passesForthFilterValue = (mes===cliente_mes || mes===cliente_mes2);            
+         break;
+        default:
+          passesForthFilterValue = true;
+      }
+
       return (
-        passesSearchTerm &&
+        passesSearchTerm && 
+        passesSearchTermLugar &&
         passesSearchTermDiplomado &&
         passesFilterValue &&
         passesSecondFilterValue &&
-        passesThirdFilterValue
+        passesThirdFilterValue &&
+        passesForthFilterValue
       );
     });
   };
@@ -151,12 +179,12 @@ function ClienteTable() {
   };
 
   var primer = []
-  for (var i = 0; i <= 7; i++) {
+  for (var i = 0; i <= 4; i++) {
     primer.push('');    
   }
 
   var segundo = []
-  for (var j = 0; j <= 2; j++) {
+  for (var j = 0; j <= 3; j++) {
     segundo.push('');    
   }
 
@@ -171,21 +199,29 @@ function ClienteTable() {
 
         <StyledTableHeader>
           <tr>
+          <StyledTableHeaderCell/>
             <StyledTableHeaderCell>Busqueda Nombre/Apellido</StyledTableHeaderCell>
             <StyledTableHeaderCell>
               <Input type="text" value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)} id="t"
-              />
+                onChange={(e) => setSearchTerm(e.target.value)} id="t"/>
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
               <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
             <StyledTableHeaderCell/>
+            <StyledTableHeaderCell>Busqueda Residencia</StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+             <Input type="text" value={searchTermResidencia}
+                onChange={(e) => setSearchTermResidencia(e.target.value)} id="te"/>
+            </StyledTableHeaderCell>
+            <StyledTableHeaderCell>
+              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
+            </StyledTableHeaderCell>
+
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
              <Input type="number" value={searchTermDiplomado}
-                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="te"
-              />
+                onChange={(e) => setSearchTermDiplomado(e.target.value)} id="tel"/>
             </StyledTableHeaderCell>
             <StyledTableHeaderCell>
               <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
@@ -199,6 +235,7 @@ function ClienteTable() {
 
         <StyledTableHead>
           <StyledTableRow>
+            <StyledTableHeadCell>N.</StyledTableHeadCell>
             <StyledTableHeadCell>Nombre</StyledTableHeadCell>
             <StyledTableHeadCell>Apellido</StyledTableHeadCell>
             <StyledTableHeadCell>Email</StyledTableHeadCell>
@@ -230,8 +267,8 @@ function ClienteTable() {
         </StyledTableHead>
 
         {filteredClientes.length ? (
-          handleSort(filteredClientes).map((clientes) => (
-            <ClienteRow cliente={clientes} key={clientes.id} />
+          handleSort(filteredClientes).map((clientes,index) => (
+            <ClienteRow cliente={clientes} numero={index} key={clientes.id} />
           ))         
         ) : (
           <div style={{ padding: "4rem" }}>

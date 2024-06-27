@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createEditProspecto } from "../../services/apiProspectos.js";
 import { toast } from "react-hot-toast";
+import { createEditProspecto } from "../../services/apiProspectos.js";
 
 export function useEditProspecto() {
   const queryClient = useQueryClient();

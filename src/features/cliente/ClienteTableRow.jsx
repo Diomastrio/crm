@@ -11,9 +11,8 @@ import {
   StyledTableCell,
 } from "../../ui/ClientTableUi";
 
-function ClienteRow({ cliente }) {
+function ClienteRow({ cliente,numero }) {
   const { isDeleting, deleteCliente } = useDeleteCliente();
-
   const {
     id: clienteId,
     nombre,
@@ -99,6 +98,7 @@ function ClienteRow({ cliente }) {
   return (
     <StyledTableBody>
       <StyledTableRow>
+       <StyledTableCell>{numero}</StyledTableCell>
         <StyledTableCell>{nombre}</StyledTableCell>
         <StyledTableCell>{apellido}</StyledTableCell>
         <StyledTableCell>{email}</StyledTableCell>

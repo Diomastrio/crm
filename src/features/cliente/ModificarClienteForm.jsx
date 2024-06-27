@@ -348,8 +348,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </StyledSelectCuenta>
       </FormRow>
       
-     
-      
       <FormRow label="Más de un diplomado?">
         <>
         <CheckboxWrapper>
@@ -393,7 +391,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </StyledSelectDiplomado>
       </FormRow>
 
-      {primerDiplomado && (
+      {primerDisciplina && (
       <FormRow
         label={"Diplomados"}
         error={errors?.diplomado?.message}
@@ -500,7 +498,7 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </FormRowDiplomado>
       )}
 
-      {watchDiplomados && segundoDiplomado && (
+      {watchDiplomados && segundoDisciplina && (
         <FormRowDiplomado
         label={"Segundo Diplomado"}
         error={errors?.diplomado2?.message}

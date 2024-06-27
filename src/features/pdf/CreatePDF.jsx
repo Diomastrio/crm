@@ -26,26 +26,31 @@ const ReportButton = () => {
 
     const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+
     let filteredLimite = cliente.filter(      
       (cliente) => 
         ((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
-      && (cliente.status1 !== 'Enviado')
+      && (!cliente.status || cliente.status === 'No Acabo')
     );
 
     let filteredLimite2 = cliente.filter(      
       (cliente) => 
       ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen))
-      && (cliente.status2 !== 'Enviado')
+      && (!cliente.status2 || cliente.status2 === 'No Acabo')
     );
 
+
     const filteredClientes = filteredLimite.concat(filteredLimite2);
-    console.log(filteredClientes)
-    let filteredDisciplinas = filteredClientes.filter(      
+    const uniqueEmails = [...new Set(filteredClientes.map(cliente => cliente.email))];
+console.log(filteredLimite)
+console.log(filteredLimite2)
+
+    /*let filteredDisciplinas = filteredClientes.filter(      
       (cliente) => 
         (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
       || ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen)))
       && (cliente.status1 !== 'Enviado' && cliente.status2 !== 'Enviado')
-    );
+    );*/
 
     var docDefinition = {
       content: [
@@ -58,13 +63,14 @@ const ReportButton = () => {
             body: [ 
               [{ text: 'Email', style: 'tableHeader' }, { text: 'Nombre', style: 'tableHeader' }, 
               { text: 'Teléfono', style: 'tableHeader' }, { text: 'Disciplina', style: 'tableHeader' }],
-              ...filteredClientes.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.diplomado])
+              ...filteredLimite.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.diplomado]),
+              ...filteredLimite2.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.diplomado2])
             ]
           }
         },
         { text: 'Correos:', style: 'subheader' },
-        ...filteredClientes.map(cliente => {
-          return { text: cliente.email, margin: [0, 5, 0, 0] };
+        ...uniqueEmails.map(cliente => {
+          return { text: cliente, margin: [0, 5, 0, 0] };
         })
       ],
       styles: {

@@ -1,10 +1,15 @@
 
 import ModificarProspectoForm from "./ModificarProspectoForm";
 import { useDeleteProspecto } from "./useDeleteProspecto";
+import { useAddProspecto } from "./useAddProspecto";
+
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import ConfirmAdd from "../../ui/ConfirmAdd";
+
 import Menus from "../../ui/Menus";
+import { MdAddReaction } from "react-icons/md";
 
 import {
   StyledTableBody,
@@ -14,6 +19,7 @@ import {
 
 function ProductoRow({ prospecto }) {
   const { isDeleting, deleteProspecto } = useDeleteProspecto();
+  const { isAdding, addProspecto } = useAddProspecto();
 
   const {
     id: prospectoId,
@@ -21,6 +27,8 @@ function ProductoRow({ prospecto }) {
     email, 
     ocupacion, telefono,disciplina,disciplina2,diplomado,diplomado2
   } = prospecto;
+
+ let add=true;
 
   return (
           <StyledTableBody >
@@ -45,13 +53,25 @@ function ProductoRow({ prospecto }) {
                 <Menus.Button icon={<HiTrash/>} color={"trash"}>Eliminar</Menus.Button>
               </Modal.Open>
 
+              <Modal.Open opens="add">
+              <Menus.Button icon={<MdAddReaction />}>Añadir</Menus.Button>
+              </Modal.Open>
+
             <Modal.Window name="edit">
               <ModificarProspectoForm prospectoToEdit={prospecto} />
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="prospecto" disabled={isDeleting} onConfirm={() => deleteProspecto(prospectoId)}/>
+              <ConfirmDelete resourceName="prospecto" disabled={isDeleting} 
+              onConfirm={() => deleteProspecto(prospectoId)}/>
             </Modal.Window>
+
+            <Modal.Window name="add">
+              <ConfirmAdd resourceName="cliente" disabled={isAdding}
+                onConfirm={() => addProspecto({prospectoId, prospecto, add})}
+              />
+            </Modal.Window>
+
         </Modal>
       </StyledTableCell>
     </StyledTableRow>
