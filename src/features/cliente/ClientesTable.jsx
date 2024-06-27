@@ -125,17 +125,18 @@ function ClienteTable() {
       let forthFilterValue = searchParams.get("mes") || "all";
       let passesForthFilterValue;
       let smth = (new Date(cliente.fecha_inicio))
-      let smth2 = (new Date(cliente.fecha_inicio2))
       let cliente_mes = smth.getUTCMonth()
-      let cliente_mes2 = smth2.getUTCMonth()
+      let smth2 
+      let cliente_mes2
+
+      if(cliente.fecha_inicio2)
+      {smth2 = (new Date(cliente.fecha_inicio2))
+      cliente_mes2 = smth2.getUTCMonth()}
       let mes 
       switch (forthFilterValue) {
         case 'all': 
         passesForthFilterValue = (cliente);            
-         break;
-        case 'nuevos': 
-        passesForthFilterValue = (!cliente.fecha_inicio);            
-        break;
+         break;          
         case forthFilterValue:
          mes = ( new Date(`Mon ${forthFilterValue} 01 2000`))
          mes = mes.getUTCMonth();  
@@ -271,12 +272,16 @@ function ClienteTable() {
             <ClienteRow cliente={clientes} numero={index} key={clientes.id} />
           ))         
         ) : (
-          <div style={{ padding: "4rem" }}>
-            <CenteredText>No se encontraron clientes</CenteredText>
-          </div>
+          null
         )}
       </StyledTable>
       </StyledTableWrapper>
+      {filteredClientes.length ? (
+          null        
+        ) : (
+<div style={{ padding: "4rem" }}>
+            <CenteredText>No se encontraron clientes</CenteredText>
+          </div>        )}      
 
       {filteredClientes.length ? (
          <DinamicGraphs data={filteredClientes}/>

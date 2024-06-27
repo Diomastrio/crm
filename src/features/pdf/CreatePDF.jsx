@@ -42,9 +42,6 @@ const ReportButton = () => {
 
     const filteredClientes = filteredLimite.concat(filteredLimite2);
     const uniqueEmails = [...new Set(filteredClientes.map(cliente => cliente.email))];
-console.log(filteredLimite)
-console.log(filteredLimite2)
-
     /*let filteredDisciplinas = filteredClientes.filter(      
       (cliente) => 
         (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
@@ -62,9 +59,9 @@ console.log(filteredLimite2)
             widths: ['*', '*', '*', '*'],
             body: [ 
               [{ text: 'Email', style: 'tableHeader' }, { text: 'Nombre', style: 'tableHeader' }, 
-              { text: 'Teléfono', style: 'tableHeader' }, { text: 'Disciplina', style: 'tableHeader' }],
-              ...filteredLimite.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.diplomado]),
-              ...filteredLimite2.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.diplomado2])
+              { text: 'Teléfono', style: 'tableHeader' }, { text: 'Diplomado', style: 'tableHeader' }],
+              ...filteredLimite.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.abrev]),
+              ...filteredLimite2.map(cliente => [cliente.email, cliente.nombre, cliente.telefono, cliente.abrev2])
             ]
           }
         },

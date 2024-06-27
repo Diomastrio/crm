@@ -11,25 +11,26 @@ async function insertUserId() {
 }
 
 export async function createEditProspecto(newProspecto, id) {
-  /*const { data: diplomado } = await supabase.from("diplomados").select("nombre").eq('id',newProspecto.diplomado)
+  const { data: diplomado } = await supabase.from("diplomados").select("*").eq('nombre',newProspecto.diplomado)
   console.log(diplomado)
 
-  const { data: diplomado2 } = await supabase.from("diplomados").select("nombre").eq('id',newProspecto.diplomado2)
-console.log(diplomado2)
+  const { data: diplomado2 } = await supabase.from("diplomados").select("*").eq('nombre',newProspecto.diplomado2)
 
-  let diplomadonombre = diplomado[0].nombre
-  let diplomadonombre2
-  if (diplomado2){ diplomadonombre2 = diplomado2[0].nombre;}
+  let diplomadoid = diplomado[0].id
 
+  let diplomadoabrev = diplomado[0].abrev
+  let diplomadoid2
+  let diplomadoabrev2
+  if (diplomado2.length){ diplomadoid2 = diplomado2[0].id ;diplomadoabrev2 = diplomado2[0].abrev;}
 
-  newProspecto.diplomado = diplomadonombre
-  newProspecto.diplomado2 = diplomadonombre2;
-*/
   const userName = await insertUserName();
   const userId = await insertUserId();
   newProspecto.id_user = userId;  
   newProspecto.nombre_modifico = userName;
-
+  newProspecto.id_diplomado = diplomadoid;  
+  newProspecto.id_diplomado2 = diplomadoid2;
+  newProspecto.abrev = diplomadoabrev;  
+  newProspecto.abrev2 = diplomadoabrev2;
 
   let query = supabase.from("prospecto");
   // A) CREAR

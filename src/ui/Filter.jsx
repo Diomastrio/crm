@@ -227,4 +227,31 @@ function GraphicFilter({ filterField, options }) {
   );
 }
 
-export { Filter,SecondFilter,GraphicFilter,ThirdFilter, ForthFilter, FiltersWrapper};
+function SecondGraphicFilter({ filterField, options }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+
+  function handleClick(value) {
+    searchParams.set(filterField, value);
+    if (searchParams.get("page")) searchParams.set("page", 1);
+
+    setSearchParams(searchParams);
+  }
+
+  return (
+    <GraphicStyledFilter>
+      {options.map((option) => (
+        <SecondFilterButton
+          key={option.value}
+          onClick={() => handleClick(option.value)}
+          active={option.value === currentFilter}
+          disabled={option.value === currentFilter}
+        >
+          {option.label}
+        </SecondFilterButton>
+      ))}
+    </GraphicStyledFilter>
+  );
+}
+
+export { Filter,SecondFilter,ThirdFilter, ForthFilter,GraphicFilter,SecondGraphicFilter, FiltersWrapper};

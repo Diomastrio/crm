@@ -35,7 +35,32 @@ function DinamicRow(cliente) {
           passesFilterValue = true;
       }
 
-      return (passesFilterValue);
+     //anios 
+     let secondFilterValue = searchParams.get("mes") || "all";
+     let passesSecondFilterValue;
+     let smth = (new Date(cliente.fecha_inicio))
+     let cliente_mes = smth.getUTCMonth()
+     let smth2 
+     let cliente_mes2
+
+     if(cliente.fecha_inicio2)
+     {smth2 = (new Date(cliente.fecha_inicio2))
+     cliente_mes2 = smth2.getUTCMonth()}
+     let mes 
+     switch (secondFilterValue) {
+       case 'all': 
+       passesSecondFilterValue = (cliente);            
+        break;          
+       case secondFilterValue:
+        mes = ( new Date(`Mon ${secondFilterValue} 01 2000`))
+        mes = mes.getUTCMonth();  
+        passesSecondFilterValue = (mes===cliente_mes || mes===cliente_mes2);            
+        break;
+       default:
+        passesSecondFilterValue = true;
+     }
+     
+      return (passesFilterValue && passesSecondFilterValue);
     });
   };
 
@@ -44,8 +69,9 @@ function DinamicRow(cliente) {
 
   return (
     <Menus > 
+      <GraphFilterRow1 />
       {filteredClientes.length ? (
-         <><GraphFilterRow1 /> <DinamicGraphs data={filteredClientes} n={Numero} grafico={grafico}/></>
+         <> <DinamicGraphs data={filteredClientes} n={Numero} grafico={grafico}/></>
         ) : (
           <div style={{padding: '4rem'}}>
           <CenteredText>No se encontraron clientes con estas caracteristicas</CenteredText>

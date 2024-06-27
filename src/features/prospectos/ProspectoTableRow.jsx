@@ -39,9 +39,11 @@ function ProductoRow({ prospecto }) {
                   <StyledTableCell>{telefono}</StyledTableCell>
                   <StyledTableCell>{ocupacion}</StyledTableCell>
                   <StyledTableCell>{disciplina}</StyledTableCell>
+                  {/* <StyledTableCell>{abrev}</StyledTableCell> */}
                   <StyledTableCell>{diplomado}</StyledTableCell>
                   <StyledTableCell>{disciplina2}</StyledTableCell>
                   <StyledTableCell>{diplomado2}</StyledTableCell>
+                  {/* <StyledTableCell>{abrev3}</StyledTableCell> */}
       <StyledTableCell>
         <Modal>
               <Modal.Open opens="edit">
