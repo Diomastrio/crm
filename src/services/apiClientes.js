@@ -24,12 +24,80 @@ export async function createEditCliente(newCliente, id) {
   newCliente.abrev2 = diplomadoabrev2;
 
   console.log(newCliente.diplomado2)
-  //modified etc
+  //modified at, etc
   const userName = await insertUserName();
   const userId = await insertUserId();
   newCliente.id_user = userId;
   newCliente.nombre_modifico = userName;
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "Agust",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  //sacar birthday
+  const getBD = (curpInput) => {
+    if (!curpInput || curpInput === "0") {
+      return "N/A";
+    }
+    const bdRegex = /\d{6}/;
+    let bdMatch = curpInput.match(bdRegex);
+    bdMatch= bdMatch[0];
+
+    //03(anio) 10(mes) 09(dia)
+    //DIA
+    const BDd1 = bdMatch.charAt(4);
+    const BDd2 = bdMatch.charAt(5);
+    const BDD = BDd1+BDd2
+    //MES
+    const BDm1 = bdMatch.charAt(2);
+    const BDm2 = bdMatch.charAt(3);
+    const BDM = BDm1+BDm2
+    //ANIO
+    const BDy1 = bdMatch.charAt(0);
+    const BDy2 = bdMatch.charAt(1);
+    let BDY = BDy1+BDy2;
+    parseInt(BDY);
+    
+    if(BDY<20){
+      String(BDY)
+      BDY = '20' + BDY
+    } else
+    {
+      String(BDY)
+      BDY = '20' + BDY
+    }
+
+    const month = months[parseInt(BDM) - 1];
+    let mes = ( new Date(`Mon ${month} ${BDD} ${BDY}`))
+    return mes;
+  };
+
+   //sacar birthday
+   const getAge = (nuevoBD) => {
+    if (!nuevoBD || nuevoBD === "0") {
+      return "N/A";
+
+    }
+     let algo = new Date()
+  let thisyear = algo.getFullYear()
+
+  let clientyear = nuevoBD.getFullYear()
+  let age= clientyear- clientyear
+  return age
+  };
+
+ 
   //curp sacar genero
   const getCurp = (curpInput) => {
     const genderPosition = 10; 
@@ -39,8 +107,16 @@ export async function createEditCliente(newCliente, id) {
     else if (gender === 'X') return 'X'; 
     else  return 'Gender not found';
   };
+
   let nuevoGenero;
-  if (newCliente.curp) nuevoGenero = getCurp(newCliente.curp);
+  let nuevoBD;
+  let nuevoAge;
+  if (newCliente.curp){
+    nuevoGenero = getCurp(newCliente.curp);
+    nuevoBD = getBD(newCliente.curp);
+    nuevoAge = getAge(nuevoBD);
+
+  }
 
   //error cuando NO sea envia null
 if(!newCliente.edad) newCliente.edad=null
@@ -64,7 +140,7 @@ if(newCliente.status2){status2=false}
 
   let query = supabase.from("cliente");
   // A) CREAR
-  if (!id) query = query.insert([{ genero: nuevoGenero, ...newCliente }]);
+  if (!id) query = query.insert([{ genero: nuevoGenero, birthday: nuevoBD, ...newCliente }]);
   // B) EDITAR
   if (id) query = query.update({ ...newCliente, genero: nuevoGenero, cursa_actualmente: status, cursa_actualmente2: status2}).eq("id", id);
 

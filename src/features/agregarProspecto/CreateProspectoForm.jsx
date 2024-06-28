@@ -15,6 +15,7 @@ import Empty from "../../ui/Empty";
 import TerminosCondiciones from "../../ui/Terminos_Condiciones";
 
 import {useCreateProspecto} from "./useCreateProspecto";
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 
 function CreateProspectoForm({ onCloseModal }) {
   
@@ -124,7 +125,10 @@ function CreateProspectoForm({ onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+  const { isLoading:loading, disciplina } = useDisciplina();
 
+  if (loading) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
   
@@ -238,13 +242,9 @@ function CreateProspectoForm({ onCloseModal }) {
           })}
         >
           <option value=""></option>
-          <option value="Desarrollo Humano">Desarrollo Humano</option>
-          <option value="Descuentos">Descuentos</option>
-          <option value="Ingeniería">Ingeniería</option>
-          <option value="Negocios">Negocios</option>
-          <option value="OnLive">OnLive</option>
-          <option value="Psicología">Psicología</option>
-          <option value="Salud">Salud</option>
+           {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
         </StyledSelectDiplomad>
       </FormRowProspectos>
 
@@ -283,13 +283,9 @@ function CreateProspectoForm({ onCloseModal }) {
             })}
           >
             <option value=""></option>
-            <option value="Desarrollo Humano">Desarrollo Humano</option>
-            <option value="Descuentos">Descuentos</option>
-            <option value="Ingeniería">Ingeniería</option>
-            <option value="Negocios">Negocios</option>
-            <option value="OnLive">OnLive</option>
-            <option value="Psicología">Psicología</option>
-            <option value="Salud">Salud</option>
+           {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
           </StyledSelectDiplomad>
         </FormRowDiplomado>
       )}

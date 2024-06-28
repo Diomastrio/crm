@@ -13,6 +13,7 @@ import Empty from "../../ui/Empty";
 import { useCreateCliente } from "./useCreateClient";
 import { useDiplomado } from "../diplomado/useSelectDiplomado";
 import { useCuenta } from "../cuentas/useSelectCuenta";
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 
 function CreateClientForm({ onCloseModal }) {
   const { isCreating, createCliente } = useCreateCliente();
@@ -139,12 +140,16 @@ function CreateClientForm({ onCloseModal }) {
   }, [watchDisciplinasMas2,filteredProductos]);
 
   const { isLoading :loading, cuenta } = useCuenta();
+  const { isLoading:loading2, disciplina } = useDisciplina();
+
+  if (isLoading) return <Spinner />;
+  if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
   if (loading) return <Spinner />;
   if (!cuenta.length) return <Empty resourceName="cuenta" />;
 
-  if (isLoading) return <Spinner />;
-  if (!diplomado.length) return <Empty resourceName="diplomados" />;
+  if (loading2) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
 
   return (
     <Form
@@ -308,7 +313,7 @@ function CreateClientForm({ onCloseModal }) {
             
           })}
         >
-          <option value="" ></option>
+          <option value=""></option>
           {cuenta.map((cuenta, index) => (
             <option key={index} value={cuenta.cuenta_bancaria}>{cuenta.cuenta_bancaria}</option>
           ))}
@@ -329,13 +334,9 @@ function CreateClientForm({ onCloseModal }) {
           })}
         >
           <option value=""></option>
-          <option value="Desarrollo Humano">Desarrollo Humano</option>
-          <option value="Descuentos">Descuentos</option>
-          <option value="Ingeniería">Ingeniería</option>
-          <option value="Negocios">Negocios</option>
-          <option value="OnLive">OnLive</option>
-          <option value="Psicología">Psicología</option>
-          <option value="Salud">Salud</option>
+          {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
         </StyledSelectDiplomado>
       </FormRow>
 
@@ -444,13 +445,9 @@ function CreateClientForm({ onCloseModal }) {
             })}
           >
             <option value=""></option>
-            <option value="Desarrollo Humano">Desarrollo Humano</option>
-            <option value="Descuentos">Descuentos</option>
-            <option value="Ingeniería">Ingeniería</option>
-            <option value="Negocios">Negocios</option>
-            <option value="OnLive">OnLive</option>
-            <option value="Psicología">Psicología</option>
-            <option value="Salud">Salud</option>
+            {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
           </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}

@@ -1,14 +1,19 @@
 import TableOperations from "../../ui/TableOperations";
-import { Filter, SecondFilter,ThirdFilter,ForthFilter, FiltersWrapper } from "../../ui/Filter";
+import { Filter, SecondFilter,ThirdFilter,ForthFilter, FiltersWrapper,HideFilter } from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
 import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 import Spinner from "../../ui/Spinner";
 import Empty from "../../ui/Empty";
+import { useSearchParams } from "react-router-dom";
+import Row from "../../ui/Row";
 
 function ArticuloTableFilter() {
   const { isLoading, disciplina } = useDisciplina();
-  
+
+  const [searchParams] = useSearchParams();
+  let forthFilterValue = searchParams.get("onOff") || "all";
+
   if (isLoading) return <Spinner />;
   if (!disciplina.length) return <Empty resourceName="disciplinas" />;
 
@@ -42,7 +47,9 @@ function ArticuloTableFilter() {
             ...filterOptions, 
           ]}
         />
-        <ThirdFilter
+
+       {( forthFilterValue && forthFilterValue==='all' && 
+       <><ThirdFilter
           id=""
           filterField="anio"
           options={[
@@ -75,9 +82,18 @@ function ArticuloTableFilter() {
             { value: "November", label: "Noviembre" },
             { value: "December", label: "Diciembre" },
           ]}
-        />
+        /></>)}
       </FiltersWrapper>
 
+   
+      <Row type="vertical">
+      <HideFilter
+          id=""
+          filterField="onOff"
+          options={[
+            { value: "all", label: "Fecha" },
+            { value: "OFF", label: "OFF" },
+          ]}  />
       <SortBy
         id="s"
         options={[
@@ -87,6 +103,10 @@ function ArticuloTableFilter() {
           {  value: "diplomados_terminados-desc", label: "Diplomados Terminados Descendente",},
         ]}
       />
+         
+      </Row>
+      
+      
     </TableOperations>
   );
 }

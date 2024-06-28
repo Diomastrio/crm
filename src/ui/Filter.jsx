@@ -15,7 +15,10 @@ const StyledFilter = styled.div `
 const GraphicStyledFilter = styled(StyledFilter)`
   gap: 0rem;
   padding: 0.5rem;
+`;
 
+const HideStyledFilter = styled(StyledFilter)`
+  width: 13rem
 `;
 
 const FiltersWrapper = styled.div`
@@ -63,6 +66,20 @@ const SecondFilterButton = styled(FilterButton)`
     }
 `;
 
+const HideFilterButton = styled(FilterButton)`
+
+  ${(props) =>
+    props.active &&
+    css`
+      background-color: var(--color-silver-100);
+      color: var(--color-blue-700);
+    `}
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-silver-100);
+      color: var(--color-brand-50);
+    }
+`;
 
 const ThirdFilterButton = styled(FilterButton)`
   ${(props) =>
@@ -254,4 +271,31 @@ function SecondGraphicFilter({ filterField, options }) {
   );
 }
 
-export { Filter,SecondFilter,ThirdFilter, ForthFilter,GraphicFilter,SecondGraphicFilter, FiltersWrapper};
+function HideFilter({ filterField, options }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentFilter = searchParams.get(filterField) || options.at(0).value;
+
+  function handleClick(value) {
+    searchParams.set(filterField, value);
+    if (searchParams.get("page")) searchParams.set("page", 1);
+
+    setSearchParams(searchParams);
+  }
+
+  return (
+    <HideStyledFilter>
+      {options.map((option) => (
+        <HideFilterButton
+          key={option.value}
+          onClick={() => handleClick(option.value)}
+          active={option.value === currentFilter}
+          disabled={option.value === currentFilter}
+        >
+          {option.label}
+        </HideFilterButton>
+      ))}
+    </HideStyledFilter>
+  );
+}
+
+export { Filter,SecondFilter,ThirdFilter, ForthFilter,GraphicFilter,SecondGraphicFilter, FiltersWrapper,HideFilter};

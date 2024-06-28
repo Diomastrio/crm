@@ -12,6 +12,7 @@ import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../u
 
 import { useEditProspecto } from "./useEditProspecto";
 import { useDiplomado } from "../diplomado/useSelectDiplomado";
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 
 function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
   const { isEditing, editProspecto } = useEditProspecto();
@@ -128,9 +129,13 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
     }
   }, [watchDisciplinasMas2,filteredProductos]);
 
+  const { isLoading:loading, disciplina } = useDisciplina();
+
   if (isLoading) return <Spinner />;
   if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
+  if (loading) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
   return (
     <Form
     onSubmit={handleSubmit(onSubmit)}
@@ -219,13 +224,9 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value="Desarrollo Humano">Desarrollo Humano</option>
-          <option value="Descuentos">Descuentos</option>
-          <option value="Ingeniería">Ingeniería</option>
-          <option value="Negocios">Negocios</option>
-          <option value="OnLive">OnLive</option>
-          <option value="Psicología">Psicología</option>
-          <option value="Salud">Salud</option>
+           {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
         </StyledSelectDiplomado>
       </FormRow>
 
@@ -259,13 +260,9 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
               required: "Este campo es requerido",
             })}
           >
-            <option value="Desarrollo Humano">Desarrollo Humano</option>
-            <option value="Descuentos">Descuentos</option>
-            <option value="Ingeniería">Ingeniería</option>
-            <option value="Negocios">Negocios</option>
-            <option value="OnLive">OnLive</option>
-            <option value="Psicología">Psicología</option>
-            <option value="Salud">Salud</option>
+           {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
           </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}

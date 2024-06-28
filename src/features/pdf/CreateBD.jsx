@@ -20,6 +20,8 @@ pdfMake.fonts = {
 const ReportButton = () => {
   const { isLoading, cliente } = useCliente();
 
+  
+
   const generatePDF = () => {
     if (isLoading) return <Spinner />;
     if (!cliente.length) return <Empty resourceName="clientes" />;
@@ -33,9 +35,35 @@ const ReportButton = () => {
       && (cliente.status1 !== 'Enviado' && cliente.status2 !== 'Enviado')
     );
 
+
+    let smth = (new Date(cliente.birthday))
+    let cliente_mes = smth.getUTCMonth()
+
+    let mes 
+       mes = new Date()
+       mes = mes.getUTCMonth();  
+       console.log(mes); 
+
+      let passesForthFilterValue = (mes===cliente_mes);            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     var docDefinition = {
       content: [
-        { text: 'Clientes con pronto vencimiento', style: 'header' },
+        { text:  `Clientes con  cumpleanios mes de ${mes}`, style: 'header' },
         {
           style: 'tableExample',
           table: {
@@ -44,8 +72,7 @@ const ReportButton = () => {
             body: [ 
               [{ text: 'Email', style: 'tableHeader' }, { text: 'Nombre', style: 'tableHeader' }, 
               { text: 'Teléfono', style: 'tableHeader' }],
-              ...filteredLimite.map(cliente => [cliente.email, cliente.nombre, cliente.telefono]),
-              ...filteredLimite2.map(cliente => [cliente.email, cliente.nombre, cliente.telefono])
+              ...filteredClientes.map(cliente => [cliente.email, cliente.nombre, cliente.telefono]),
             ]
           }
         },
@@ -74,7 +101,7 @@ const ReportButton = () => {
     };
 
     var pdfDoc = pdfMake.createPdf(docDefinition);
-    pdfDoc.download('Clientes con VENCIMIENTO.pdf');
+    pdfDoc.download('Clientes Birthday.pdf');
     
 
       // Generate the PDF and send the email
@@ -96,8 +123,8 @@ const ReportButton = () => {
 
   return (
     <div>
-    <Button  variation={"swapii"} onClick={generatePDF}>Generar Reporte PDF</Button>
-    </div>
+ <Button  variation={"midiplomado"} onClick={generatePDF}>Generar Cumpleaños Reporte</Button>
+     </div>
   );
 };
 

@@ -121,7 +121,7 @@ function ClienteTable() {
           passesThirdFilterValue = true;
       }
 
-      //anios 
+      //meses
       let forthFilterValue = searchParams.get("mes") || "all";
       let passesForthFilterValue;
       let smth = (new Date(cliente.fecha_inicio))
@@ -180,12 +180,12 @@ function ClienteTable() {
   };
 
   var primer = []
-  for (var i = 0; i <= 4; i++) {
+  for (var i = 0; i <= 9; i++) {
     primer.push('');    
   }
 
   var segundo = []
-  for (var j = 0; j <= 3; j++) {
+  for (var j = 0; j <= 4; j++) {
     segundo.push('');    
   }
 
@@ -206,26 +206,15 @@ function ClienteTable() {
               <Input type="text" value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)} id="t"/>
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell/>
             <StyledTableHeaderCell>Busqueda Residencia</StyledTableHeaderCell>
             <StyledTableHeaderCell>
              <Input type="text" value={searchTermResidencia}
                 onChange={(e) => setSearchTermResidencia(e.target.value)} id="te"/>
             </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
-            </StyledTableHeaderCell>
-
             <StyledTableHeaderCell>Busqueda N. Diplomas</StyledTableHeaderCell>
             <StyledTableHeaderCell>
              <Input type="number" value={searchTermDiplomado}
                 onChange={(e) => setSearchTermDiplomado(e.target.value)} id="tel"/>
-            </StyledTableHeaderCell>
-            <StyledTableHeaderCell>
-              <FaSearch style={{ margin: "0 10px 0 10px", fontSize: "26px" }} />
             </StyledTableHeaderCell>
             {primer.map((index) => (<StyledTableHeaderCell key={`primer_${index}`} />))}
             {tercer.map((index) => ( <StyledTableHeaderCell key={`tercer_${index}`}> <StyledInput /> </StyledTableHeaderCell>))}

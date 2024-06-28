@@ -10,7 +10,7 @@ import Empty from "../ui/Empty";
 function Prospectos() {
   const { isLoading, prospecto } = useProspecto();
   if (isLoading) return <Spinner />;
-  if (!prospecto.length) return <Empty resourceName="prospectos" />;
+  //if (!prospecto.length) return <Empty resourceName="prospectos" />;
 
   return (
     <>

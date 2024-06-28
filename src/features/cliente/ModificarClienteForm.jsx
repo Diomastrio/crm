@@ -13,6 +13,7 @@ import Empty from "../../ui/Empty";
 import { useEditCliente } from "./useEditCliente";
 import { useDiplomado } from "../diplomado/useSelectDiplomado";
 import { useCuenta } from "../cuentas/useSelectCuenta";
+import {useDisciplina} from "../disciplinas/useSelectDisciplina";
 
 function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   const { isEditing, editCliente } = useEditCliente();
@@ -62,12 +63,12 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
   const [diplomadosEspecificos, setdiplomadosEspecificos] = useState([]);
-  const [filteredProductos, setfilteredProductos] = useState([]);
+  const [diplomados, setdiplomados] = useState([]);
 
   const { isLoading, diplomado } = useDiplomado();
 
   useEffect(() => {
-    if (diplomado) setfilteredProductos(diplomado);
+    if (diplomado) setdiplomados(diplomado);
   }, [diplomado]);
 
   useEffect(() => {
@@ -75,35 +76,11 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       const diplomadosEspecificos = [''];
       setdiplomadosEspecificos(diplomadosEspecificos);
     }
-    else if (watchDisciplinasMas === 'Desarrollo Humano') {
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
+    else if (watchDisciplinasMas) {
+      const diplomadosEspecificos = diplomados.filter((diplomado) => diplomado.disciplina === watchDisciplinasMas)
       setdiplomadosEspecificos(diplomadosEspecificos);
     } 
-    else if (watchDisciplinasMas==='Descuentos'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Ingeniería'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Negocios'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='OnLive'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Psicología'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-    else if (watchDisciplinasMas==='Salud'){
-      const diplomadosEspecificos = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
-      setdiplomadosEspecificos(diplomadosEspecificos);
-    }
-  }, [watchDisciplinasMas,filteredProductos]);
+  }, [watchDisciplinasMas,diplomados]);
 
   const watchDisciplinasMas2 = watch("disciplina2");
   const [diplomadosEspecificos2, setdiplomadosEspecificos2] = useState([]); 
@@ -113,43 +90,24 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
       const diplomadosEspecificos2 = [''];
       setdiplomadosEspecificos2(diplomadosEspecificos2);
     }
-    else if (watchDisciplinasMas2 === 'Desarrollo Humano') {
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Desarrollo Humano")
+    else if (watchDisciplinasMas2) {
+      const diplomadosEspecificos2 = diplomados.filter((diplomado) => diplomado.disciplina === watchDisciplinasMas2)
       setdiplomadosEspecificos2(diplomadosEspecificos2);
     } 
-    else if (watchDisciplinasMas2==='Descuentos'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Descuentos")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Ingeniería'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Ingeniería")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Negocios'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Negocios")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='OnLive'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "OnLive")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Psicología'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Psicología")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-    else if (watchDisciplinasMas2==='Salud'){
-      const diplomadosEspecificos2 = filteredProductos.filter((diplomado) => diplomado.disciplina === "Salud")
-      setdiplomadosEspecificos2(diplomadosEspecificos2);
-    }
-  }, [watchDisciplinasMas2,filteredProductos]);
+  }, [watchDisciplinasMas2,diplomados]);
 
   const { isLoading :loading, cuenta } = useCuenta();
+  const { isLoading :loading2, disciplina } = useDisciplina();
+
+  
+  if (isLoading) return <Spinner />;
+  if (!diplomado.length) return <Empty resourceName="diplomados" />;
 
   if (loading) return <Spinner />;
   if (!cuenta.length) return <Empty resourceName="cuenta" />;
 
-  if (isLoading) return <Spinner />;
-  if (!diplomado.length) return <Empty resourceName="diplomados" />;
+  if (loading2) return <Spinner />;
+  if (!disciplina.length) return <Empty resourceName="disciplinas" />;
 
   return (
     <Form
@@ -381,13 +339,9 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
             required: "Este campo es requerido",
           })}
         >
-          <option value="Desarrollo Humano">Desarrollo Humano</option>
-          <option value="Descuentos">Descuentos</option>
-          <option value="Ingeniería">Ingeniería</option>
-          <option value="Negocios">Negocios</option>
-          <option value="OnLive">OnLive</option>
-          <option value="Psicología">Psicología</option>
-          <option value="Salud">Salud</option>
+          {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
         </StyledSelectDiplomado>
       </FormRow>
 
@@ -487,13 +441,9 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
               required: "Este campo es requerido",
             })}
           >
-            <option value="Desarrollo Humano">Desarrollo Humano</option>
-            <option value="Descuentos">Descuentos</option>
-            <option value="Ingeniería">Ingeniería</option>
-            <option value="Negocios">Negocios</option>
-            <option value="OnLive">OnLive</option>
-            <option value="Psicología">Psicología</option>
-            <option value="Salud">Salud</option>
+           {disciplina.map((disciplina, index) => (
+            <option key={index} value={disciplina.Nombre}>{disciplina.Nombre}</option>
+          ))}
           </StyledSelectDiplomado>
         </FormRowDiplomado>
       )}

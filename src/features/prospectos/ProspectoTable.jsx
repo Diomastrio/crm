@@ -33,7 +33,7 @@ function ProspectoTable() {
   const [searchTerm, setSearchTerm] = useState("");
 
   if (isLoading) return <Spinner />;
-  if (!prospecto.length) return <Empty resourceName="prospecto" />;
+  if (!prospecto.length) return <Empty resourceName="prospectos" />;
 
  //FILTER
  const handleFilter = (clientes) => {

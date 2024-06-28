@@ -14,7 +14,7 @@ import CreateBD from "../features/pdf/CreateBD";
 function Clientes() {
   const { isLoading, cliente } = useCliente();
   if (isLoading) return <Spinner />;
-  if (!cliente.length) return <Empty resourceName="clientes" />;
+  //if (!cliente.length) return <Empty resourceName="clientes" />;
 
   return (
     <>
