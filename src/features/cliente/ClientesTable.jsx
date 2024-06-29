@@ -3,7 +3,6 @@ import { useCliente } from "./useSelectCliente";
 import Spinner from "../../ui/Spinner";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
-import { FaSearch } from "react-icons/fa";
 import ClienteRow from "./ClienteTableRow";
 import DinamicGraphs from "../graficas/DinamicGraphs";
 
@@ -58,10 +57,10 @@ function ClienteTable() {
       let passesFilterValue;
       switch (filterValue) {
         case "activos":
-          passesFilterValue = cliente.cursa_actualmente === true;
+          passesFilterValue = cliente.cursa_actualmente && cliente.cursa_actualmente === true;
           break;
         case "inactivos":
-          passesFilterValue = cliente.cursa_actualmente === false;
+          passesFilterValue = cliente.cursa_actualmente && cliente.cursa_actualmente === false;
           break;
         case "frecuentes":
           passesFilterValue = cliente.numero_diplomados > 3;
@@ -124,14 +123,17 @@ function ClienteTable() {
       //meses
       let forthFilterValue = searchParams.get("mes") || "all";
       let passesForthFilterValue;
-      let smth = (new Date(cliente.fecha_inicio))
-      let cliente_mes = smth.getUTCMonth()
-      let smth2 
-      let cliente_mes2
+      let smth, cliente_mes,smth2, cliente_mes2
+
+      if(cliente.fecha_inicio)
+        {smth = (new Date(cliente.fecha_inicio2))
+      cliente_mes = smth.getUTCMonth()
+        }
 
       if(cliente.fecha_inicio2)
-      {smth2 = (new Date(cliente.fecha_inicio2))
-      cliente_mes2 = smth2.getUTCMonth()}
+        {smth2 = (new Date(cliente.fecha_inicio2))
+      cliente_mes2 = smth2.getUTCMonth()
+        }
       let mes 
       switch (forthFilterValue) {
         case 'all': 
@@ -153,12 +155,13 @@ function ClienteTable() {
         passesFilterValue &&
         passesSecondFilterValue &&
         passesThirdFilterValue &&
-        passesForthFilterValue
+        passesForthFilterValue 
       );
     });
   };
 
   const filteredClientes = handleFilter(cliente);
+
   let sortBy = searchParams.get("sortBy") || "";
   const handleSort = (clientes) => {
     switch (sortBy) {
@@ -178,6 +181,7 @@ function ClienteTable() {
         return clientes;
     }
   };
+
 
   var primer = []
   for (var i = 0; i <= 9; i++) {
@@ -259,7 +263,7 @@ function ClienteTable() {
         </StyledTableHead>
 
         {filteredClientes.length ? (
-          handleSort(filteredClientes).map((clientes,index) => (
+           handleSort(filteredClientes).map((clientes,index) => (
             <ClienteRow cliente={clientes} numero={index} key={clientes.id} />
           ))         
         ) : (

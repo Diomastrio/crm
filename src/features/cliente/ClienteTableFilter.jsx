@@ -94,6 +94,7 @@ function ArticuloTableFilter() {
             { value: "all", label: "Fecha" },
             { value: "OFF", label: "OFF" },
           ]}  />
+
       <SortBy
         id="s"
         options={[

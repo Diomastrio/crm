@@ -20,8 +20,6 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = prospectoToEdit;
   const isEditSession = Boolean(editId);
 
-  let defaultValues
-
   const { register, watch, handleSubmit, reset, formState } = useForm({
     defaultValues: isEditSession? editValues : {}
 
@@ -192,27 +190,6 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
       />
     </FormRow>
 
-    <FormRow label="¿Cursaras más de un diplomado?">
-        <>
-        <CheckboxWrapper>
-          <CheckboxInput
-            type="checkbox"
-            id="MasDe1Diploma"
-            {...register("MasDe1Diploma", {})}
-          />
-          <CheckboxBox/>
-          <CheckboxLabel>Si </CheckboxLabel>
-          
-        </CheckboxWrapper>
-
-        {/* <CheckboxWrapper>
-          <CheckboxInput type="checkbox"/>
-          <CheckboxBox/>
-          <CheckboxLabel>No </CheckboxLabel>
-        </CheckboxWrapper> */}
-        </>
-      </FormRow>
-
       <FormRow
         label={"Disciplina"}
         error={errors?.cursa_actualmente?.message}
@@ -285,6 +262,26 @@ function ModificarProspectoForm({ prospectoToEdit = {}, onCloseModal }) {
         </FormRowDiplomado>
       )}
 
+    <FormRow label="¿Más de un diplomado?">
+        <>
+        <CheckboxWrapper>
+          <CheckboxInput
+            type="checkbox"
+            id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {})}
+          />
+          <CheckboxBox/>
+          <CheckboxLabel>Si </CheckboxLabel>
+          
+        </CheckboxWrapper>
+
+        {/* <CheckboxWrapper>
+          <CheckboxInput type="checkbox"/>
+          <CheckboxBox/>
+          <CheckboxLabel>No </CheckboxLabel>
+        </CheckboxWrapper> */}
+        </>
+      </FormRow>
     <FormRow>
       <Button
         variation="secondary"

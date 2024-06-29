@@ -208,31 +208,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label={"Genero"} error={errors?.genero?.message}>
-        <StyledSelect style={{  width:'55%'}}
-          id="genero"
-          isDisabled={isEditing}
-          {...register("genero", {})}
-        >
-          <option value="H" selected>Hombre</option>
-          <option value="M">Mujer</option>
-          <option value="O">Otro</option>
-        </StyledSelect>
-      </FormRow>
-      <FormRow label="Edad" error={errors?.edad?.message}>
-        <Input
-          type="number"
-          id="edad"
-          disabled={isEditing}
-          {...register("edad", {
-            
-            min: {
-              value: 18,
-              message: "Edad mayor de 18",
-            },
-          })}
-        />
-      </FormRow>
       <FormRow
         label="Lugar de Residencia"
         error={errors?.lugar_residencia?.message}
@@ -304,26 +279,6 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
             <option key={index} value={cuenta.cuenta_bancaria}>{cuenta.cuenta_bancaria}</option>
           ))}
         </StyledSelectCuenta>
-      </FormRow>
-      
-      <FormRow label="Más de un diplomado?">
-        <>
-        <CheckboxWrapper>
-          <CheckboxInput
-            type="checkbox"
-            id="MasDe1Diploma"
-            {...register("MasDe1Diploma", {})}
-          />
-          <CheckboxBox/>
-          <CheckboxLabel>Si </CheckboxLabel>
-        </CheckboxWrapper>
-
-        {/* <CheckboxWrapper>
-          <CheckboxInput type="checkbox"/>
-          <CheckboxBox/>
-          <CheckboxLabel>No </CheckboxLabel>
-        </CheckboxWrapper> */}
-        </>
       </FormRow>
 
       <FormRow
@@ -429,8 +384,27 @@ function ModificarClientForm({ clienteToEdit = {}, onCloseModal }) {
         </StyledSelectDiplomado>
       </FormRow>
       </>
-            )}
+    )}
 
+    <FormRow label="Más de un diplomado?">
+        <>
+        <CheckboxWrapper>
+          <CheckboxInput
+            type="checkbox"
+            id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {})}
+          />
+          <CheckboxBox/>
+          <CheckboxLabel>Si </CheckboxLabel>
+        </CheckboxWrapper>
+
+        {/* <CheckboxWrapper>
+          <CheckboxInput type="checkbox"/>
+          <CheckboxBox/>
+          <CheckboxLabel>No </CheckboxLabel>
+        </CheckboxWrapper> */}
+        </>
+      </FormRow>
       {watchDiplomados && (
           <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}>
             <StyledSelectDiplomado

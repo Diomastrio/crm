@@ -7,7 +7,7 @@ import Heading from "../../ui/Heading";
 import {Inputi} from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel} from "../../ui/Checkboxes";
+import {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel,CheckboxInnerWrapper,YesNoWrapper} from "../../ui/Checkboxes";
 import { FormRowProspectos, FormRowDiplomado, FormRowTerminos } from "../../ui/FormRow";
 import {StyledSelectDiplomad} from "../../ui/SelectTwo";
 import Spinner from "../../ui/Spinner";
@@ -21,7 +21,7 @@ function CreateProspectoForm({ onCloseModal }) {
   
   const { isCreating, createProspecto } = useCreateProspecto();
 
-  const { register, watch, handleSubmit, reset, formState } = useForm({});
+  const { register, watch, handleSubmit, reset,setValue , formState } = useForm({});
   const { errors } = formState;
 
   function onSubmit(data) {
@@ -37,8 +37,19 @@ function CreateProspectoForm({ onCloseModal }) {
   }
 
   const watchDiplomados = watch("MasDe1Diploma", false);
+  const watchMenos = watch("MasDe1Diplomaa", false);
   const primerDiplomado = watch("disciplina", false);
   const segundoDiplomado = watch("disciplina2", false);
+
+useEffect(() => {
+  if ( watchMenos) {
+    setValue('MasDe1Diploma', false);
+  } 
+  
+  if (watchDiplomados) {
+    setValue('MasDe1Diplomaa', false);
+  }
+}, [watchDiplomados, watchMenos]);
 
   //WATCHES
   const watchDisciplinasMas = watch("disciplina");
@@ -177,6 +188,10 @@ function CreateProspectoForm({ onCloseModal }) {
           disabled={isCreating}
           {...register("email", {
             required: "Este campo es requerido",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Por favor ingresa un correo electrónico valido",
+            },
           })}
         />
       </FormRowProspectos>
@@ -205,27 +220,6 @@ function CreateProspectoForm({ onCloseModal }) {
             required: "Este campo es requerido",
           })}
         />
-      </FormRowProspectos>
-
-      <FormRowProspectos label="¿Cursaras más de un diplomado?">
-        <>
-        <CheckboxWrapper>
-          <CheckboxInput
-            type="checkbox"
-            id="MasDe1Diploma"
-            {...register("MasDe1Diploma", {})}
-          />
-          <CheckboxBox style={{backgroundColor: '#24242c'}}/>
-          <CheckboxLabel style={{ color: '#24242c'}}>Si </CheckboxLabel>
-          
-        </CheckboxWrapper>
-
-        {/* <CheckboxWrapper>
-          <CheckboxInput type="checkbox"/>
-          <CheckboxBox/>
-          <CheckboxLabel>No </CheckboxLabel>
-        </CheckboxWrapper> */}
-        </>
       </FormRowProspectos>
 
       <FormRowProspectos
@@ -270,6 +264,28 @@ function CreateProspectoForm({ onCloseModal }) {
         </StyledSelectDiplomad>
       </FormRowProspectos>
       )}
+
+<FormRowProspectos label="¿Cursaras más de un diplomado?">
+        <>
+        <YesNoWrapper>
+        <CheckboxInnerWrapper>
+          <CheckboxInput
+            type="checkbox"
+            id="MasDe1Diploma"
+            {...register("MasDe1Diploma", {})}
+          />
+          <CheckboxBox style={{backgroundColor: '#24242c'}}/>
+          <CheckboxLabel style={{ color: '#24242c'}}>Si </CheckboxLabel>
+          </CheckboxInnerWrapper> 
+
+          <CheckboxInnerWrapper> 
+          <CheckboxInput type="checkbox"   id="MasDe1Diplomaa" {...register("MasDe1Diplomaa", {})}/>
+          <CheckboxBox style={{backgroundColor: '#24242c'}}/>
+          <CheckboxLabel style={{ color: '#24242c'}}>No </CheckboxLabel>
+          </CheckboxInnerWrapper> 
+        </YesNoWrapper> 
+        </>
+      </FormRowProspectos>
 
       {watchDiplomados && (
           <FormRowDiplomado label="Segunda Disciplina (2)" error={errors?.disciplina2?.message}

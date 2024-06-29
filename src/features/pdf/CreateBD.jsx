@@ -20,50 +20,41 @@ pdfMake.fonts = {
 const ReportButton = () => {
   const { isLoading, cliente } = useCliente();
 
-  
-
   const generatePDF = () => {
     if (isLoading) return <Spinner />;
     if (!cliente.length) return <Empty resourceName="clientes" />;
-
-    const oneWeekFromNow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    const oneWeekThen = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
-    let filteredClientes = cliente.filter(      
-      (cliente) => 
-        (((new Date(cliente.fecha_limite) < oneWeekFromNow )&& (new Date(cliente.fecha_limite)> oneWeekThen))
-      || ((new Date(cliente.fecha_limite2) < oneWeekFromNow )&& (new Date(cliente.fecha_limite2)> oneWeekThen)))
-      && (cliente.status1 !== 'Enviado' && cliente.status2 !== 'Enviado')
-    );
-
-
-    let smth = (new Date(cliente.birthday))
-    let cliente_mes = smth.getUTCMonth()
-
+   
     let mes 
        mes = new Date()
        mes = mes.getUTCMonth();  
-       console.log(mes); 
-
-      let passesForthFilterValue = (mes===cliente_mes);            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+       let filteredClientes = cliente.filter((cliente) => {
+        let birthdayMonth = new Date(cliente.birthday).getUTCMonth();
+        let currentMonth = new Date().getUTCMonth();
+        return birthdayMonth === currentMonth;
+      });
+      
+      const months = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ];
+    
+     mes = months[mes];
 
 
     var docDefinition = {
       content: [
-        { text:  `Clientes con  cumpleanios mes de ${mes}`, style: 'header' },
+        { text:  `Clientes con cumpleaños en ${mes}`, style: 'header' },
         {
           style: 'tableExample',
           table: {
@@ -106,9 +97,10 @@ const ReportButton = () => {
 
       // Generate the PDF and send the email
       pdfDoc.getBase64(() => {
-        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, {
+        emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID_BD, {
           to_name: 'CES Centro de Estudios Superiores en Negocios y Humanidades',
           from_name: 'Storm Chasers',
+          month : mes,
           to_email: import.meta.env.VITE_EMAILJS_TO,
           message: filteredClientes,
           email: filteredClientes.map(cliente => [cliente.email]),

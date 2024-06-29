@@ -3,8 +3,21 @@ import styled from "styled-components";
 const CheckboxWrapper = styled.label`
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
+cursor: pointer;
+`;
+
+const YesNoWrapper = styled(CheckboxWrapper)`
+   gap: 3rem;
+   width:6rem;
+
+`;
+
+const CheckboxInnerWrapper = styled(CheckboxWrapper)`
+width:8rem;
+    &:nth-child(2) {
+  margin-left: 2rem;
+}
+ 
 `;
 
 const CheckboxInput = styled.input`
@@ -12,6 +25,7 @@ const CheckboxInput = styled.input`
   opacity: 0;
   cursor: pointer;
 `;
+
 const CheckboxBox = styled.span`
   position: relative;
   display: inline-block;
@@ -53,5 +67,5 @@ display: inline-block;
 
  
 
-export {  CheckboxWrapper,CheckboxInput,CheckboxBox,CheckboxLabel
+export {  CheckboxWrapper,CheckboxInput, CheckboxBox, CheckboxLabel, CheckboxInnerWrapper,YesNoWrapper
 };

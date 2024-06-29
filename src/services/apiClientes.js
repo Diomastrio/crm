@@ -23,7 +23,6 @@ export async function createEditCliente(newCliente, id) {
   newCliente.abrev = diplomadoabrev;  
   newCliente.abrev2 = diplomadoabrev2;
 
-  console.log(newCliente.diplomado2)
   //modified at, etc
   const userName = await insertUserName();
   const userId = await insertUserId();
@@ -89,12 +88,10 @@ export async function createEditCliente(newCliente, id) {
       return "N/A";
 
     }
-     let algo = new Date()
-  let thisyear = algo.getFullYear()
-
-  let clientyear = nuevoBD.getFullYear()
-  let age= clientyear- clientyear
-  return age
+  let algo = new Date()
+  let age = algo-nuevoBD
+  const differenceInYears = Math.floor(age / (1000 * 3600 * 24 * 365)); 
+  return differenceInYears
   };
 
  
@@ -115,7 +112,6 @@ export async function createEditCliente(newCliente, id) {
     nuevoGenero = getCurp(newCliente.curp);
     nuevoBD = getBD(newCliente.curp);
     nuevoAge = getAge(nuevoBD);
-
   }
 
   //error cuando NO sea envia null
@@ -140,9 +136,9 @@ if(newCliente.status2){status2=false}
 
   let query = supabase.from("cliente");
   // A) CREAR
-  if (!id) query = query.insert([{ genero: nuevoGenero, birthday: nuevoBD, ...newCliente }]);
+  if (!id) query = query.insert([{  ...newCliente, genero: nuevoGenero, birthday: nuevoBD, edad:nuevoAge, }]);
   // B) EDITAR
-  if (id) query = query.update({ ...newCliente, genero: nuevoGenero, cursa_actualmente: status, cursa_actualmente2: status2}).eq("id", id);
+  if (id) query = query.update({ ...newCliente, genero: nuevoGenero, birthday: nuevoBD, edad:nuevoAge, cursa_actualmente: status, cursa_actualmente2: status2}).eq("id", id);
 
 
   const { data, error } = await query.select().single();

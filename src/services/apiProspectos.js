@@ -11,17 +11,16 @@ async function insertUserId() {
 }
 
 export async function createEditProspecto(newProspecto, id) {
+  console.log(newProspecto)
   const { data: diplomado } = await supabase.from("diplomados").select("*").eq('nombre',newProspecto.diplomado)
-  console.log(diplomado)
 
   const { data: diplomado2 } = await supabase.from("diplomados").select("*").eq('nombre',newProspecto.diplomado2)
 
-  let diplomadoid = diplomado[0].id
-
-  let diplomadoabrev = diplomado[0].Acronimo
-  let diplomadoid2
-  let diplomadoabrev2
+  let diplomadoid, diplomadoabrev, diplomadoid2, diplomadoabrev2
+  if (diplomado.length){ diplomadoid = diplomado[0].id ;diplomadoabrev = diplomado[0].Acronimo;}
   if (diplomado2.length){ diplomadoid2 = diplomado2[0].id ;diplomadoabrev2 = diplomado2[0].Acronimo;}
+
+  delete newProspecto.MasDe1Diplomaa;
 
   const userName = await insertUserName();
   const userId = await insertUserId();
